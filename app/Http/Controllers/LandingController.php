@@ -201,14 +201,14 @@ class LandingController extends Controller
 
         $transaction = \App\Models\Transaction::where('order_id', $order_id)->firstOrFail();
 
-        // Optimize and Convert to WebP
+        // Optimize and Convert to JPG
         $file = $request->file('proof_of_payment');
-        $filename = \Illuminate\Support\Str::random(20) . '.webp';
+        $filename = \Illuminate\Support\Str::random(20) . '.jpg';
         $path = 'proofs/' . $filename;
 
         // Use Intervention Image to process
         \Intervention\Image\Laravel\Facades\Image::decode($file)
-            ->encodeUsingFileExtension('webp', quality: 80)
+            ->encodeUsingFileExtension('jpg', quality: 80)
             ->save(storage_path('app/public/' . $path));
 
         $oldStatus = $transaction->payment_status;

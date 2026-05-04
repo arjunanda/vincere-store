@@ -5,10 +5,12 @@
 @section('body_attr')
     x-data="{
     imagePreview: null,
+    imageLoading: false,
     isLoading: false,
     handleFileChange(event) {
         const file = event.target.files[0];
         if (file) {
+            this.imageLoading = true;
             if (this.imagePreview && this.imagePreview.startsWith('blob:')) {
                 URL.revokeObjectURL(this.imagePreview);
             }
@@ -294,30 +296,36 @@
                                 <label for="proof_of_payment"
                                     class="flex flex-col items-center justify-center w-full aspect-[4/3] md:aspect-video rounded-[2rem] border-2 border-dashed border-white/10 bg-white/[0.02] hover:bg-white/[0.04] hover:border-brand-red/30 transition-all cursor-pointer group relative overflow-hidden">
 
-                                    <template x-if="imagePreview">
-                                        <div class="absolute inset-0 w-full h-full bg-black">
-                                            <img :src="imagePreview" class="w-full h-full object-contain">
-                                            <div
-                                                class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <span class="text-xs font-black uppercase tracking-[0.2em] text-white">Ganti
-                                                    Gambar</span>
-                                            </div>
+                                    <!-- Preview State -->
+                                    <div x-show="imagePreview" class="absolute inset-0 w-full h-full bg-[#050505] flex items-center justify-center" x-cloak>
+                                        <!-- Loading Spinner for Image Decode -->
+                                        <div x-show="imageLoading" class="flex flex-col items-center gap-3">
+                                            <svg class="animate-spin h-8 w-8 text-brand-red" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">Processing...</span>
                                         </div>
-                                    </template>
 
-                                    <template x-if="!imagePreview">
-                                        <div class="flex flex-col items-center text-center px-10 space-y-6">
-                                            <div
-                                                class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center text-gray-600 group-hover:text-brand-red group-hover:scale-110 transition-all">
-                                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                </svg>
-                                            </div>
-                                            <p class="text-sm font-black text-gray-400 uppercase tracking-[0.2em]">Klik
-                                                untuk upload bukti</p>
+                                        <img :src="imagePreview" 
+                                             class="w-full h-full object-contain transition-opacity duration-300"
+                                             :class="imageLoading ? 'opacity-0' : 'opacity-100'"
+                                             @load="imageLoading = false">
+
+                                        <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <span class="text-xs font-black uppercase tracking-[0.2em] text-white">Ganti Gambar</span>
                                         </div>
-                                    </template>
+                                    </div>
+
+                                    <!-- Empty State -->
+                                    <div x-show="!imagePreview" class="flex flex-col items-center text-center px-10 space-y-6">
+                                        <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center text-gray-600 group-hover:text-brand-red group-hover:scale-110 transition-all">
+                                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-sm font-black text-gray-400 uppercase tracking-[0.2em]">Klik untuk upload bukti</p>
+                                    </div>
                                 </label>
                             </div>
 
