@@ -25,7 +25,7 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'type'           => 'required|in:e-wallet,bank,qris',
+            'type'           => 'required|in:ewallet,bank,qris',
             'name'           => 'required|string|max:255',
             'code'           => 'required|string|max:50|unique:payment_methods,code',
             'account_number' => 'nullable|string|max:100',
@@ -58,7 +58,7 @@ class PaymentController extends Controller
     public function update(Request $request, PaymentMethod $payment)
     {
         $data = $request->validate([
-            'type'           => 'required|in:e-wallet,bank,qris',
+            'type'           => 'required|in:ewallet,bank,qris',
             'name'           => 'required|string|max:255',
             'code'           => 'required|string|max:50|unique:payment_methods,code,' . $payment->id,
             'account_number' => 'nullable|string|max:100',

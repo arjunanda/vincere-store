@@ -38,7 +38,7 @@
                     <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Tipe Metode <span class="text-brand-red">*</span></label>
                     <select name="type" x-model="paymentType" class="w-full input-metal py-3 px-4 rounded-xl text-xs appearance-none" required>
                         <option value="bank">Bank Transfer</option>
-                        <option value="e-wallet">E-Wallet</option>
+                        <option value="ewallet">E-Wallet</option>
                         <option value="qris">QRIS</option>
                     </select>
                     @error('type') <p class="text-brand-red text-[10px] italic mt-1">{{ $message }}</p> @enderror

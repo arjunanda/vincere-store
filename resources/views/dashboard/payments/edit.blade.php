@@ -47,7 +47,7 @@
                         <select name="type" x-model="paymentType"
                             class="w-full input-metal py-3 px-4 rounded-xl text-xs appearance-none" required>
                             <option value="bank" {{ $payment->type == 'bank' ? 'selected' : '' }}>Bank Transfer</option>
-                            <option value="e-wallet" {{ $payment->type == 'e-wallet' ? 'selected' : '' }}>E-Wallet</option>
+                            <option value="ewallet" {{ (old('type', $payment->type) == 'ewallet') ? 'selected' : '' }}>E-Wallet</option>
                             <option value="qris" {{ $payment->type == 'qris' ? 'selected' : '' }}>QRIS</option>
                         </select>
                         @error('type') <p class="text-brand-red text-[10px] italic mt-1">{{ $message }}</p> @enderror
