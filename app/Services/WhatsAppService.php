@@ -67,7 +67,7 @@ class WhatsAppService
             \App\Models\ActivityLog::create([
                 'user_id' => auth()->id(),
                 'action' => 'WA_SEND_IMAGE',
-                'description' => "Send WA Image to {$phone}. Status: " . ($result['status'] ?? 'unknown') . ". Response: " . json_encode($result),
+                'description' => "Send WA Image to {$phone}. Image: {$imageUrl}. Status: " . ($result['status'] ?? 'unknown') . ". Response: " . json_encode($result),
                 'ip_address' => request()->ip()
             ]);
 
