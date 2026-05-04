@@ -22,12 +22,19 @@
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-12 text-center md:text-left">
                 Metode Bayar</h5>
             <div class="grid grid-cols-3 gap-4">
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">QRIS</div>
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">BCA</div>
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">BNI</div>
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">OVO</div>
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">DANA</div>
-                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">SHOPEE</div>
+                @isset($paymentMethods)
+                    @foreach ($paymentMethods->take(9) as $method)
+                        <div
+                            class="h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
+                            @if ($method->image)
+                                <img src="{{ asset('storage/' . $method->image) }}" alt="{{ $method->name }}"
+                                    class="h-full w-full object-contain filter grayscale brightness-200 hover:grayscale-0 transition-all duration-300">
+                            @else
+                                <span class="text-[10px] font-black tracking-widest text-white/50">{{ $method->name }}</span>
+                            @endif
+                        </div>
+                    @endforeach
+                @endisset
             </div>
         </div>
     </div>
