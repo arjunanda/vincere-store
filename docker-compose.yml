@@ -57,6 +57,12 @@ services:
       # Broadcast
       BROADCAST_CONNECTION: reverb
 
+      # Vite (Frontend Environment Variables)
+      VITE_REVERB_APP_KEY: "${REVERB_APP_KEY}"
+      VITE_REVERB_HOST: "217.15.167.231"
+      VITE_REVERB_PORT: 8080
+      VITE_REVERB_SCHEME: http
+
       # WhatsApp Service
       WA_SERVICE_URL: "${WA_SERVICE_URL:-}"
 
