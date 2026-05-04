@@ -63,7 +63,7 @@
                 <div class="flex items-center gap-6">
                     <div class="w-14 h-14 rounded-xl overflow-hidden bg-brand-red/10 flex items-center justify-center">
                         @if($transaction->game)
-                            <img src="{{ $transaction->game->image }}" class="w-full h-full object-cover">
+                            <img src="{{ str_starts_with($transaction->game->image, 'http') ? $transaction->game->image : asset('storage/' . $transaction->game->image) }}" class="w-full h-full object-cover">
                         @else
                             <svg class="w-6 h-6 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         @endif
