@@ -1,5 +1,5 @@
 <footer class="bg-black py-24 px-6 mt-40 border-t border-white/5">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-24">
+    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-24">
         <div class="sm:col-span-2 space-y-12">
             <a href="/">
                 <x-logo size="lg" />
@@ -21,16 +21,16 @@
         <div>
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
                 Metode Bayar</h5>
-            <div class="grid grid-cols-3 gap-3 md:gap-4">
+            <div class="flex flex-wrap gap-3">
                 @isset($paymentMethods)
                     @foreach ($paymentMethods->take(9) as $method)
                         <div
-                            class="h-10 md:h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
+                            class="w-[70px] h-10 md:w-[80px] md:h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
                             @if ($method->image)
                                 <img src="{{ asset('storage/' . $method->image) }}" alt="{{ $method->name }}"
                                     class="h-full w-full object-contain filter grayscale brightness-200 hover:grayscale-0 transition-all duration-300">
                             @else
-                                <span class="text-[8px] md:text-[10px] font-black tracking-widest text-white/50">{{ $method->name }}</span>
+                                <span class="text-[8px] md:text-[10px] font-black tracking-widest text-white/50 text-center leading-tight truncate w-full">{{ $method->name }}</span>
                             @endif
                         </div>
                     @endforeach
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
+    <div class="max-w-7xl w-full mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
         <p class="text-gray-600 text-xs font-bold uppercase tracking-widest text-center md:text-left">&copy; {{ date('Y') }} Ventuz Store. Seluruh Hak Cipta Dilindungi.</p>
         
         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
