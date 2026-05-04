@@ -16,7 +16,7 @@ class ArticleSeeder extends Seeder
             [
                 'title'        => 'Cara Top Up Diamond Mobile Legends Paling Murah dan Aman 2024',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Temukan cara top up Diamond Mobile Legends (MLBB) dengan harga termurah, proses instan, dan 100% aman. Panduan lengkap untuk pemain Indonesia.',
                 'published_at' => now()->subDays(1),
                 'content'      => <<<HTML
@@ -53,7 +53,7 @@ HTML,
             [
                 'title'        => 'Harga Diamond Free Fire Terbaru Mei 2024: Beli di Mana Paling Untung?',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Cek daftar harga Diamond Free Fire terbaru Mei 2024. Bandingkan harga antar platform dan temukan tempat top up FF paling murah dan terpercaya.',
                 'published_at' => now()->subDays(3),
                 'content'      => <<<HTML
@@ -98,7 +98,7 @@ HTML,
             [
                 'title'        => 'Valorant Points (VP) Indonesia: Harga, Cara Beli, dan Tips Hemat 2024',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Panduan lengkap membeli Valorant Points (VP) di Indonesia 2024. Ketahui harga terbaru, cara top up, dan tips mendapatkan skin Valorant termurah.',
                 'published_at' => now()->subDays(5),
                 'content'      => <<<HTML
@@ -148,7 +148,7 @@ HTML,
             [
                 'title'        => 'Top Up PUBG Mobile UC Murah: Panduan Lengkap untuk Pemain Indonesia',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Cara top up Unknown Cash (UC) PUBG Mobile dengan harga murah dan aman di Indonesia. Dapatkan Royal Pass, skin senjata, dan item eksklusif lebih hemat.',
                 'published_at' => now()->subDays(7),
                 'content'      => <<<HTML
@@ -193,7 +193,7 @@ HTML,
             [
                 'title'        => 'Genshin Impact: Cara Top Up Genesis Crystal dan Primogem Paling Hemat',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Panduan top up Genesis Crystal Genshin Impact untuk mendapatkan Primogem lebih banyak. Hemat hingga 40% dibanding beli langsung di in-game store.',
                 'published_at' => now()->subDays(10),
                 'content'      => <<<HTML
@@ -238,7 +238,7 @@ HTML,
             [
                 'title'        => '5 Game Mobile Dengan Top Up Terlaris di Indonesia Bulan Ini',
                 'type'         => 'berita',
-                'image'        => null,
+                'image'        => 'articles/default.jpg',
                 'excerpt'      => 'Inilah 5 game mobile paling laris untuk top up di Indonesia bulan ini. Data real dari jutaan transaksi pengguna aktif Ventuz Store.',
                 'published_at' => now()->subDays(14),
                 'content'      => <<<HTML
