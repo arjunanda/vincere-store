@@ -3,23 +3,35 @@
 @section('title', 'Promo & Berita -')
 
 @section('body_attr')
-x-data="{ 
-    category: 'all',
-    articles: [
-        @foreach($articles as $article)
-        { 
-            id: {{ $article->id }}, 
-            title: '{{ addslashes($article->title) }}', 
-            category: '{{ $article->type }}', 
-            date: '{{ $article->created_at->translatedFormat('d M Y') }}',
-            image: '{{ asset('storage/' . $article->image) }}',
-            excerpt: '{{ addslashes(Str::limit(strip_tags($article->content), 120)) }}',
-            slug: '{{ $article->slug }}'
-        },
-        @endforeach
-    ]
-}"
+x-data="newsPage()"
 @endsection
+
+@php
+    $newsData = $articles->map(fn($a) => [
+        'id' => $a->id,
+        'title' => $a->title,
+        'category' => $a->type,
+        'date' => $a->created_at->translatedFormat('d M Y'),
+        'image' => asset('storage/' . $a->image),
+        'excerpt' => Str::limit(strip_tags($a->content), 120),
+        'slug' => $a->slug
+    ]);
+@endphp
+
+@section('body_attr')
+x-data="newsPage()"
+@endsection
+
+@push('scripts')
+<script>
+    function newsPage() {
+        return {
+            category: 'all',
+            articles: @json($newsData)
+        }
+    }
+</script>
+@endpush
 
 @section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-24 space-y-16')
 
