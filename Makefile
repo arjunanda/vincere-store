@@ -73,6 +73,10 @@ fresh:
 migrate:
 	docker compose exec app php artisan migrate --force
 
+seed:
+	docker compose exec app php artisan db:seed --force
+
+
 # ── Cache ────────────────────────────────────────────────────
 cache:
 	docker compose exec app php artisan optimize:clear
