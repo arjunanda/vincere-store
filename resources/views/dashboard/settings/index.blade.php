@@ -89,7 +89,7 @@
                 <!-- Favicon -->
                 <div class="stat-card space-y-4">
                     <h3 class="text-sm font-black uppercase tracking-widest text-white">Favicon</h3>
-                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed border-white/10">
+                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed {{ $errors->has('web_favicon') ? 'border-brand-red' : 'border-white/10' }}">
                         <div class="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center overflow-hidden border border-white/10">
                             <template x-if="faviconPreview">
                                 <img :src="faviconPreview" class="w-full h-full object-contain">
@@ -100,16 +100,19 @@
                         </div>
                         <label class="cursor-pointer">
                             <span class="btn-upload">Pilih Favicon</span>
-                            <input type="file" name="web_favicon" @change="handleFile($event, 'favicon')" class="hidden" accept="image/*">
+                            <input type="file" name="web_favicon" @change="handleFile($event, 'favicon')" class="hidden" accept="image/*,.ico">
                         </label>
                         <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Format: ICO, PNG (Max 1MB)</p>
+                        @error('web_favicon')
+                            <p class="text-[10px] text-brand-red font-bold text-center">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- Logo -->
                 <div class="stat-card space-y-4">
                     <h3 class="text-sm font-black uppercase tracking-widest text-white">Logo Website</h3>
-                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed border-white/10">
+                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed {{ $errors->has('web_logo') ? 'border-brand-red' : 'border-white/10' }}">
                         <div class="w-full h-24 rounded-xl bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 p-4">
                             <template x-if="logoPreview">
                                 <img :src="logoPreview" class="w-full h-full object-contain">
@@ -122,14 +125,17 @@
                             <span class="btn-upload">Pilih Logo</span>
                             <input type="file" name="web_logo" @change="handleFile($event, 'logo')" class="hidden" accept="image/*">
                         </label>
-                        <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Format: PNG, WEBP (Max 2MB)</p>
+                        <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Format: PNG, WEBP (Max 5MB)</p>
+                        @error('web_logo')
+                            <p class="text-[10px] text-brand-red font-bold text-center">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- OG Image -->
                 <div class="stat-card space-y-4">
                     <h3 class="text-sm font-black uppercase tracking-widest text-white">Social Sharing Image (OG)</h3>
-                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed border-white/10">
+                    <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed {{ $errors->has('web_og_image') ? 'border-brand-red' : 'border-white/10' }}">
                         <div class="w-full aspect-video rounded-xl bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 p-4">
                             <template x-if="ogPreview">
                                 <img :src="ogPreview" class="w-full h-full object-cover">
@@ -142,7 +148,10 @@
                             <span class="btn-upload">Pilih Gambar OG</span>
                             <input type="file" name="web_og_image" @change="handleFile($event, 'og')" class="hidden" accept="image/*">
                         </label>
-                        <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Rekomendasi: 1200x630 (Max 2MB)</p>
+                        <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest">Rekomendasi: 1200x630 (Max 5MB)</p>
+                        @error('web_og_image')
+                            <p class="text-[10px] text-brand-red font-bold text-center">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
