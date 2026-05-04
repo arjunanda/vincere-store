@@ -43,7 +43,7 @@ RUN composer dump-autoload --optimize --no-dev --no-scripts
 # ============================================================
 # Stage 3: Production - FrankenPHP + Laravel Octane
 # ============================================================
-FROM dunglas/frankenphp:1-php8.3 AS production
+FROM dunglas/frankenphp:1-php8.4 AS production
 
 LABEL maintainer="Ventuz Store"
 

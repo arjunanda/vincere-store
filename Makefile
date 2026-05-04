@@ -33,6 +33,8 @@ help:
 	@echo "  make fresh      - Fresh migrate with seeders"
 	@echo "  make cache      - Clear and re-warm all caches"
 	@echo "  make octane     - Reload Octane workers (zero-downtime)"
+	@echo "  make sync       - Sync code changes WITHOUT rebuilding (PHP/Blade/config)"
+	@echo "  make env        - Update .env inside container only (no rebuild)"
 	@echo ""
 
 # ── Git ──────────────────────────────────────────────────────
@@ -117,3 +119,31 @@ update:
 	make restart
 	@echo "🔄 Application updated to latest version!"
 
+# ── Sync: Push code changes WITHOUT rebuilding image ─────────
+# Use this for quick PHP/Blade/config changes.
+# Does NOT apply dependency or Dockerfile changes.
+sync:
+	@echo "⚡ Syncing code changes to running container..."
+	make pull
+	docker cp app/. ventuz_app:/var/www/html/app/
+	docker cp resources/. ventuz_app:/var/www/html/resources/
+	docker cp routes/. ventuz_app:/var/www/html/routes/
+	docker cp config/. ventuz_app:/var/www/html/config/
+	docker cp database/. ventuz_app:/var/www/html/database/
+	docker compose exec app php artisan optimize:clear
+	docker compose exec app php artisan config:cache
+	docker compose exec app php artisan route:cache
+	docker compose exec app php artisan view:cache
+	docker compose exec app php artisan octane:reload
+	@echo "✅ Sync complete! No rebuild needed."
+
+# ── Env: Update .env inside running container only ───────────
+# Use this when you only changed .env.docker values.
+env:
+	@echo "🔧 Updating .env inside container..."
+	cp .env.docker .env
+	docker cp .env ventuz_app:/var/www/html/.env
+	docker compose exec app php artisan config:clear
+	docker compose exec app php artisan config:cache
+	docker compose exec app php artisan octane:reload
+	@echo "✅ Environment updated without rebuild!"
