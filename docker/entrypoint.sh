@@ -28,10 +28,10 @@ php /var/www/html/artisan storage:link --force 2>/dev/null || true
 
 # ── 5. Clear & warm up caches ───────────────────────────────
 echo "⚡ Warming up caches..."
-php /var/www/html/artisan config:cache
-php /var/www/html/artisan route:cache
-php /var/www/html/artisan view:cache
-php /var/www/html/artisan event:cache
+php artisan optimize:clear || true
+php artisan config:cache || true
+php artisan route:cache || true
+php artisan view:cache || true
 
 echo "✅ Bootstrap complete — launching Supervisor..."
 
