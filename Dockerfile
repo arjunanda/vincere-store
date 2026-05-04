@@ -60,6 +60,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     unzip \
     supervisor \
+    netcat-openbsd \
     && docker-php-ext-install \
         pdo \
         pdo_pgsql \
@@ -71,7 +72,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gd \
         zip \
         opcache \
-        netcat-openbsd \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && apt-get clean \
