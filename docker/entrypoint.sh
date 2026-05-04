@@ -10,9 +10,11 @@ mkdir -p /var/www/html/storage/app/public/banners
 mkdir -p /var/www/html/storage/app/public/games
 mkdir -p /var/www/html/storage/app/public/articles
 mkdir -p /var/www/html/storage/app/public/payments
+mkdir -p /var/www/html/storage/app/public/settings
 mkdir -p /var/www/html/storage/framework/cache
 mkdir -p /var/www/html/storage/framework/sessions
 mkdir -p /var/www/html/storage/framework/views
+mkdir -p /var/www/html/storage/logs
 
 # Fix storage & cache permissions
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
