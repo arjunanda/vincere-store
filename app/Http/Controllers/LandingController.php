@@ -27,9 +27,29 @@ class LandingController extends Controller
         return view('frontend.index', compact('games', 'banners', 'articles'));
     }
 
-    public function games()
+    public function games(Request $request)
     {
-        $games = \App\Models\Game::with('category')->where('is_active', true)->get();
+        $perPage = 12;
+        $query = \App\Models\Game::with('category')->where('is_active', true);
+
+        if ($request->ajax()) {
+            $games = $query->paginate($perPage);
+            $formatted = collect($games->items())->map(fn($g) => [
+                'id' => $g->id,
+                'name' => $g->name,
+                'category' => $g->platform_type, // Platform label (mobile, pc, console)
+                'category_name' => $g->category->name ?? 'General',
+                'image' => asset('storage/' . $g->image),
+                'slug' => $g->slug,
+            ]);
+
+            return response()->json([
+                'data' => $formatted,
+                'next_page_url' => $games->nextPageUrl(),
+            ]);
+        }
+
+        $games = $query->paginate($perPage);
         $categories = \App\Models\Category::orderBy('name')->get();
         return view('frontend.games', compact('games', 'categories'));
     }
@@ -80,9 +100,30 @@ class LandingController extends Controller
         return view('frontend.check-transaction', compact('transaction'));
     }
 
-    public function news()
+    public function news(Request $request)
     {
-        $articles = \App\Models\Article::where('is_active', true)->orderBy('created_at', 'desc')->get();
+        $perPage = 9;
+        $query = \App\Models\Article::where('is_active', true)->orderBy('created_at', 'desc');
+
+        if ($request->ajax()) {
+            $articles = $query->paginate($perPage);
+            $formatted = collect($articles->items())->map(fn($a) => [
+                'id' => $a->id,
+                'title' => $a->title,
+                'category' => $a->type,
+                'date' => $a->created_at->translatedFormat('d M Y'),
+                'image' => asset('storage/' . $a->image),
+                'excerpt' => \Illuminate\Support\Str::limit(strip_tags($a->content), 120),
+                'slug' => $a->slug
+            ]);
+
+            return response()->json([
+                'data' => $formatted,
+                'next_page_url' => $articles->nextPageUrl(),
+            ]);
+        }
+
+        $articles = $query->paginate($perPage);
         return view('frontend.news', compact('articles'));
     }
 

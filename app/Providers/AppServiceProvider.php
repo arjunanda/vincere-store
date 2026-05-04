@@ -16,14 +16,22 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::defaultView('vendor.pagination.dashboard');
 
-        // Share Website Settings & Payment Methods globally
+        // Share Website Settings & Payment Methods globally (Cached for performance)
         if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
-            $webSettings = \App\Models\Setting::all()->pluck('value', 'key');
+            $webSettings = \Illuminate\Support\Facades\Cache::rememberForever('web_settings', function () {
+                return \App\Models\Setting::all()->pluck('value', 'key')->toArray();
+            });
             \Illuminate\Support\Facades\View::share('webSettings', $webSettings);
         }
 
         if (\Illuminate\Support\Facades\Schema::hasTable('payment_methods')) {
-            $paymentMethods = \App\Models\PaymentMethod::where('is_active', true)->get();
+            $paymentMethodsArray = \Illuminate\Support\Facades\Cache::rememberForever('active_payment_methods', function () {
+                return \App\Models\PaymentMethod::where('is_active', true)->get()->toArray();
+            });
+            
+            // Map back to objects so views can use $method->name
+            $paymentMethods = collect($paymentMethodsArray)->map(fn($item) => (object) $item);
+            
             \Illuminate\Support\Facades\View::share('paymentMethods', $paymentMethods);
         }
     }

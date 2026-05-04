@@ -45,7 +45,7 @@ class PaymentController extends Controller
 
         PaymentMethod::create($data);
 
-        $this->logActivity('CREATE_PAYMENT', "Menambahkan metode pembayaran baru: {$data['name']}");
+        \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
 
         return redirect()->route('dashboard.payments')->with('success', 'Metode pembayaran berhasil ditambahkan!');
     }
@@ -78,7 +78,7 @@ class PaymentController extends Controller
 
         $payment->update($data);
 
-        $this->logActivity('UPDATE_PAYMENT', "Memperbarui metode pembayaran: {$payment->name}");
+        \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
 
         return redirect()->route('dashboard.payments')->with('success', 'Metode pembayaran berhasil diperbarui!');
     }
@@ -87,7 +87,7 @@ class PaymentController extends Controller
     {
         $payment->update(['is_active' => !$payment->is_active]);
         $status = $payment->is_active ? 'diaktifkan' : 'dinonaktifkan';
-        $this->logActivity('TOGGLE_PAYMENT_STATUS', "Mengubah status metode {$payment->name} menjadi {$status}");
+        \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
 
         $msg = "Metode $payment->name berhasil $status!";
         if (request()->ajax()) {
@@ -100,7 +100,8 @@ class PaymentController extends Controller
     {
         $name = $payment->name;
         $payment->delete();
-        $this->logActivity('DELETE_PAYMENT', "Menghapus metode pembayaran: {$name}");
+        \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
+
         return back()->with('success', 'Metode pembayaran berhasil dihapus!');
     }
 }

@@ -20,6 +20,44 @@
         <meta property="og:image" content="{{ asset('storage/' . $webSettings['web_og_image']) }}">
     @endif
 
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "{{ $webSettings['web_title'] ?? 'Ventuz Store' }}",
+      "url": "{{ url('/') }}",
+      "logo": "{{ isset($webSettings['web_logo']) ? asset('storage/' . $webSettings['web_logo']) : asset('assets/img/logo.png') }}",
+      "description": "{{ $webSettings['web_description'] ?? '' }}",
+      "address": {
+        "@@type": "PostalAddress",
+        "addressCountry": "ID"
+      },
+      "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "{{ $webSettings['contact_wa'] ?? '' }}",
+        "contactType": "customer service"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "WebSite",
+      "url": "{{ url('/') }}",
+      "potentialAction": {
+        "@@type": "SearchAction",
+        "target": "{{ url('/games') }}?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <title>
         @hasSection('title')
             @yield('title') {{ 'Ventuz Store' }}

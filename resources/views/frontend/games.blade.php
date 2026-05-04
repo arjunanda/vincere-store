@@ -3,43 +3,69 @@
 @section('title', 'Daftar Game -')
 
 @section('body_attr')
-    x-data="{
-    search: '{{ request('search') }}',
-    category: 'all',
-    service: 'all',
-    limit: 15,
-    serviceNames: {
-    @foreach($categories as $cat)
-        '{{ $cat->slug }}': '{{ addslashes($cat->name) }}',
-    @endforeach
-    },
-    get filteredGames() {
-    return this.games.filter(game =>
-    (this.category === 'all' || game.category === this.category) &&
-    (this.service === 'all' || game.service === this.service) &&
-    (this.search === '' || game.name.toLowerCase().includes(this.search.toLowerCase()))
-    );
-    },
-    init() {
-    this.$watch('search', () => this.limit = 15);
-    this.$watch('category', () => this.limit = 15);
-    this.$watch('service', () => this.limit = 15);
-    },
-    games: [
-    @foreach($games as $game)
-        {
-        id: {{ $game->id }},
-        name: '{{ addslashes($game->name) }}',
-        slug: '{{ $game->slug }}',
-        category: '{{ $game->platform_type }}',
-        category_name: '{{ addslashes($game->category->name ?? "General") }}',
-        service: '{{ $game->category->slug ?? "all" }}',
-        image: '{{ asset('storage/' . $game->image) }}'
-        },
-    @endforeach
-    ]
-    }"
+    x-data="gamesPage()"
 @endsection
+
+@php
+    $gamesData = $games->map(fn($g) => [
+        'id' => $g->id,
+        'name' => $g->name,
+        'slug' => $g->slug,
+        'category' => $g->platform_type,
+        'category_name' => $g->category->name ?? "General",
+        'service' => $g->category->slug ?? "all",
+        'image' => asset('storage/' . $g->image)
+    ]);
+@endphp
+
+@push('scripts')
+<script>
+    function gamesPage() {
+        return {
+            search: '{{ request('search') }}',
+            category: 'all',
+            service: 'all',
+            games: @json($gamesData),
+            serviceNames: {
+                @foreach($categories as $cat)
+                    '{{ $cat->slug }}': '{{ addslashes($cat->name) }}',
+                @endforeach
+            },
+            nextPage: '{{ $games->nextPageUrl() }}',
+            loading: false,
+
+            get filteredGames() {
+                return this.games.filter(game =>
+                    (this.category === 'all' || game.category === this.category) &&
+                    (this.service === 'all' || game.service === this.service) &&
+                    (this.search === '' || game.name.toLowerCase().includes(this.search.toLowerCase()))
+                );
+            },
+
+            async loadMore() {
+                if (!this.nextPage || this.loading) return;
+                
+                this.loading = true;
+                try {
+                    const url = new URL(this.nextPage);
+                    // Keep search/filter if needed, but for now just next page
+                    const response = await fetch(url.toString(), {
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+                    const result = await response.json();
+                    
+                    this.games = [...this.games, ...result.data];
+                    this.nextPage = result.next_page_url;
+                } catch (error) {
+                    console.error('Error loading more games:', error);
+                } finally {
+                    this.loading = false;
+                }
+            }
+        }
+    }
+</script>
+@endpush
 
 @section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-24 space-y-16')
 
@@ -162,7 +188,7 @@
 
     <!-- Game Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-10">
-        <template x-for="game in filteredGames.slice(0, limit)" :key="game.id">
+        <template x-for="game in filteredGames" :key="game.id">
             <div x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-y-10 scale-90"
                 x-transition:enter-end="opacity-100 translate-y-0 scale-100">
@@ -207,14 +233,25 @@
     </div>
 
     <!-- Load More Button -->
-    <div class="flex justify-center mt-12 md:mt-16" x-show="limit < filteredGames.length" x-cloak>
-        <button @click="limit += 15"
-            class="group flex items-center gap-3 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl transition-all duration-300">
-            <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Muat Lebih Banyak</span>
-            <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-1 transition-transform duration-500" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
+    <div class="flex justify-center mt-12 md:mt-16" x-show="nextPage" x-cloak>
+        <button @click="loadMore()" :disabled="loading"
+            class="group flex items-center gap-3 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl transition-all duration-300 disabled:opacity-50">
+            <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white" 
+                  x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak'"></span>
+            
+            <template x-if="!loading">
+                <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-1 transition-transform duration-500" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </template>
+            
+            <template x-if="loading">
+                <svg class="animate-spin h-4 w-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </template>
         </button>
     </div>
     </div>

@@ -43,6 +43,8 @@ class WebsiteSettingController extends Controller
             }
         }
 
+        \Illuminate\Support\Facades\Cache::forget('web_settings');
+
         $this->logActivity('UPDATE_SETTINGS', "Memperbarui pengaturan website");
 
         return back()->with('success', 'Pengaturan website berhasil diperbarui!');

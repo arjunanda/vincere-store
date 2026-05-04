@@ -1,7 +1,5 @@
 @extends('layouts.frontend')
 
-@section('title')
-
 @section('body_attr')
     x-data="{
     search: '',
@@ -78,7 +76,7 @@
                 @php
                     $imgSrc = isset($slide->is_asset) ? asset($slide->image) : asset('storage/' . $slide->image);
                 @endphp
-                <img src="{{ $imgSrc }}" alt="{{ $slide->title }}" class="w-full h-full object-cover" @if($index === 0)
+                <img src="{{ $imgSrc }}" alt="{{ $slide->title }}" width="1200" height="480" class="w-full h-full object-cover" @if($index === 0)
                 fetchpriority="high" @else loading="lazy" @endif>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
             </div>
@@ -124,9 +122,9 @@
                     <div class="w-8 h-[2px] bg-brand-red"></div>
                     <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Top-up & Voucher Game</p>
                 </div>
-                <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
+                <h1 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
                     GAME <span class="text-brand-red">TERPOPULER</span>
-                </h3>
+                </h1>
             </div>
 
             <!-- Filters Block -->
