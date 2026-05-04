@@ -48,6 +48,25 @@ body {
     button {
         cursor: pointer !important;
     }
+    
+    /* Fix Webkit Autofill Background for Dark Mode */
+    /* Fix Webkit Autofill Background for Dark Mode */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #191919 inset !important;
+        -webkit-text-fill-color: white !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* Keep the red border on focus even if autofilled */
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 30px #191919 inset !important;
+        -webkit-text-fill-color: white !important;
+        border-color: rgba(225, 29, 72, 0.5) !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }
 
 @keyframes fadeIn {

@@ -29,8 +29,9 @@ class LandingController extends Controller
 
     public function games()
     {
-        $games = \App\Models\Game::where('is_active', true)->get();
-        return view('frontend.games', compact('games'));
+        $games = \App\Models\Game::with('category')->where('is_active', true)->get();
+        $categories = \App\Models\Category::orderBy('name')->get();
+        return view('frontend.games', compact('games', 'categories'));
     }
 
     public function login()
@@ -175,58 +176,21 @@ class LandingController extends Controller
 
         return view('frontend.checkout', compact('transaction', 'game', 'variant', 'paymentMethod'));
     }
-    public function __construct(protected \App\Services\WhatsAppService $waService)
-    {
-    }
 
     public function streamStatus($order_id)
     {
-        // Close session early to avoid locking other requests (like Admin updates)
-        if (session_id()) {
-            session_write_close();
+        $transaction = \App\Models\Transaction::where('order_id', $order_id)->first();
+        if (!$transaction) {
+            return response()->json(['error' => 'Not found'], 404);
         }
-
-        return response()->stream(function () use ($order_id) {
-            $initialStatus = null;
-            $initialPayment = null;
-
-            // Loop to check status change
-            // We'll limit this to 2 minutes to avoid infinite connection if something goes wrong
-            $startTime = time();
-            while (time() - $startTime < 120) {
-                $transaction = \App\Models\Transaction::where('order_id', $order_id)->first();
-                if (!$transaction) break;
-
-                $currentStatus = $transaction->delivery_status;
-                $currentPayment = $transaction->payment_status;
-
-                // Send update if status changed
-                if ($initialStatus !== $currentStatus || $initialPayment !== $currentPayment) {
-                    echo "data: " . json_encode([
-                        'delivery_status' => $currentStatus,
-                        'payment_status' => $currentPayment
-                    ]) . "\n\n";
-                    
-                    $initialStatus = $currentStatus;
-                    $initialPayment = $currentPayment;
-
-                    // If final status, we can stop
-                    if (in_array($currentStatus, ['success', 'completed', 'failed']) || $currentPayment === 'paid') {
-                        break;
-                    }
-                }
-
-                if (connection_aborted()) break;
-
-                ob_flush();
-                flush();
-                sleep(2); // Check every 2 seconds internally, but it's a push to client
-            }
-        }, 200, [
-            'Content-Type' => 'text/event-stream',
-            'Cache-Control' => 'no-cache',
-            'Connection' => 'keep-alive',
+        return response()->json([
+            'payment_status' => $transaction->payment_status,
+            'delivery_status' => $transaction->delivery_status,
         ]);
+    }
+
+    public function __construct(protected \App\Services\WhatsAppService $waService)
+    {
     }
 
     public function uploadProof(Request $request, $order_id)

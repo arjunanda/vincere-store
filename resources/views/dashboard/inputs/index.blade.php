@@ -26,7 +26,24 @@
         </div>
 
         <!-- List Template -->
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 space-y-4">
+            <!-- Search Bar -->
+            <form method="GET" action="{{ route('dashboard.inputs') }}" class="flex gap-3">
+                <div class="relative flex-1">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Cari nama template input..."
+                        class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                </div>
+                <button type="submit" class="btn-metal px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest whitespace-nowrap">Cari</button>
+                @if(request('search'))
+                    <a href="{{ route('dashboard.inputs') }}" class="px-5 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 transition-colors flex items-center">Reset</a>
+                @endif
+            </form>
+
+            <!-- Table -->
             <div class="stat-card !p-0 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -62,7 +79,13 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="p-12 text-center text-gray-600 font-medium italic">Belum ada template input.</td>
+                                <td colspan="3" class="p-12 text-center text-gray-600 font-medium italic">
+                                    @if(request('search'))
+                                        Tidak ada template dengan nama "<span class="text-white">{{ request('search') }}</span>".
+                                    @else
+                                        Belum ada template input.
+                                    @endif
+                                </td>
                             </tr>
                             @endforelse
                         </tbody>

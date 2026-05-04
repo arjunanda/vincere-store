@@ -2,10 +2,43 @@
 
 @section('content')
 <div class="space-y-8">
-    <div>
-        <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Semua <span class="text-brand-red">Pesanan</span></h1>
-        <p class="text-gray-500 font-medium mt-1">Daftar seluruh transaksi yang masuk ke Ventuz Store.</p>
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Semua <span class="text-brand-red">Pesanan</span></h1>
+            <p class="text-gray-500 font-medium mt-1">Daftar seluruh transaksi yang masuk ke Ventuz Store.</p>
+        </div>
+        <div class="text-sm text-gray-500 font-medium">
+            Total: <span class="text-white font-black">{{ $orders->total() }}</span> transaksi
+        </div>
     </div>
+
+    <!-- Search & Filter Bar -->
+    <form method="GET" action="{{ route('dashboard.orders') }}" class="flex flex-col md:flex-row gap-3">
+        <!-- Search -->
+        <div class="relative flex-1">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <input type="text" name="search" value="{{ request('search') }}"
+                placeholder="Cari invoice, game, atau metode bayar..."
+                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+        </div>
+        <!-- Status Filter -->
+        <select name="status" onchange="this.form.submit()"
+            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-red/50 transition-all text-white appearance-none cursor-pointer min-w-[160px]">
+            <option value="">Semua Status</option>
+            <option value="pending"  {{ request('status') === 'pending'  ? 'selected' : '' }}>⏳ Pending</option>
+            <option value="verif"    {{ request('status') === 'verif'    ? 'selected' : '' }}>🔍 Verifikasi</option>
+            <option value="success"  {{ request('status') === 'success'  ? 'selected' : '' }}>✅ Success</option>
+            <option value="failed"   {{ request('status') === 'failed'   ? 'selected' : '' }}>❌ Failed</option>
+        </select>
+        <!-- Search Button -->
+        <button type="submit" class="btn-metal px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest whitespace-nowrap">Cari</button>
+        @if(request()->hasAny(['search', 'status']))
+            <a href="{{ route('dashboard.orders') }}" class="px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 transition-colors whitespace-nowrap flex items-center">Reset</a>
+        @endif
+    </form>
 
     <!-- Table Card -->
     <div class="stat-card overflow-hidden !p-0">

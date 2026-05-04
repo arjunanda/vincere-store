@@ -26,7 +26,7 @@ class GameController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $games      = $query->latest()->paginate(10)->withQueryString();
+        $games      = $query->latest()->paginate(15)->withQueryString();
         $categories = Category::all();
 
         return view('dashboard.games.index', compact('games', 'categories'));

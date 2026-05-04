@@ -1,0 +1,101 @@
+services:
+  # ──────────────────────────────────────────────────────────
+  # App: Laravel Octane (FrankenPHP) + Reverb + Queue + Scheduler
+  # ──────────────────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: ventuz-store:latest
+    container_name: ventuz_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:8000"       # HTTP (Octane)
+      - "${REVERB_PORT:-8080}:8080"    # WebSocket (Reverb)
+    environment:
+      APP_NAME: "${APP_NAME:-Ventuz Store}"
+      APP_ENV: "${APP_ENV:-production}"
+      APP_KEY: "${APP_KEY}"
+      APP_DEBUG: "${APP_DEBUG:-false}"
+      APP_URL: "${APP_URL:-http://localhost:8000}"
+      # Database (PostgreSQL External)
+      DB_CONNECTION: pgsql
+      DB_HOST: 217.15.167.231
+      DB_PORT: 5432
+      DB_DATABASE: ventuz_store
+      DB_USERNAME: junastack
+      DB_PASSWORD: "Junedi12345**##"
+      # Redis (using container)
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: "${REDIS_PASSWORD:-}"
+      # Queue
+      QUEUE_CONNECTION: redis
+      # Cache
+      CACHE_STORE: redis
+      # Session
+      SESSION_DRIVER: redis
+      # Octane
+      OCTANE_SERVER: frankenphp
+      # Reverb
+      REVERB_APP_ID: "${REVERB_APP_ID}"
+      REVERB_APP_KEY: "${REVERB_APP_KEY}"
+      REVERB_APP_SECRET: "${REVERB_APP_SECRET}"
+      REVERB_HOST: "0.0.0.0"
+      REVERB_PORT: 8080
+      REVERB_SCHEME: http
+      # Broadcast
+      BROADCAST_CONNECTION: reverb
+      # WhatsApp Service
+      WA_SERVICE_URL: "${WA_SERVICE_URL:-}"
+    volumes:
+      # Persist uploaded files (storage)
+      - storage_data:/var/www/html/storage/app/public
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - ventuz_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/up"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # ──────────────────────────────────────────────────────────
+  # Redis: Cache, Queue, Session
+  # ──────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: ventuz_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ventuz_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# ──────────────────────────────────────────────────────────
+# Volumes
+# ──────────────────────────────────────────────────────────
+volumes:
+  storage_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# ──────────────────────────────────────────────────────────
+# Networks
+# ──────────────────────────────────────────────────────────
+networks:
+  ventuz_network:
+    driver: bridge

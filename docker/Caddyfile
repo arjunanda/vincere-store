@@ -1,0 +1,42 @@
+{
+    # FrankenPHP server settings
+    frankenphp
+    admin off
+    # Disable automatic HTTPS (handled by reverse proxy/load balancer)
+    auto_https off
+}
+
+# Main app - HTTP on port 8000
+:8000 {
+    root * /var/www/html/public
+
+    # Enable compression
+    encode zstd br gzip
+
+    # PHP via FrankenPHP worker mode (Octane)
+    php_server {
+        resolve_root_symlink
+    }
+
+    # Static file handling with cache headers
+    @static {
+        file
+        path *.css *.js *.ico *.png *.jpg *.jpeg *.webp *.gif *.svg *.woff *.woff2 *.ttf *.eot
+    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options SAMEORIGIN
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+
+    log {
+        output stdout
+        format json
+        level INFO
+    }
+}

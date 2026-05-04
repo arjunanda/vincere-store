@@ -98,6 +98,7 @@ x-data="{
                                     <input type="{{ $field->type }}" name="{{ $field->name }}"
                                         x-model="{{ $field->name }}" placeholder="{{ $field->placeholder }}"
                                         @if($field->max_length) maxlength="{{ $field->max_length }}" @endif
+                                        @if($field->type === 'number') @wheel="$el.blur()" @endif
                                         class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white text-sm font-bold placeholder:text-gray-700 transition-all">
                                 @endif
                             </div>
@@ -158,7 +159,7 @@ x-data="{
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($paymentMethods as $payment)
                             <button type="button" @click="selectedPayment = {{ $payment->id }}"
-                                :class="selectedPayment === {{ $payment->id }} ? 'active border-brand-red' : ''"
+                                :class="selectedPayment === {{ $payment->id }} ? 'active' : ''"
                                 class="metal-card p-4 rounded-xl flex items-center justify-between group transition-all">
                                 <div class="flex items-center gap-4">
                                     <div

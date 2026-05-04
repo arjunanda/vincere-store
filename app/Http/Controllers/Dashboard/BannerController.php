@@ -12,9 +12,19 @@ class BannerController extends Controller
 {
     use DashboardHelpers;
 
-    public function index()
+    public function index(Request $request)
     {
-        $banners = Banner::orderBy('order_position')->paginate(10);
+        $query = Banner::orderBy('order_position');
+
+        if ($search = $request->search) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status === 'active');
+        }
+
+        $banners = $query->paginate(15)->withQueryString();
         return view('dashboard.banners.index', compact('banners'));
     }
 

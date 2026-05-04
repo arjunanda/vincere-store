@@ -13,9 +13,15 @@ class InputController extends Controller
 {
     use DashboardHelpers;
 
-    public function index()
+    public function index(Request $request)
     {
-        $groups = InputGroup::with('fields')->latest()->paginate(10);
+        $query = InputGroup::with('fields')->latest();
+
+        if ($search = $request->search) {
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $groups = $query->paginate(15)->withQueryString();
         return view('dashboard.inputs.index', compact('groups'));
     }
 

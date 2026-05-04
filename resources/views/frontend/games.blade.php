@@ -7,14 +7,32 @@ x-data="{
     search: '', 
     category: 'all',
     service: 'all',
+    limit: 15,
+    serviceNames: {
+        @foreach($categories as $cat)
+        '{{ $cat->slug }}': '{{ addslashes($cat->name) }}',
+        @endforeach
+    },
+    get filteredGames() {
+        return this.games.filter(game => 
+            (this.category === 'all' || game.category === this.category) && 
+            (this.service === 'all' || game.service === this.service) && 
+            (this.search === '' || game.name.toLowerCase().includes(this.search.toLowerCase()))
+        );
+    },
+    init() {
+        this.$watch('search', () => this.limit = 15);
+        this.$watch('category', () => this.limit = 15);
+        this.$watch('service', () => this.limit = 15);
+    },
     games: [
         @foreach($games as $game)
         { 
             id: {{ $game->id }}, 
-            name: '{{ $game->name }}', 
+            name: '{{ addslashes($game->name) }}', 
             slug: '{{ $game->slug }}', 
             category: '{{ $game->platform_type }}', 
-            category_name: '{{ $game->category->name ?? "General" }}',
+            category_name: '{{ addslashes($game->category->name ?? "General") }}',
             service: '{{ $game->category->slug ?? "all" }}', 
             image: '{{ asset('storage/' . $game->image) }}' 
         },
@@ -91,7 +109,7 @@ x-data="{
                     <button @click="open = !open" @click.away="open = false" class="w-full flex items-center justify-between px-6 py-4 glass-dark rounded-xl border border-white/10 hover:border-brand-red/30 transition-all group">
                         <div class="flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full" :class="service === 'all' ? 'bg-white/40' : 'bg-brand-red shadow-[0_0_8px_#e11d48]'"></div>
-                            <span class="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white" x-text="service === 'all' ? 'Semua Layanan' : (service === 'top-up-game' ? 'Game Top-up' : 'Kode Voucher')"></span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white" x-text="service === 'all' ? 'Semua Layanan' : (serviceNames[service] || 'Layanan')"></span>
                         </div>
                         <svg class="w-4 h-4 text-gray-500 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" /></svg>
                     </button>
@@ -100,14 +118,12 @@ x-data="{
                             <div class="w-1.5 h-1.5 rounded-full" :class="service === 'all' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'"></div>
                             <span class="text-[10px] font-bold uppercase tracking-widest" :class="service === 'all' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">Semua Layanan</span>
                         </button>
-                        <button @click="service = 'top-up-game'; open = false" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl hover:bg-white/5 transition-all group/item">
-                            <div class="w-1.5 h-1.5 rounded-full" :class="service === 'top-up-game' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'"></div>
-                            <span class="text-[10px] font-bold uppercase tracking-widest" :class="service === 'top-up-game' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">Game Top-up</span>
+                        @foreach($categories as $cat)
+                        <button @click="service = '{{ $cat->slug }}'; open = false" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl hover:bg-white/5 transition-all group/item">
+                            <div class="w-1.5 h-1.5 rounded-full" :class="service === '{{ $cat->slug }}' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'"></div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest" :class="service === '{{ $cat->slug }}' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">{{ $cat->name }}</span>
                         </button>
-                        <button @click="service = 'voucher-game'; open = false" class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl hover:bg-white/5 transition-all group/item">
-                            <div class="w-1.5 h-1.5 rounded-full" :class="service === 'voucher-game' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'"></div>
-                            <span class="text-[10px] font-bold uppercase tracking-widest" :class="service === 'voucher-game' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">Kode Voucher</span>
-                        </button>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -116,9 +132,8 @@ x-data="{
 
     <!-- Game Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-10">
-        <template x-for="game in games" :key="game.id">
-            <div x-show="(category === 'all' || game.category === category) && (service === 'all' || game.service === service) && (search === '' || game.name.toLowerCase().includes(search.toLowerCase()))"
-                x-transition:enter="transition ease-out duration-500"
+        <template x-for="game in filteredGames.slice(0, limit)" :key="game.id">
+            <div x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-y-10 scale-90"
                 x-transition:enter-end="opacity-100 translate-y-0 scale-100">
                 
@@ -138,6 +153,23 @@ x-data="{
                 </a>
             </div>
         </template>
+    </div>
+
+    <!-- Empty State -->
+    <div x-show="filteredGames.length === 0" class="text-center py-20" x-cloak>
+        <div class="w-24 h-24 mx-auto mb-6 text-gray-600">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="text-xl font-black uppercase italic tracking-widest text-white">Pencarian Tidak Ditemukan</h3>
+        <p class="text-gray-500 mt-2 font-medium">Coba gunakan kata kunci atau filter layanan yang berbeda.</p>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="flex justify-center mt-12 md:mt-16" x-show="limit < filteredGames.length" x-cloak>
+        <button @click="limit += 15" class="group flex items-center gap-3 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl transition-all duration-300">
+            <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Muat Lebih Banyak</span>
+            <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+        </button>
     </div>
 </div>
 @endsection

@@ -6,6 +6,8 @@
     x-data="{
     search: '',
     category: 'all',
+    initialized: false,
+    init() { this.$nextTick(() => { this.initialized = true; }); },
     games: [
     @foreach($games as $game)
         {
@@ -28,59 +30,59 @@
     <section
         class="relative w-full aspect-[2.4/1] md:aspect-none md:h-[480px] rounded-xl md:rounded-xl overflow-hidden shadow-2xl premium-glow group border border-white/10"
         x-data="{ 
-            activeSlide: 0,
-            flash: false,
-            autoplayInterval: null,
-            slides: [
-                @foreach($banners as $banner)
-                    { 
-                        image: '{{ asset('storage/' . $banner->image) }}', 
-                        title: '{{ $banner->title }}' 
-                    },
-                @endforeach
-                @if($banners->isEmpty())
-                    { image: '{{ asset('assets/images-logo/banner-1.jpeg') }}', title: 'PENAWARAN EKSKLUSIF VENTUZ' },
-                    { image: '{{ asset('assets/images-logo/banner-2.jpeg') }}', title: 'TINGKATKAN PENGALAMAN GAMING' },
-                    { image: '{{ asset('assets/images-logo/banner-3.jpeg') }}', title: 'TOP-UP CEPAT & AMAN' }
-                @endif
-            ],
-            triggerFlash() {
-                this.flash = true;
-                setTimeout(() => this.flash = false, 1000);
-            },
-            nextSlide(isManual = false) {
-                this.activeSlide = (this.activeSlide + 1) % this.slides.length;
-                if (isManual) {
-                    this.resetAutoplay();
-                }
-            },
-            prevSlide(isManual = false) {
-                this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
-                if (isManual) {
-                    this.resetAutoplay();
-                }
-            },
-            startAutoplay() {
-                this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
-            },
-            resetAutoplay() {
-                clearInterval(this.autoplayInterval);
-                this.startAutoplay();
-            }
-        }" x-init="startAutoplay()">
+                        activeSlide: 0,
+                        flash: false,
+                        autoplayInterval: null,
+                        totalSlides: {{ $banners->isEmpty() ? 3 : $banners->count() }},
+                        triggerFlash() {
+                            this.flash = true;
+                            setTimeout(() => this.flash = false, 1000);
+                        },
+                        nextSlide(isManual = false) {
+                            this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+                            if (isManual) {
+                                this.resetAutoplay();
+                            }
+                        },
+                        prevSlide(isManual = false) {
+                            this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
+                            if (isManual) {
+                                this.resetAutoplay();
+                            }
+                        },
+                        startAutoplay() {
+                            this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
+                        },
+                        resetAutoplay() {
+                            clearInterval(this.autoplayInterval);
+                            this.startAutoplay();
+                        }
+                    }" x-init="startAutoplay()">
         <!-- Banner Content -->
-        <template x-for="(slide, index) in slides" :key="index">
-            <div x-show="activeSlide === index"
+        @php
+            $slideItems = $banners->isEmpty() ? collect([
+                (object) ['image' => 'assets/images-logo/banner-1.jpeg', 'title' => 'PENAWARAN EKSKLUSIF VENTUZ', 'is_asset' => true],
+                (object) ['image' => 'assets/images-logo/banner-2.jpeg', 'title' => 'TINGKATKAN PENGALAMAN GAMING', 'is_asset' => true],
+                (object) ['image' => 'assets/images-logo/banner-3.jpeg', 'title' => 'TOP-UP CEPAT & AMAN', 'is_asset' => true]
+            ]) : $banners;
+        @endphp
+
+        @foreach($slideItems as $index => $slide)
+            <div x-show="activeSlide === {{ $index }}"
                 x-transition:enter="transition all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)"
                 x-transition:enter-start="opacity-0 translate-x-1/4 scale-105"
                 x-transition:enter-end="opacity-100 translate-x-0 scale-100"
                 x-transition:leave="transition all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)"
                 x-transition:leave-start="opacity-100 translate-x-0 scale-100"
-                x-transition:leave-end="opacity-0 -translate-x-1/4 scale-95" class="absolute inset-0">
-                <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover" loading="eager">
+                x-transition:leave-end="opacity-0 -translate-x-1/4 scale-95" class="absolute inset-0" {!! $index !== 0 ? 'style="display: none;"' : '' !!}>
+                @php
+                    $imgSrc = isset($slide->is_asset) ? asset($slide->image) : asset('storage/' . $slide->image);
+                @endphp
+                <img src="{{ $imgSrc }}" alt="{{ $slide->title }}" class="w-full h-full object-cover" @if($index === 0)
+                fetchpriority="high" @else loading="lazy" @endif>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
             </div>
-        </template>
+        @endforeach
 
         <!-- Slider Nav Buttons -->
         <div
@@ -128,7 +130,7 @@
             </div>
 
             <!-- Filters Block -->
-            <div class="w-full md:w-max overflow-hidden md:overflow-visible">
+            <div class="w-full sm:w-max overflow-hidden md:overflow-visible">
                 <div
                     class="flex flex-nowrap items-center p-1 glass-dark rounded-xl border border-white/5 gap-1 overflow-x-auto md:overflow-x-visible custom-scrollbar">
                     <button @click="category = 'all'"
@@ -169,74 +171,77 @@
                     </button>
                 </div>
             </div>
-        </div>
+            <!-- Single Pure Blade Grid for Perfect LCP & SEO -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-12" x-data="{
+                             get matchingGameIds() {
+                                 return games.filter(g => (category === 'all' || g.category === category) && (search === '' || g.name.toLowerCase().includes(search.toLowerCase()))).map(g => g.id);
+                             }
+                         }">
+                @foreach($games as $index => $game)
+                    <div x-show="matchingGameIds.includes({{ $game->id }}) && matchingGameIds.indexOf({{ $game->id }}) < 8"
+                        x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 translate-y-10 scale-90"
+                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                        style="{{ $index >= 8 ? 'display: none;' : '' }}" class="game-card-wrapper">
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-12">
-            <template
-                x-for="game in games.filter(g => (category === 'all' || g.category === category) && (search === '' || g.name.toLowerCase().includes(search.toLowerCase()))).slice(0, 8)"
-                :key="game.id">
-                <div x-transition:enter="transition ease-out duration-500"
-                    x-transition:enter-start="opacity-0 translate-y-10 scale-90"
-                    x-transition:enter-end="opacity-100 translate-y-0 scale-100">
+                        <a href="{{ url('/game/' . $game->slug) }}"
+                            class="block relative aspect-[3/4] rounded-xl overflow-hidden metal-card group">
+                            <!-- Image -->
+                            <img src="{{ asset('storage/' . $game->image) }}" alt="{{ $game->name }}"
+                                class="w-full h-full object-cover transition-transform duration-700 opacity-80 group-hover:opacity-100 group-hover:scale-110"
+                                @if($index < 4) fetchpriority="high" @else loading="lazy" @endif>
 
-                    <a :href="'/game/' + game.slug"
-                        class="block relative aspect-[3/4] rounded-xl overflow-hidden metal-card group">
-                        <!-- Image -->
-                        <img :src="game.image" :alt="game.name"
-                            class="w-full h-full object-cover transition-transform duration-700 opacity-80 group-hover:opacity-100 group-hover:scale-110"
-                            loading="lazy">
+                            <!-- Category Badge -->
+                            <div class="absolute top-4 right-4 z-10">
+                                <div
+                                    class="glass-dark px-3 py-1.5 rounded-xl border border-white/10 group-hover:border-brand-red/50 transition-colors">
+                                    <p class="text-[10px] text-white font-black uppercase tracking-widest">
+                                        {{ $game->platform_type }}
+                                    </p>
+                                </div>
+                            </div>
 
-                        <!-- Category Badge -->
-                        <div class="absolute top-4 right-4 z-10">
+                            <!-- Premium Gradient Overlay -->
                             <div
-                                class="glass-dark px-3 py-1.5 rounded-xl border border-white/10 group-hover:border-brand-red/50 transition-colors">
-                                <p class="text-[10px] text-white font-black uppercase tracking-widest"
-                                    x-text="game.category"></p>
+                                class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-95 group-hover:opacity-100 transition-opacity">
                             </div>
-                        </div>
 
-                        <!-- Premium Gradient Overlay -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-95 group-hover:opacity-100 transition-opacity">
-                        </div>
-
-                        <!-- Card Content -->
-                        <div
-                            class="absolute bottom-8 md:bottom-12 left-0 right-0 px-6 text-center flex flex-col items-center gap-1">
-                            <h4 class="text-sm md:text-xl font-black tracking-tight italic uppercase px-1 item-title"
-                                x-text="game.name"></h4>
-                            <!-- Decorative Line -->
-                            <div class="w-0 group-hover:w-12 h-0.5 bg-brand-red transition-all duration-500 mt-1">
+                            <!-- Card Content -->
+                            <div
+                                class="absolute bottom-8 md:bottom-12 left-0 right-0 px-6 text-center flex flex-col items-center gap-1">
+                                <h4 class="text-sm md:text-xl font-black tracking-tight italic uppercase px-1 item-title">
+                                    {{ $game->name }}
+                                </h4>
+                                <div class="w-0 group-hover:w-12 h-0.5 bg-brand-red transition-all duration-500 mt-1"></div>
                             </div>
-                        </div>
 
-                        <!-- Corner Glow -->
-                        <div
-                            class="absolute -bottom-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,rgba(225,29,72,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                        </div>
-                    </a>
-                </div>
-            </template>
-        </div>
-
-        <!-- View All Games Section -->
-        <div class="flex justify-center pt-10 md:pt-16 pb-10">
-            <a href="{{ route('games.index') }}"
-                class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl md:rounded-xl transition-all duration-300">
-                <div class="flex items-center gap-3 md:gap-4">
-                    <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat
-                        Semua Game</span>
-                    <div
-                        class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500">
+                            <!-- Corner Glow -->
+                            <div
+                                class="absolute -bottom-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,rgba(225,29,72,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                            </div>
+                        </a>
                     </div>
-                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                </div>
-            </a>
-        </div>
+                @endforeach
+            </div>
+
+            <!-- View All Games Section -->
+            <div class="flex justify-center pt-10 md:pt-16 pb-10">
+                <a href="{{ route('games.index') }}"
+                    class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl md:rounded-xl transition-all duration-300">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat
+                            Semua Game</span>
+                        <div
+                            class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500">
+                        </div>
+                        <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
     </section>
 
     <!-- Why Choose Us Section -->

@@ -13,6 +13,7 @@
         "intervention/image": "*",
         "intervention/image-laravel": "*",
         "laravel/framework": "^13.0",
+        "laravel/octane": "*",
         "laravel/reverb": "^1.0",
         "laravel/tinker": "^3.0",
         "pusher/pusher-php-server": "^7.2"

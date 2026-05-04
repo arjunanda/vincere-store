@@ -54,6 +54,13 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(225, 29, 72, 0.15);
         }
 
+        .metal-card.active {
+            border-color: #e11d48 !important;
+            background: #151515 !important;
+            box-shadow: 0 0 30px rgba(225, 29, 72, 0.25);
+            transform: translateY(-5px);
+        }
+
         .item-title {
             background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.7));
             -webkit-background-clip: text;
@@ -226,13 +233,17 @@
 </head>
 
 <body class="bg-[#050505] text-white selection:bg-brand-red selection:text-white overflow-x-hidden" @yield('body_attr')>
-    @include('layouts.partials.navbar')
+    @unless(View::hasSection('hide_layout_elements'))
+        @include('layouts.partials.navbar')
+    @endunless
 
     <main class="@yield('main_class', 'max-w-7xl mx-auto px-6 py-12')">
         @yield('content')
     </main>
 
-    @include('layouts.partials.footer')
+    @unless(View::hasSection('hide_layout_elements'))
+        @include('layouts.partials.footer')
+    @endunless
 
     @stack('scripts')
 </body>

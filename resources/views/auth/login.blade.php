@@ -4,19 +4,26 @@
 
 @section('main_class', 'min-h-[80vh] flex items-center justify-center p-6')
 
+@section('hide_layout_elements', true)
+
 @section('content')
 <!-- Background Decoration -->
 <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(225,29,72,0.1)_0%,transparent_70%)] -z-10 pointer-events-none"></div>
 
 <div class="w-full max-w-lg" x-data="{ loading: false }">
+    <!-- Logo Outside Card -->
+    <div class="flex justify-center mb-8">
+        <x-logo size="lg" />
+    </div>
+
     <!-- Card -->
-    <div class="metal-card p-10 md:p-14 rounded-[2.5rem] relative overflow-hidden shadow-2xl">
+    <div class="metal-card p-10 md:p-14 rounded-2xl relative overflow-hidden shadow-2xl">
         <!-- Glass Overlay -->
         <div class="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 blur-3xl rounded-full"></div>
         
         <div class="relative z-10">
-            <h1 class="text-3xl md:text-4xl font-black tracking-tighter metallic-text uppercase italic mb-2">Selamat Datang</h1>
-            <p class="text-gray-500 text-sm font-medium mb-12">Masuk ke akun Anda untuk melanjutkan transaksi premium.</p>
+            <h1 class="text-3xl md:text-4xl font-black tracking-tighter metallic-text uppercase italic mb-2 text-center">Selamat Datang</h1>
+            <p class="text-gray-500 text-sm font-medium mb-12 text-center">Masuk ke akun Anda untuk melanjutkan transaksi premium.</p>
 
             <form action="{{ route('login.post') }}" method="POST" @submit="loading = true" class="space-y-8">
                 @csrf
@@ -74,7 +81,7 @@
 
             <div class="mt-12 pt-8 border-t border-white/5 text-center">
                 <p class="text-gray-500 text-xs font-medium">Belum punya akun? 
-                    <a href="{{ route('register') }}" class="text-white font-bold hover:text-brand-red transition-colors">Daftar Akun Elit</a>
+                    <a href="{{ route('register') }}" class="text-white font-bold hover:text-brand-red transition-colors">Daftar Akun</a>
                 </p>
             </div>
         </div>

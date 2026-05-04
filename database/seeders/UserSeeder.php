@@ -10,23 +10,13 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin Account
+        // ── Super Admin ────────────────────────────────────────────
         User::updateOrCreate(
-            ['email' => 'admin@ventuz.com'],
+            ['email' => 'admin@ventuzstore.id'],
             [
-                'name' => 'Admin Ventuz',
-                'password' => Hash::make('password'),
-                'role' => 'admin',
-            ]
-        );
-
-        // Regular User Account
-        User::updateOrCreate(
-            ['email' => 'user@ventuz.com'],
-            [
-                'name' => 'Arjunanda',
-                'password' => Hash::make('password'),
-                'role' => 'user',
+                'name'     => 'Administrator',
+                'password' => Hash::make('V3ntuz@Adm!n#2024'),
+                'role'     => 'admin',
             ]
         );
     }

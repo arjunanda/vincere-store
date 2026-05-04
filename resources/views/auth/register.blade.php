@@ -4,19 +4,26 @@
 
 @section('main_class', 'min-h-[80vh] flex items-center justify-center p-6')
 
+@section('hide_layout_elements', true)
+
 @section('content')
 <!-- Background Decoration -->
 <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(225,29,72,0.1)_0%,transparent_70%)] -z-10 pointer-events-none"></div>
 
 <div class="w-full max-w-2xl" x-data="{ loading: false }">
+    <!-- Logo Outside Card -->
+    <div class="flex justify-center mb-8">
+        <x-logo size="lg" />
+    </div>
+
     <!-- Card -->
-    <div class="metal-card p-10 md:p-14 rounded-[2.5rem] relative overflow-hidden shadow-2xl">
+    <div class="metal-card p-10 md:p-14 rounded-2xl relative overflow-hidden shadow-2xl">
         <!-- Glass Overlay -->
         <div class="absolute top-0 right-0 w-40 h-40 bg-brand-red/5 blur-3xl rounded-full"></div>
         
         <div class="relative z-10">
-            <h1 class="text-3xl md:text-4xl font-black tracking-tighter metallic-text uppercase italic mb-2">Gabung Elit</h1>
-            <p class="text-gray-500 text-sm font-medium mb-12">Buat akun Anda dan mulai perjalanan top-up premium.</p>
+            <h1 class="text-3xl md:text-4xl font-black tracking-tighter metallic-text uppercase italic mb-2 text-center">Buat Akun</h1>
+            <p class="text-gray-500 text-sm font-medium mb-12 text-center">Buat akun Anda dan mulai perjalanan top-up premium.</p>
 
             <form action="{{ route('register.post') }}" method="POST" @submit="loading = true" class="space-y-10">
                 @csrf

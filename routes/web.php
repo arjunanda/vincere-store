@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
 
         // Admin Routes
-        Route::middleware('auth')->group(function () {
+        Route::middleware([\App\Http\Middleware\IsAdmin::class])->group(function () {
 
             // Games
             Route::get('/games', [GameController::class, 'index'])->name('games');
@@ -130,16 +130,16 @@ Route::middleware(['auth'])->group(function () {
             // Activity Logs
             Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs');
 
-            // Profile & Security
-            Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-            Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-            Route::get('/security', [ProfileController::class, 'security'])->name('security');
-            Route::put('/security', [ProfileController::class, 'updatePassword'])->name('security.update');
-
             // Website Settings
             Route::get('/settings', [WebsiteSettingController::class, 'index'])->name('settings');
             Route::put('/settings', [WebsiteSettingController::class, 'update'])->name('settings.update');
         });
+
+        // Profile & Security (Accessible by all authenticated users)
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/security', [ProfileController::class, 'security'])->name('security');
+        Route::put('/security', [ProfileController::class, 'updatePassword'])->name('security.update');
 
         // User Routes
         Route::get('/my-orders', [DashboardController::class, 'myOrders'])->name('my-orders');

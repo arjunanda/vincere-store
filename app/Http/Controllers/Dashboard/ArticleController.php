@@ -13,10 +13,25 @@ class ArticleController extends Controller
 {
     use DashboardHelpers;
 
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::latest()->paginate(10);
-        return view('dashboard.articles.index', compact('articles'));
+        $query = Article::latest();
+
+        if ($search = $request->search) {
+            $query->where('title', 'like', "%{$search}%");
+        }
+
+        if ($type = $request->type) {
+            $query->where('type', $type);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status === 'active');
+        }
+
+        $articles = $query->paginate(15)->withQueryString();
+        $articleTypes = Article::distinct()->pluck('type')->filter()->sort()->values();
+        return view('dashboard.articles.index', compact('articles', 'articleTypes'));
     }
 
     public function create()

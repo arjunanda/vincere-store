@@ -12,9 +12,18 @@ class CategoryController extends Controller
 {
     use DashboardHelpers;
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::withCount('games')->latest()->paginate(10);
+        $query = Category::withCount('games')->latest();
+
+        if ($search = $request->search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        $categories = $query->paginate(15)->withQueryString();
         return view('dashboard.categories.index', compact('categories'));
     }
 

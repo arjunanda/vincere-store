@@ -31,26 +31,17 @@
             return;
         }
 
-        const source = new EventSource(`/checkout/${orderId}/status`);
-
-        source.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            
-            if (data.delivery_status !== initialStatus || data.payment_status !== initialPaymentStatus) {
-                if (['success', 'completed', 'failed'].includes(data.delivery_status) || data.payment_status === 'paid') {
-                    source.close();
-                    window.location.reload();
-                }
-            }
-        };
-
-        source.onerror = function(err) {
-            source.close();
-        };
-
-        window.onbeforeunload = function() {
-            source.close();
-        };
+        // Listen via Laravel Echo (Reverb)
+        if (window.Echo) {
+            window.Echo.channel(`order.${orderId}`)
+                .listen('OrderStatusUpdated', (e) => {
+                    console.log('Order update received:', e);
+                    // Status changed, reload the page to show stamps and details
+                    if (['success', 'completed', 'failed'].includes(e.delivery_status) || e.payment_status === 'paid') {
+                        window.location.reload();
+                    }
+                });
+        }
     });
 </script>
 @endpush
@@ -332,30 +323,27 @@
                             </div>
 
                             <button type="submit"
-                                class="btn-metal w-full py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-sm flex items-center justify-center gap-4 group disabled:opacity-30 disabled:cursor-not-allowed shadow-2xl shadow-brand-red/30"
+                                class="btn-metal relative w-full py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-sm group disabled:opacity-50 disabled:cursor-wait shadow-2xl shadow-brand-red/30 overflow-hidden"
                                 :disabled="!imagePreview || isLoading">
-                                <template x-if="!isLoading">
-                                    <div class="flex items-center gap-4">
-                                        <span>Selesaikan Pesanan</span>
-                                        <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
-                                    </div>
-                                </template>
-                                <template x-if="isLoading">
-                                    <div class="flex items-center gap-3">
-                                        <svg class="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                            </path>
-                                        </svg>
-                                        <span>Memproses...</span>
-                                    </div>
-                                </template>
+                                
+                                <!-- Normal State -->
+                                <div class="flex items-center justify-center gap-4 transition-all duration-300" 
+                                     :class="isLoading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'">
+                                    <span>Selesaikan Pesanan</span>
+                                    <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </div>
+
+                                <!-- Loading State -->
+                                <div class="absolute inset-0 flex items-center justify-center gap-3 transition-all duration-300" 
+                                     :class="isLoading ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'">
+                                    <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span class="tracking-[0.3em] mt-0.5">Memproses...</span>
+                                </div>
                             </button>
                         </form>
                     </div>

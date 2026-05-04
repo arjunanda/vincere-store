@@ -12,9 +12,23 @@ class UserController extends Controller
 {
     use DashboardHelpers;
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(10);
+        $query = User::latest();
+
+        if ($search = $request->search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('username', 'like', "%{$search}%");
+            });
+        }
+
+        if ($role = $request->role) {
+            $query->where('role', $role);
+        }
+
+        $users = $query->paginate(15)->withQueryString();
         return view('dashboard.users.index', compact('users'));
     }
 
