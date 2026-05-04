@@ -13,7 +13,7 @@
 <div class="w-full max-w-2xl" x-data="{ loading: false }">
     <!-- Logo Outside Card -->
     <div class="flex justify-center mb-8">
-        <x-logo size="lg" />
+        <x-logo size="lg" fetchpriority="high" />
     </div>
 
     <!-- Card -->

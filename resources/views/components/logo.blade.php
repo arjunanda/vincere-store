@@ -42,10 +42,14 @@
 <div {{ $attributes->merge(['class' => 'flex items-center ' . $current['gap'] . ' group w-fit']) }}>
     <div class="relative shrink-0">
         @if(isset($webSettings['web_logo']))
-            <img src="{{ asset('storage/' . $webSettings['web_logo']) }}" alt="{{ $webSettings['web_title'] ?? 'Ventuz Store' }}"
+            <img src="{{ asset('storage/' . $webSettings['web_logo']) }}" 
+                alt="{{ $webSettings['web_title'] ?? 'Ventuz Store' }}"
+                {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @else
-            <img src="{{ asset('assets/images-logo/logo-2.jpeg') }}" alt="Ventuz Logo"
+            <img src="{{ asset('assets/images-logo/logo-2.jpeg') }}" 
+                alt="Ventuz Logo"
+                {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @endif
         <div class="absolute inset-0 bg-brand-red/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
