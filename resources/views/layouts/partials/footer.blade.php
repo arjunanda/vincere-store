@@ -1,6 +1,6 @@
 <footer class="bg-black py-24 px-6 mt-40 border-t border-white/5">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-24">
-        <div class="col-span-2 space-y-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-24">
+        <div class="sm:col-span-2 space-y-12">
             <a href="/">
                 <x-logo size="lg" />
             </a>
@@ -9,9 +9,9 @@
             </p>
         </div>
         <div>
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-12 text-center md:text-left">
+            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
                 Layanan</h5>
-            <ul class="space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-center md:text-left">
+            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left">
                 <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Semua Game</a></li>
                 <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Lacak Pesanan</a></li>
                 <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita Gaming</a></li>
@@ -19,18 +19,18 @@
             </ul>
         </div>
         <div>
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-12 text-center md:text-left">
+            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
                 Metode Bayar</h5>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 gap-3 md:gap-4">
                 @isset($paymentMethods)
                     @foreach ($paymentMethods->take(9) as $method)
                         <div
-                            class="h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
+                            class="h-10 md:h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
                             @if ($method->image)
                                 <img src="{{ asset('storage/' . $method->image) }}" alt="{{ $method->name }}"
                                     class="h-full w-full object-contain filter grayscale brightness-200 hover:grayscale-0 transition-all duration-300">
                             @else
-                                <span class="text-[10px] font-black tracking-widest text-white/50">{{ $method->name }}</span>
+                                <span class="text-[8px] md:text-[10px] font-black tracking-widest text-white/50">{{ $method->name }}</span>
                             @endif
                         </div>
                     @endforeach
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12">
-        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">&copy; {{ date('Y') }} Arjunanda. Seluruh Hak Cipta Dilindungi.</p>
+        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest text-center md:text-left">&copy; {{ date('Y') }} Ventuz Store. Seluruh Hak Cipta Dilindungi.</p>
         <div class="flex gap-14 text-gray-600 text-xs font-bold uppercase tracking-widest">
             <a href="#" class="hover:text-brand-red">Privasi</a>
             <a href="#" class="hover:text-brand-red">Syarat & Ketentuan</a>
