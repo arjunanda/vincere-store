@@ -1,6 +1,7 @@
 <!-- Navbar -->
 <nav class="sticky top-0 z-50 bg-[#050505]/95 py-4 px-6 border-b border-white/10"
-    x-data="{ mobileMenu: false, showSearch: false }">
+    x-data="{ mobileMenu: false, showSearch: false }"
+    aria-label="Navigasi Utama">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <!-- Left Side: Logo & Menu -->
         <div class="flex items-center gap-16">
@@ -12,12 +13,16 @@
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-10">
                 <a href="/"
+                    title="Kembali ke Beranda"
                     class="text-[15px] font-bold tracking-wide {{ Route::is('index') ? 'text-brand-red' : 'text-white/70' }} hover:text-brand-red transition-colors">Beranda</a>
                 <a href="{{ route('games.index') }}"
+                    title="Lihat Daftar Game Terlengkap"
                     class="text-[15px] font-bold tracking-wide {{ Route::is('games.index') ? 'text-brand-red' : 'text-white/70' }} hover:text-brand-red transition-colors whitespace-nowrap">Daftar Game</a>
                 <a href="{{ route('check.transaction') }}"
+                    title="Cek Status Pesanan Kamu"
                     class="text-[15px] font-bold tracking-wide {{ Route::is('check.transaction') ? 'text-brand-red' : 'text-white/70' }} hover:text-brand-red transition-colors whitespace-nowrap">Cek Transaksi</a>
                 <a href="{{ route('news.index') }}"
+                    title="Berita Gaming dan Promo Terbaru"
                     class="text-[15px] font-bold tracking-wide {{ Route::is('news.index') ? 'text-brand-red' : 'text-white/70' }} hover:text-brand-red transition-colors whitespace-nowrap">Promo & Berita</a>
             </div>
         </div>
@@ -26,6 +31,7 @@
         <div class="flex items-center gap-4">
             <!-- Search Icon Toggle (Desktop) -->
             <button @click="showSearch = !showSearch"
+                aria-label="Cari Game"
                 class="hidden lg:flex w-11 h-11 relative items-center justify-center bg-white/[0.07] border border-white/20 rounded-xl text-white hover:bg-brand-red hover:border-brand-red transition-all shadow-lg z-50 group">
                 <svg x-show="!showSearch" x-cloak class="w-5 h-5 transition-all duration-300" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
@@ -40,17 +46,21 @@
 
             @guest
                 <a href="{{ route('login') }}"
+                    title="Masuk ke Akun Kamu"
                     class="hidden lg:flex bg-white/[0.07] hover:bg-white/[0.12] px-8 py-3 rounded-xl font-bold text-[15px] transition-all border border-white/20 items-center justify-center shadow-lg">Masuk</a>
                 <a href="{{ route('register') }}"
+                    title="Daftar Akun Baru"
                     class="hidden lg:flex btn-metal px-8 py-3 rounded-xl font-bold text-[15px] shadow-xl whitespace-nowrap items-center justify-center">Daftar</a>
             @else
                 <a href="{{ route('dashboard.index') }}"
+                    title="Buka Dashboard Member"
                     class="hidden lg:flex btn-metal px-8 py-3 rounded-xl font-bold text-[15px] shadow-lg items-center justify-center">Dashboard</a>
             @endguest
 
             <!-- Mobile Toggle Group -->
             <div class="flex lg:hidden items-center gap-3">
                 <button @click="showSearch = !showSearch" 
+                    aria-label="Cari Game"
                     class="w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white hover:text-brand-red transition-all">
                     <svg x-show="!showSearch" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -61,6 +71,7 @@
                     </svg>
                 </button>
                 <button @click="mobileMenu = !mobileMenu" 
+                    aria-label="Menu Mobile"
                     class="w-11 h-11 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-white hover:text-brand-red transition-all">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path x-show="!mobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -79,8 +90,8 @@
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-4"
         class="absolute left-0 right-0 top-full bg-[#0a0a0a]/98 border-b border-white/10 py-6 px-6 shadow-2xl">
-        <div class="max-w-3xl mx-auto relative">
-            <input type="text" x-model="search" placeholder="Cari game favoritmu..."
+        <form action="{{ route('games.index') }}" method="GET" class="max-w-3xl mx-auto relative">
+            <input type="text" name="search" x-model="search" placeholder="Cari game favoritmu..."
                 class="w-full bg-white/[0.05] border border-white/10 rounded-2xl py-4 px-14 focus:outline-none focus:border-brand-red/50 transition-all text-lg font-medium placeholder:text-gray-600">
             <div class="absolute left-5 top-1/2 -translate-y-1/2 text-brand-red">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,9 +101,9 @@
             </div>
             <div class="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-2">
                 <span
-                    class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-2 py-1 rounded">ESC</span>
+                    class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-2 py-1 rounded">ENTER</span>
             </div>
-        </div>
+        </form>
     </div>
 
     <!-- Mobile Menu -->

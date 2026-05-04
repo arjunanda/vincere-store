@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Webhook\WhatsAppController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -26,6 +27,9 @@ use App\Http\Controllers\Dashboard\WebsiteSettingController;
 
 // WhatsApp Webhook
 Route::post('/webhooks/whatsapp', [WhatsAppController::class, 'handle']);
+
+// Sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // Frontend Routes
 Route::get('/', [LandingController::class, 'index'])->name('index');

@@ -1,6 +1,9 @@
 # ============================================================
-# Ventuz Store - Docker Makefile
-# Usage: make <command>
+# COPYRIGHT NOTICE
+# This code is proprietary and the sole property of Arjunanda.
+# Unauthorized use, copying, or distribution is strictly prohibited 
+# without explicit written permission from the owner.
+# Copyright (c) 2026 Arjunanda.
 # ============================================================
 
 .PHONY: help build up down restart logs shell artisan
@@ -17,7 +20,10 @@ help:
 	@echo ""
 	@echo "  Available commands:"
 	@echo ""
-	@echo "  make build      - Build Docker image"
+	@echo "  make pull       - Pull latest changes from git"
+	@echo "  make build      - Build Docker images"
+	@echo "  make deploy     - Full deployment (pull + build + up)"
+	@echo "  make update     - Update and restart (pull + build + restart)"
 	@echo "  make up         - Start all containers (detached)"
 	@echo "  make down       - Stop and remove containers"
 	@echo "  make restart    - Restart all containers"
@@ -28,6 +34,11 @@ help:
 	@echo "  make cache      - Clear and re-warm all caches"
 	@echo "  make octane     - Reload Octane workers (zero-downtime)"
 	@echo ""
+
+# ── Git ──────────────────────────────────────────────────────
+pull:
+	@echo "📥 Pulling latest changes from git..."
+	git pull origin main
 
 # ── Build ────────────────────────────────────────────────────
 build:
@@ -91,9 +102,18 @@ octane:
 	docker compose exec app php artisan octane:reload
 	@echo "⚡ Octane workers reloaded!"
 
-# ── Deploy (build + up) ──────────────────────────────────────
+# ── Deploy (pull + build + up) ───────────────────────────────
 deploy:
-	@echo "🚢 Deploying Ventuz Store..."
+	@echo "🚢 Deploying latest version..."
+	make pull
 	make build
 	make up
 	@echo "🎉 Deployment complete!"
+
+# ── Update (pull + restart) ──────────────────────────────────
+update:
+	make pull
+	make build
+	make restart
+	@echo "🔄 Application updated to latest version!"
+

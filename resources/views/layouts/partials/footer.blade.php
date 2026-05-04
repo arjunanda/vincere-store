@@ -5,52 +5,37 @@
                 <x-logo size="lg" />
             </a>
             <p class="text-gray-500 font-medium text-base leading-loose max-w-md">
-                {{ $webSettings['web_description'] ?? 'Destinasi utama untuk top-up game premium. Jaringan global, kecepatan lokal, keamanan tingkat elit.' }}
+                {{ $webSettings['web_description'] ?? 'Ventuz Store adalah platform top-up game paling kencang dan terpercaya di Indonesia. Kami menyediakan layanan top-up 24 jam otomatis untuk berbagai game populer dengan harga termurah.' }}
             </p>
         </div>
         <div>
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-12 text-center md:text-left">
-                Tautan Cepat</h5>
+                Layanan</h5>
             <ul class="space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-center md:text-left">
-                <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Katalog Game</a>
-                </li>
-                <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Cek Transaksi</a></li>
-                <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita & Promo</a></li>
-                <li><a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $webSettings['contact_wa'] ?? '') }}" class="hover:text-white transition-colors">Kontak Kami</a></li>
+                <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Semua Game</a></li>
+                <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Lacak Pesanan</a></li>
+                <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita Gaming</a></li>
+                <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
             </ul>
         </div>
         <div>
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-12 text-center md:text-left">
-                Pembayaran</h5>
+                Metode Bayar</h5>
             <div class="grid grid-cols-3 gap-4">
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    QRIS</div>
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    BCA</div>
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    OVO</div>
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    DANA</div>
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    GOPAY</div>
-                <div
-                    class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest">
-                    VISA</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">QRIS</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">BCA</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">BNI</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">OVO</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">DANA</div>
+                <div class="h-12 glass-dark rounded-xl flex items-center justify-center text-[10px] font-black tracking-widest hover:border-brand-red/50 transition-colors border border-white/5">SHOPEE</div>
             </div>
         </div>
     </div>
-    <div
-        class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12">
-        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">&copy; {{ date('Y') }} {{ $webSettings['web_title'] ?? 'Ventuz Store' }}. {{ $webSettings['web_footer'] ?? 'Distribus Gaming Elit.' }}</p>
+    <div class="max-w-7xl mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12">
+        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">&copy; {{ date('Y') }} Arjunanda. Seluruh Hak Cipta Dilindungi.</p>
         <div class="flex gap-14 text-gray-600 text-xs font-bold uppercase tracking-widest">
             <a href="#" class="hover:text-brand-red">Privasi</a>
-            <a href="#" class="hover:text-brand-red">Syarat</a>
-            <a href="#" class="hover:text-brand-red">Lisensi</a>
+            <a href="#" class="hover:text-brand-red">Syarat & Ketentuan</a>
         </div>
     </div>
 </footer>

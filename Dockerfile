@@ -1,4 +1,10 @@
 # ============================================================
+# COPYRIGHT NOTICE
+# This code is proprietary and the sole property of Arjunanda.
+# Unauthorized use, copying, or distribution is strictly prohibited 
+# without explicit written permission from the owner.
+# Copyright (c) 2026 Arjunanda.
+# ============================================================
 # Stage 1: Node.js - Build frontend assets
 # ============================================================
 FROM node:22-alpine AS frontend
