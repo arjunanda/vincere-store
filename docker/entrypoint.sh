@@ -15,7 +15,10 @@ until php -r "new PDO('pgsql:host=${DB_HOST};port=${DB_PORT};dbname=${DB_DATABAS
 done
 echo "✅ PostgreSQL is reachable!"
 
-# ── 3. Run migrations ────────────────────────────────────────
+# ── 3. Run package discovery & migrations ───────────────────
+echo "🔍 Discovering packages..."
+php /var/www/html/artisan package:discover --ansi 2>/dev/null || true
+
 echo "🔄 Running migrations..."
 php /var/www/html/artisan migrate --force --no-interaction
 
