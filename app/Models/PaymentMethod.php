@@ -23,4 +23,15 @@ class PaymentMethod extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
+        });
+
+        static::deleted(function () {
+            \Illuminate\Support\Facades\Cache::forget('active_payment_methods');
+        });
+    }
 }

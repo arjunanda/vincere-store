@@ -446,9 +446,9 @@
                         <div class="space-y-2">
                             @php
                                 $waCS = preg_replace('/[^0-9]/', '', $webSettings['contact_wa'] ?? '');
-                                if (str_starts_with($waCS, '0'))
-                                    $waCS = '62' . substr($waCS, 1);
+                                if (str_starts_with($waCS, '0')) $waCS = '62' . substr($waCS, 1);
                             @endphp
+                            @if($waCS)
                             <a href="https://wa.me/{{ $waCS }}?text=Halo%20Admin%20{{ urlencode($webSettings['web_title'] ?? 'Ventuz Store') }},%20saya%20ingin%20menanyakan%20pesanan%20dengan%20ID%20{{ $transaction->order_id }}"
                                 target="_blank"
                                 class="flex items-center justify-center gap-2 w-full py-4 glass-panel rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/5 transition-all">
@@ -458,6 +458,7 @@
                                 </svg>
                                 Hubungi Customer Service
                             </a>
+                            @endif
                             <a href="{{ route('index') }}"
                                 class="block text-center text-[9px] font-bold text-gray-600 hover:text-white transition-colors uppercase tracking-widest pt-2">
                                 Lanjut Belanja
