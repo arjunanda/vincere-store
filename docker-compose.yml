@@ -11,33 +11,44 @@ services:
     container_name: ventuz_app
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-8000}:8000"       # HTTP (Octane)
-      - "${REVERB_PORT:-8080}:8080"    # WebSocket (Reverb)
+      - "${APP_PORT:-8000}:8000"
+      - "${REVERB_PORT:-8080}:8080"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
     environment:
       APP_NAME: "${APP_NAME:-Ventuz Store}"
       APP_ENV: "${APP_ENV:-production}"
       APP_KEY: "${APP_KEY}"
       APP_DEBUG: "${APP_DEBUG:-false}"
       APP_URL: "${APP_URL:-http://localhost:8000}"
-      # Database (PostgreSQL External)
+
+      # Database (HOST MACHINE POSTGRESQL)
       DB_CONNECTION: pgsql
-      DB_HOST: 217.15.167.231
+      DB_HOST: host.docker.internal
       DB_PORT: 5432
       DB_DATABASE: ventuz_store
       DB_USERNAME: junastack
       DB_PASSWORD: "Junedi12345**##"
-      # Redis (using container)
+
+      # Redis
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: "${REDIS_PASSWORD:-}"
+
       # Queue
       QUEUE_CONNECTION: redis
+
       # Cache
       CACHE_STORE: redis
+
       # Session
       SESSION_DRIVER: redis
+
       # Octane
       OCTANE_SERVER: frankenphp
+
       # Reverb
       REVERB_APP_ID: "${REVERB_APP_ID}"
       REVERB_APP_KEY: "${REVERB_APP_KEY}"
@@ -45,18 +56,23 @@ services:
       REVERB_HOST: "0.0.0.0"
       REVERB_PORT: 8080
       REVERB_SCHEME: http
+
       # Broadcast
       BROADCAST_CONNECTION: reverb
+
       # WhatsApp Service
       WA_SERVICE_URL: "${WA_SERVICE_URL:-}"
+
     volumes:
-      # Persist uploaded files (storage)
       - storage_data:/var/www/html/storage/app/public
+
     depends_on:
       redis:
         condition: service_healthy
+
     networks:
       - ventuz_network
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/up"]
       interval: 30s
@@ -65,7 +81,7 @@ services:
       start_period: 30s
 
   # ──────────────────────────────────────────────────────────
-  # Redis: Cache, Queue, Session
+  # Redis
   # ──────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
