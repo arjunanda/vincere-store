@@ -3,7 +3,18 @@ set -e
 
 echo "🚀 Starting Ventuz Store..."
 
-# ── 1. Fix storage & cache permissions ──────────────────────
+# ── 1. Create necessary storage directories ──────────────────
+echo "📁 Ensuring storage directories exist..."
+mkdir -p /var/www/html/storage/app/public/proofs
+mkdir -p /var/www/html/storage/app/public/banners
+mkdir -p /var/www/html/storage/app/public/games
+mkdir -p /var/www/html/storage/app/public/articles
+mkdir -p /var/www/html/storage/app/public/payments
+mkdir -p /var/www/html/storage/framework/cache
+mkdir -p /var/www/html/storage/framework/sessions
+mkdir -p /var/www/html/storage/framework/views
+
+# Fix storage & cache permissions
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 

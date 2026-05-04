@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             
             // Statuses
-            $table->enum('payment_status', ['pending', 'paid', 'failed', 'expired'])->default('pending');
+            $table->enum('payment_status', ['pending', 'verif', 'paid', 'failed', 'expired'])->default('pending');
             $table->enum('delivery_status', ['pending', 'processing', 'success', 'failed'])->default('pending');
             
             $table->text('notes')->nullable();
