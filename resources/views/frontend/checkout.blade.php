@@ -7,14 +7,13 @@
     imagePreview: null,
     isLoading: false,
     handleFileChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-    this.imagePreview = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    }
+        const file = event.target.files[0];
+        if (file) {
+            if (this.imagePreview && this.imagePreview.startsWith('blob:')) {
+                URL.revokeObjectURL(this.imagePreview);
+            }
+            this.imagePreview = URL.createObjectURL(file);
+        }
     }
     }"
 @endsection
@@ -323,7 +322,7 @@
                             </div>
 
                             <button type="submit"
-                                class="btn-metal relative w-full py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-sm group disabled:opacity-50 disabled:cursor-wait shadow-2xl shadow-brand-red/30 overflow-hidden"
+                                class="btn-metal relative w-full py-5 md:py-6 rounded-2xl font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-sm group disabled:opacity-50 disabled:cursor-wait shadow-2xl shadow-brand-red/30 overflow-hidden"
                                 :disabled="!imagePreview || isLoading">
                                 
                                 <!-- Normal State -->

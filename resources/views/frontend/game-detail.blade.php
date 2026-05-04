@@ -78,7 +78,7 @@ x-data="{
                 <div class="bg-[#0a0a0a] rounded-xl p-5 md:p-8 space-y-6">
                     <div class="flex items-center gap-4">
                         <div
-                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">
+                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black bg-brand-red text-white shadow-lg shadow-brand-red/20">
                             1</div>
                         <h2 class="text-lg font-black uppercase tracking-widest italic">Input Data <span
                                 class="text-brand-red">Akun</span></h2>
@@ -112,7 +112,7 @@ x-data="{
                 <div class="bg-[#0a0a0a] rounded-xl p-5 md:p-8 space-y-8">
                     <div class="flex items-center gap-4">
                         <div
-                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">
+                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black bg-brand-red text-white shadow-lg shadow-brand-red/20">
                             2</div>
                         <h2 class="text-lg font-black uppercase tracking-widest italic">Pilih <span
                                 class="text-brand-red">Nominal</span></h2>
@@ -150,7 +150,7 @@ x-data="{
                 <div class="bg-[#0a0a0a] rounded-xl p-5 md:p-8 space-y-8">
                     <div class="flex items-center gap-4">
                         <div
-                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">
+                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black bg-brand-red text-white shadow-lg shadow-brand-red/20">
                             3</div>
                         <h2 class="text-lg font-black uppercase tracking-widest italic">Metode <span
                                 class="text-brand-red">Pembayaran</span></h2>
@@ -195,7 +195,7 @@ x-data="{
                     <div class="bg-[#0a0a0a] rounded-xl p-5 md:p-8 space-y-8">
                         <div class="flex items-center gap-4">
                             <div
-                                class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">
+                                class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black bg-brand-red text-white shadow-lg shadow-brand-red/20">
                                 4</div>
                             <h2 class="text-lg font-black uppercase tracking-widest italic">Informasi <span
                                     class="text-brand-red">Kontak</span></h2>
@@ -232,7 +232,7 @@ x-data="{
                 <div class="bg-[#0a0a0a] rounded-xl p-5 md:p-8 space-y-6 md:space-y-8">
                     <div class="flex items-center gap-4">
                         <div
-                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black">
+                            class="step-number w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black bg-brand-red text-white shadow-lg shadow-brand-red/20">
                             {{ auth()->check() ? '4' : '5' }}
                         </div>
                         <h2 class="text-lg font-black uppercase tracking-widest italic">Konfirmasi <span
@@ -293,10 +293,10 @@ x-data="{
                                             x-text="selectedPayment ? new Intl.NumberFormat('id-ID').format(paymentFees[selectedPayment]) : '0'"></span></span>
                                 </div>
                                 <div
-                                    class="pt-3 mt-1 border-t border-white/10 flex justify-between items-center">
-                                    <p class="text-[10px] font-black uppercase tracking-widest text-brand-red">
+                                    class="pt-3 mt-1 border-t border-white/10 flex flex-row justify-between items-center gap-2">
+                                    <p class="text-[9px] font-black uppercase tracking-widest text-brand-red shrink-0">
                                         Total Bayar</p>
-                                    <h4 class="text-2xl font-black italic text-white leading-none">
+                                    <h4 class="text-[14px] md:text-2xl font-black italic text-white leading-none whitespace-nowrap tracking-tighter">
                                         Rp <span
                                             x-text="selectedVariant && selectedPayment ? new Intl.NumberFormat('id-ID').format(variantPrices[selectedVariant] + paymentFees[selectedPayment]) : '0'"></span>
                                     </h4>
@@ -304,7 +304,7 @@ x-data="{
                             </div>
 
                             <button type="submit"
-                                class="btn-metal w-full py-5 rounded-xl font-black uppercase tracking-[0.2em] text-sm flex items-center justify-center gap-4 group disabled:opacity-30 disabled:cursor-not-allowed shadow-xl shadow-brand-red/20"
+                                class="btn-metal w-full py-4 md:py-5 rounded-xl font-black uppercase tracking-widest md:tracking-[0.2em] text-[11px] md:text-sm flex items-center justify-center gap-4 group disabled:opacity-30 disabled:cursor-not-allowed shadow-xl shadow-brand-red/20"
                                 :disabled="!isReady()">
                                 Beli Sekarang
                                 <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none"

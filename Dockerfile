@@ -48,35 +48,30 @@ FROM dunglas/frankenphp:1-php8.4 AS production
 
 LABEL maintainer="Ventuz Store"
 
-# Install system dependencies & PHP extensions
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libzip-dev \
-    libgd-dev \
     libpq-dev \
     zip \
     unzip \
     supervisor \
     netcat-openbsd \
-    && docker-php-ext-install \
-        pdo \
-        pdo_pgsql \
-        pgsql \
-        mbstring \
-        exif \
-        pcntl \
-        bcmath \
-        gd \
-        zip \
-        opcache \
-    && pecl install redis \
-    && docker-php-ext-enable redis \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions using the provided helper in FrankenPHP
+RUN install-php-extensions \
+    gd \
+    pdo_pgsql \
+    pgsql \
+    pcntl \
+    bcmath \
+    zip \
+    intl \
+    opcache \
+    exif \
+    mbstring \
+    redis
 
 # Install Composer
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
