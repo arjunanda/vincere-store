@@ -429,19 +429,14 @@
 
     <!-- News & Promo Section -->
     <section class="space-y-16">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-[2px] bg-brand-red"></div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Update Terbaru</p>
-                </div>
-                <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
-                    Berita & <span class="text-brand-red">Promo</span>
-                </h3>
+        <div class="space-y-2">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-[2px] bg-brand-red"></div>
+                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Update Terbaru</p>
             </div>
-            <a href="/news"
-                class="glass-dark px-8 py-4 rounded-xl border border-white/5 text-[10px] font-black uppercase tracking-[0.2em] hover:border-brand-red/50 hover:text-brand-red transition-all whitespace-nowrap mb-2">Lihat
-                Semua</a>
+            <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
+                Berita & <span class="text-brand-red">Promo</span>
+            </h3>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -479,6 +474,20 @@
                     </div>
                 </a>
             @endforeach
+        </div>
+
+        <!-- View All News Section -->
+        <div class="flex justify-center pt-10 md:pt-16">
+            <a href="/news"
+                class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl md:rounded-xl transition-all duration-300">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat Semua Berita</span>
+                    <div class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500"></div>
+                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </div>
+            </a>
         </div>
     </section>
 @endsection

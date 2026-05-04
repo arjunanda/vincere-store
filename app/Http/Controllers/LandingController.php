@@ -262,8 +262,9 @@ class LandingController extends Controller
                 $caption .= "\n*Link Verifikasi Dashboard:*\n" . url('/dashboard/orders?search=' . $transaction->order_id);
 
                 // Send Image (Payment Proof) to CS
-                $response = $this->waService->sendMessage(
+                $response = $this->waService->sendImage(
                     $csPhone,
+                    url('storage/' . $transaction->proof_of_payment),
                     $caption
                 );
 

@@ -50,14 +50,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxml2-dev \
     libzip-dev \
     libgd-dev \
+    libpq-dev \
     zip \
     unzip \
-    sqlite3 \
-    libsqlite3-dev \
     supervisor \
     && docker-php-ext-install \
         pdo \
-        pdo_sqlite \
+        pdo_pgsql \
+        pgsql \
         mbstring \
         exif \
         pcntl \
@@ -94,10 +94,8 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Create SQLite DB directory
-RUN mkdir -p /var/www/html/database \
-    && touch /var/www/html/database/database.sqlite \
-    && chown -R www-data:www-data /var/www/html/database
+# Ensure storage directories exist
+RUN mkdir -p /var/www/html/storage/app/public
 
 # Expose ports
 # 8000 = Octane HTTP, 8080 = Reverb WebSocket

@@ -12,7 +12,7 @@ class WhatsAppService
     public function __construct()
     {
         // Default to the provided IP if not set in .env
-        $this->baseUrl = rtrim(env('WA_GATEWAY_URL', 'http://217.15.167.231:1880'), '/');
+        $this->baseUrl = rtrim(env('WA_SERVICE_URL', 'http://217.15.167.231:1880'), '/');
     }
 
     /**
