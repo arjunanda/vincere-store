@@ -36,7 +36,17 @@ class WebsiteSettingController extends Controller
 
         foreach ($data as $key => $value) {
             if ($request->hasFile($key)) {
-                $path = $this->uploadAndCompressImage($request->file($key), 'settings');
+                $file = $request->file($key);
+                
+                // Intervention Image (GD) tidak mensupport format .ico, jadi kita simpan langsung
+                if ($key === 'web_favicon' && in_array(strtolower($file->getClientOriginalExtension()), ['ico'])) {
+                    $filename = \Illuminate\Support\Str::random(20) . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs('public/settings', $filename);
+                    $path = 'settings/' . $filename;
+                } else {
+                    $path = $this->uploadAndCompressImage($file, 'settings');
+                }
+                
                 Setting::updateOrCreate(['key' => $key], ['value' => $path]);
             } else {
                 Setting::updateOrCreate(['key' => $key], ['value' => $value]);
