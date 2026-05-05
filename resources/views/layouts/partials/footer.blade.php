@@ -8,7 +8,7 @@
                 {{ $webSettings['web_description'] ?? 'Ventuz Store adalah platform top-up game paling kencang dan terpercaya di Indonesia. Kami menyediakan layanan top-up 24 jam otomatis untuk berbagai game populer dengan harga termurah.' }}
             </p>
         </div>
-        <div class="w-full md:w-1/4">
+        <div class="w-full md:w-1/4 md:mx-auto">
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
                 Layanan</h5>
             <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left">
