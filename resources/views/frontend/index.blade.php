@@ -99,9 +99,8 @@
             </button>
         </div>
 
-        <!-- Navigation dots -->
         <div class="absolute bottom-8 right-8 md:right-20 flex gap-3 md:gap-4 z-10">
-            <template x-for="(slide, index) in slides" :key="index">
+            <template x-for="(_, index) in Array.from({length: totalSlides})" :key="index">
                 <button @click="activeSlide = index; resetAutoplay()"
                     class="h-1.5 md:h-2 transition-all duration-500 rounded-full"
                     :class="activeSlide === index ? 'w-10 md:w-16 bg-brand-red' : 'w-4 md:w-6 bg-white/20'"></button>
