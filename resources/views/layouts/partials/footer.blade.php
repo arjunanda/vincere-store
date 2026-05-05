@@ -8,20 +8,20 @@
                 {{ $webSettings['web_description'] ?? 'Ventuz Store adalah platform top-up game paling kencang dan terpercaya di Indonesia. Kami menyediakan layanan top-up 24 jam otomatis untuk berbagai game populer dengan harga termurah.' }}
             </p>
         </div>
-        <div>
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
+        <div class="md:justify-self-center lg:justify-self-end">
+            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
                 Layanan</h5>
-            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left">
+            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left md:text-right">
                 <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Semua Game</a></li>
                 <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Lacak Pesanan</a></li>
                 <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita Gaming</a></li>
                 <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
             </ul>
         </div>
-        <div>
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
+        <div class="md:justify-self-end">
+            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
                 Metode Bayar</h5>
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3 md:justify-end">
                 @isset($paymentMethods)
                     @foreach ($paymentMethods->take(9) as $method)
                         <div
