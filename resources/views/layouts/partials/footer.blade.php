@@ -1,6 +1,6 @@
 <footer class="bg-black py-24 px-6 mt-40 border-t border-white/5">
-    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-24">
-        <div class="sm:col-span-2 space-y-12">
+    <div class="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-24">
+        <div class="w-full md:w-2/5 space-y-12">
             <a href="/">
                 <x-logo size="lg" />
             </a>
@@ -8,17 +8,17 @@
                 {{ $webSettings['web_description'] ?? 'Ventuz Store adalah platform top-up game paling kencang dan terpercaya di Indonesia. Kami menyediakan layanan top-up 24 jam otomatis untuk berbagai game populer dengan harga termurah.' }}
             </p>
         </div>
-        <div class="md:justify-self-center lg:justify-self-end">
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
+        <div class="w-full md:w-1/4">
+            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
                 Layanan</h5>
-            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left md:text-right">
+            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left">
                 <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Semua Game</a></li>
                 <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Lacak Pesanan</a></li>
                 <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita Gaming</a></li>
                 <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
             </ul>
         </div>
-        <div class="md:justify-self-end">
+        <div class="w-full md:w-auto md:max-w-[320px]">
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
                 Metode Bayar</h5>
             <div class="flex flex-wrap gap-3 md:justify-end">
