@@ -4,8 +4,8 @@
 
 @section('body_attr')
 x-data="{ 
-    selectedVariant: null, 
-    selectedPayment: null,
+    selectedVariant: {{ old('variant_id', 'null') }}, 
+    selectedPayment: {{ old('payment_method_id', 'null') }},
     variantPrices: {
         @foreach($game->variants as $v)
             '{{ $v->id }}': {{ $v->price }},
@@ -26,9 +26,9 @@ x-data="{
             '{{ $p->id }}': '{{ $p->name }}',
         @endforeach
     },
-    whatsapp: '',
+    whatsapp: '{{ old('whatsapp') }}',
     @foreach($game->inputGroup->fields as $field)
-        {{ $field->name }}: '',
+        {{ $field->name }}: '{{ old($field->name) }}',
     @endforeach
     isReady() {
         let inputsFilled = true;
@@ -36,6 +36,35 @@ x-data="{
             if (!this.{{ $field->name }}) inputsFilled = false;
         @endforeach
         return this.selectedVariant && this.selectedPayment && inputsFilled && (@guest this.whatsapp @else true @endguest);
+    },
+    init() {
+        // Crucial: We need to pull values from the DOM that might have been restored by the browser
+        // before Alpine's x-model wiped them, or simply to sync with autofill.
+        
+        // Use a small delay to ensure the browser has finished restoring values
+        setTimeout(() => {
+            @foreach($game->inputGroup->fields as $field)
+                let el_{{ $field->name }} = document.querySelector('[name={{ $field->name }}]');
+                if (el_{{ $field->name }} && el_{{ $field->name }}.value && !this.{{ $field->name }}) {
+                    this.{{ $field->name }} = el_{{ $field->name }}.value;
+                }
+            @endforeach
+
+            let waEl = document.querySelector('[name=whatsapp]');
+            if (waEl && waEl.value && !this.whatsapp) {
+                this.whatsapp = waEl.value;
+            }
+
+            // Also check hidden inputs for variant/payment
+            let vEl = document.querySelector('input[name=variant_id]');
+            if (vEl && vEl.value && !this.selectedVariant) {
+                this.selectedVariant = parseInt(vEl.value);
+            }
+            let pEl = document.querySelector('input[name=payment_method_id]');
+            if (pEl && pEl.value && !this.selectedPayment) {
+                this.selectedPayment = parseInt(pEl.value);
+            }
+        }, 100);
     }
 }"
 @endsection
@@ -91,12 +120,15 @@ x-data="{
                                     class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">{{ $field->label }}</label>
                                 @if($field->type === 'select')
                                     <select name="{{ $field->name }}" x-model="{{ $field->name }}"
+                                        x-init="$nextTick(() => { if ($el.value) {{ $field->name }} = $el.value })"
                                         class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white text-sm appearance-none transition-all">
                                         <option value="" class="bg-black">Pilih...</option>
                                     </select>
                                 @else
                                     <input type="{{ $field->type }}" name="{{ $field->name }}"
-                                        x-model="{{ $field->name }}" placeholder="{{ $field->placeholder }}"
+                                        x-model="{{ $field->name }}" 
+                                        x-init="$nextTick(() => { if ($el.value) {{ $field->name }} = $el.value })"
+                                        placeholder="{{ $field->placeholder }}"
                                         @if($field->max_length) maxlength="{{ $field->max_length }}" @endif
                                         @if($field->type === 'number') @wheel="$el.blur()" @endif
                                         class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white text-sm font-bold placeholder:text-gray-700 transition-all">
@@ -216,6 +248,7 @@ x-data="{
                                         </svg>
                                     </div>
                                     <input type="tel" name="whatsapp" x-model="whatsapp"
+                                        x-init="$nextTick(() => { if ($el.value) whatsapp = $el.value })"
                                         placeholder="Contoh: 08123456789"
                                         class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-14 pr-6 focus:outline-none focus:border-brand-red/50 text-white text-sm font-bold placeholder:text-gray-700 transition-all">
                                 </div>

@@ -247,6 +247,12 @@ class LandingController extends Controller
         $filename = \Illuminate\Support\Str::random(20) . '.jpg';
         $path = 'proofs/' . $filename;
 
+        // Ensure directory exists
+        $directory = storage_path('app/public/proofs');
+        if (!\Illuminate\Support\Facades\File::exists($directory)) {
+            \Illuminate\Support\Facades\File::makeDirectory($directory, 0777, true, true);
+        }
+
         // Use Intervention Image to process
         \Intervention\Image\Laravel\Facades\Image::decode($file)
             ->encodeUsingFileExtension('jpg', quality: 80)
