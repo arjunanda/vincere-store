@@ -18,14 +18,15 @@
                 <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
             </ul>
         </div>
-        <div class="w-full md:w-auto md:max-w-[320px]">
+        <div class="w-full" style="max-width: 320px;">
             <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
                 Metode Bayar</h5>
             <div class="flex flex-wrap gap-3 md:justify-end">
                 @isset($paymentMethods)
                     @foreach ($paymentMethods->take(9) as $method)
                         <div
-                            class="w-[70px] h-10 md:w-[80px] md:h-12 glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden">
+                            class="glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden"
+                            style="width: 70px; height: 40px;">
                             @if ($method->image)
                                 <img src="{{ asset('storage/' . $method->image) }}" alt="{{ $method->name }}"
                                     class="h-full w-full object-contain filter grayscale brightness-200 hover:grayscale-0 transition-all duration-300">
