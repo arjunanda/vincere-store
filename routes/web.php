@@ -50,6 +50,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LandingController::class, 'register'])->name('register');
 Route::post('/register', [LandingController::class, 'registerPost'])->name('register.post');
 
+// VIPayment Internal API (Temporary for Testing)
+Route::prefix('api/vipayment')->name('api.vipayment.')->group(function () {
+    Route::get('/services', [\App\Http\Controllers\Dashboard\VipaymentController::class, 'services'])->name('services');
+    Route::get('/status', [\App\Http\Controllers\Dashboard\VipaymentController::class, 'checkStatus'])->name('status');
+});
+
 // Dashboard Routes (Protected)
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
