@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-8">
     <div>
-        <h1 class="text-3xl font-black italic uppercase tracking-tight metallic-text">Pesanan <span class="text-brand-red">Saya</span></h1>
+        <h1 class="text-3xl font-black  uppercase tracking-tight metallic-text">Pesanan <span class="text-brand-neon">Saya</span></h1>
         <p class="text-gray-500 font-medium mt-1">Riwayat transaksi dan status top-up Anda.</p>
     </div>
 

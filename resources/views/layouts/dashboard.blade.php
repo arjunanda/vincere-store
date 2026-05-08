@@ -22,7 +22,7 @@
             toast.className = `toast toast-${type}`;
 
             const icon = type === 'success' ?
-                `<div class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red">
+                `<div class="w-8 h-8 rounded-full bg-brand-neon/10 flex items-center justify-center text-brand-neon">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                 </div>` :
                 `<div class="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
@@ -278,7 +278,7 @@
             class="flex items-center justify-between mb-8 lg:hidden bg-brand-dark/50 backdrop-blur-md p-4 -mx-4 border-b border-white/5 sticky top-0 z-40">
             <x-logo size="xs" />
             <button @click="sidebarOpen = true"
-                class="p-2 bg-brand-red rounded-lg text-white shadow-lg shadow-brand-red/20">
+                class="p-2 bg-brand-neon rounded-lg text-white shadow-lg shadow-brand-neon/20">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>

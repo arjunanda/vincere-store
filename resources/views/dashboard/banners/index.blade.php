@@ -4,7 +4,7 @@
 <div class="space-y-8">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-            <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Kelola <span class="text-brand-red">Banner</span></h1>
+            <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Kelola <span class="text-brand-neon">Banner</span></h1>
             <p class="text-gray-500 font-medium mt-1">Atur slider promo di halaman depan.</p>
         </div>
         <a href="{{ route('dashboard.banners.create') }}" class="btn-metal py-3 px-8 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-3 w-fit">
@@ -16,15 +16,15 @@
     <!-- Search & Filter -->
     <form method="GET" action="{{ route('dashboard.banners') }}" class="flex flex-col md:flex-row gap-3">
         <div class="relative flex-1">
-            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
             <input type="text" name="search" value="{{ request('search') }}"
                 placeholder="Cari judul banner..."
-                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-neon/50 transition-all">
         </div>
         <select name="status" onchange="this.form.submit()"
-            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-red/50 transition-all text-white appearance-none cursor-pointer min-w-[150px]">
+            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-neon/50 transition-all text-white appearance-none cursor-pointer min-w-[150px]">
             <option value="">Semua Status</option>
             <option value="active"   {{ request('status') === 'active'   ? 'selected' : '' }}>✅ Aktif</option>
             <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>❌ Non-Aktif</option>
@@ -55,7 +55,7 @@
                         </td>
                         <td class="p-6">
                             <p class="font-bold text-white">{{ $banner->title ?? 'Tanpa Judul' }}</p>
-                            <p class="text-[10px] text-gray-500 italic">{{ $banner->link ?? 'No Link' }}</p>
+                            <p class="text-[10px] text-gray-500 ">{{ $banner->link ?? 'No Link' }}</p>
                         </td>
                         <td class="p-6 text-center">
                             <span class="text-xs font-bold text-gray-400">#{{ $banner->order_position }}</span>
@@ -69,7 +69,7 @@
                         </td>
                         <td class="p-6 text-right">
                             <div class="flex items-center justify-end gap-3">
-                                <a href="{{ route('dashboard.banners.edit', $banner) }}" class="p-2 hover:text-brand-red transition-colors text-gray-400">
+                                <a href="{{ route('dashboard.banners.edit', $banner) }}" class="p-2 hover:text-brand-neon transition-colors text-gray-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                 </a>
                                 <form action="{{ route('dashboard.banners.destroy', $banner) }}" method="POST" onsubmit="return confirm('Hapus banner ini?')">
@@ -83,7 +83,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada banner yang dipasang.</td>
+                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada banner yang dipasang.</td>
                     </tr>
                     @endforelse
                 </tbody>

@@ -1,4 +1,4 @@
-<footer class="bg-black py-24 px-6 mt-40 border-t border-white/5">
+<footer class="bg-[#1a1e26] py-24 px-6 mt-40 border-t border-white/5">
     <div class="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-24">
         <div class="w-full md:w-2/5 space-y-12">
             <a href="/">
@@ -9,23 +9,23 @@
             </p>
         </div>
         <div class="w-full md:w-1/4 md:mx-auto">
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left">
+            <h5 class="text-xs font-bold uppercase tracking-[0.3em] text-brand-neon mb-8 md:mb-12 text-left">
                 Layanan</h5>
-            <ul class="space-y-6 md:space-y-8 text-gray-400 font-bold uppercase text-xs tracking-widest text-left">
-                <li><a href="{{ route('games.index') }}" class="hover:text-white transition-colors">Semua Game</a></li>
-                <li><a href="{{ route('check.transaction') }}" class="hover:text-white transition-colors">Lacak Pesanan</a></li>
-                <li><a href="{{ route('news.index') }}" class="hover:text-white transition-colors">Berita Gaming</a></li>
-                <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
+            <ul class="space-y-6 md:space-y-8 text-gray-400 font-medium uppercase text-xs tracking-widest text-left">
+                <li><a href="{{ route('games.index') }}" class="hover:text-brand-neon transition-colors">Semua Game</a></li>
+                <li><a href="{{ route('check.transaction') }}" class="hover:text-brand-neon transition-colors">Lacak Pesanan</a></li>
+                <li><a href="{{ route('news.index') }}" class="hover:text-brand-neon transition-colors">Berita Gaming</a></li>
+                <li><a href="/sitemap.xml" class="hover:text-brand-neon transition-colors">Sitemap</a></li>
             </ul>
         </div>
         <div class="w-full" style="max-width: 320px;">
-            <h5 class="text-xs font-bold uppercase tracking-[0.5em] text-brand-red mb-8 md:mb-12 text-left md:text-right">
+            <h5 class="text-xs font-bold uppercase tracking-[0.3em] text-brand-neon mb-8 md:mb-12 text-left md:text-right">
                 Metode Bayar</h5>
             <div class="flex flex-wrap gap-3 md:justify-end">
                 @isset($paymentMethods)
                     @foreach ($paymentMethods->take(9) as $method)
                         <div
-                            class="glass-dark rounded-xl flex items-center justify-center p-2 hover:border-brand-red/50 transition-colors border border-white/5 overflow-hidden"
+                            class="glass-dark rounded-lg flex items-center justify-center p-2 hover:border-brand-neon/50 transition-colors border border-white/5 overflow-hidden"
                             style="width: 70px; height: 40px;">
                             @if ($method->image)
                                 <img src="{{ asset('storage/' . $method->image) }}" alt="{{ $method->name }}"
@@ -40,12 +40,12 @@
         </div>
     </div>
     <div class="max-w-7xl w-full mx-auto mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
-        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest text-center md:text-left">&copy; {{ date('Y') }} Ventuz Store. Seluruh Hak Cipta Dilindungi.</p>
+        <p class="text-gray-600 text-xs font-bold uppercase tracking-widest text-center md:text-left">&copy; {{ date('Y') }}. Seluruh Hak Cipta Dilindungi.</p>
         
         <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
             <div class="flex gap-6 md:gap-10 text-gray-600 text-xs font-bold uppercase tracking-widest">
-                <a href="#" class="hover:text-brand-red transition-colors">Privasi</a>
-                <a href="#" class="hover:text-brand-red transition-colors">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-brand-neon transition-colors">Privasi</a>
+                <a href="#" class="hover:text-brand-neon transition-colors">Syarat & Ketentuan</a>
             </div>
             
             <div class="h-4 w-px bg-white/10 hidden md:block"></div>
@@ -65,7 +65,7 @@
                 @endphp
                 
                 @if($emailLink)
-                <a href="mailto:{{ $emailLink }}" class="text-gray-600 hover:text-brand-red transition-transform hover:scale-110" title="Email Support">
+                <a href="mailto:{{ $emailLink }}" class="text-gray-600 hover:text-brand-neon transition-colors" title="Email Support">
                     <svg class="w-5 h-5 fill-current" viewBox="2 2 20 20">
                         <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
@@ -73,7 +73,7 @@
                 @endif
                 
                 @if($fbLink)
-                <a href="{{ str_starts_with($fbLink, 'http') ? $fbLink : 'https://' . $fbLink }}" target="_blank" class="text-gray-600 hover:text-brand-red transition-transform hover:scale-110" title="Facebook">
+                <a href="{{ str_starts_with($fbLink, 'http') ? $fbLink : 'https://' . $fbLink }}" target="_blank" class="text-gray-600 hover:text-brand-neon transition-colors" title="Facebook">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                         <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/>
                     </svg>
@@ -81,7 +81,7 @@
                 @endif
                 
                 @if($igLink !== '#')
-                <a href="{{ $igLink }}" target="_blank" class="text-gray-600 hover:text-brand-red transition-transform hover:scale-110" title="Instagram">
+                <a href="{{ $igLink }}" target="_blank" class="text-gray-600 hover:text-brand-neon transition-colors" title="Instagram">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.805.249 2.227.412.56.216.96.474 1.38.894.42.42.678.82.894 1.38.163.422.358 1.057.412 2.227.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.249 1.805-.412 2.227-.216.56-.474.96-.894 1.38-.42.42-.82.678-1.38.894-.422.163-1.057.358-2.227.412-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.805-.249-2.227-.412-.56-.216-.96-.474-1.38-.894-.42-.42-.678-.82-.894-1.38-.163-.422-.358-1.057-.412-2.227-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.17.249-1.805.412-2.227.216-.56.474-.96.894-1.38.42-.42.82-.678 1.38-.894.422-.163 1.057-.358 2.227-.412 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.277.057-2.148.258-2.911.554-.789.307-1.459.717-2.126 1.384-.666.667-1.077 1.337-1.383 2.126-.297.764-.498 1.634-.555 2.911-.058 1.28-.073 1.688-.073 4.947s.015 3.667.072 4.947c.057 1.277.258 2.148.554 2.911.307.789.717 1.459 1.384 2.126.667.666 1.337 1.077 2.126 1.383.764.297 1.634.498 2.911.555 1.28.058 1.688.073 4.947.073s3.667-.015 4.947-.072c1.277-.057 2.148-.258 2.911-.554.789-.307 1.459-.717 2.126-1.384.666-.667 1.077-1.337 1.383-2.126.297-.764.498-1.634.555-2.911.058-1.28.073-1.688.073-4.947s-.015-3.667-.072-4.947c-.057-1.277-.258-2.148-.554-2.911-.307-.789-.717-1.459-1.384-2.126-.667-.666-1.337-1.077-2.126-1.383-.764-.297-1.634-.498-2.911-.555-1.28-.058-1.688-.073-4.947-.073z"/>
                         <path d="M12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>

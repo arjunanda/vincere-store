@@ -44,16 +44,13 @@
 
             async loadMore() {
                 if (!this.nextPage || this.loading) return;
-                
                 this.loading = true;
                 try {
                     const url = new URL(this.nextPage);
-                    // Keep search/filter if needed, but for now just next page
                     const response = await fetch(url.toString(), {
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
                     const result = await response.json();
-                    
                     this.games = [...this.games, ...result.data];
                     this.nextPage = result.next_page_url;
                 } catch (error) {
@@ -67,192 +64,188 @@
 </script>
 @endpush
 
-@section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-24 space-y-16')
+@section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16 space-y-10')
 
 @section('content')
-    <!-- Header -->
-    <div class="text-center space-y-6 max-w-3xl mx-auto">
-        <h1 class="text-4xl md:text-7xl font-black tracking-tighter italic metallic-text uppercase leading-none">
-            Koleksi <span class="text-brand-red">Game</span>
-        </h1>
-        <p class="text-gray-500 text-base md:text-xl font-medium leading-relaxed">
-            Temukan berbagai game populer dan nikmati layanan top-up cepat, aman, dan harga terbaik.
-        </p>
-    </div>
 
-    <!-- Filter & Search Section -->
-    <div class="space-y-10">
-        <!-- Platform Tabs -->
-        <div class="flex justify-center">
-            <div class="w-full md:w-max overflow-hidden md:overflow-visible">
-                <div
-                    class="flex flex-nowrap items-center p-1 glass-dark rounded-xl border border-white/5 gap-1 overflow-x-auto md:overflow-x-visible custom-scrollbar">
-                    <button @click="category = 'all'"
-                        :class="category === 'all' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        Semua Platform
-                    </button>
-                    <button @click="category = 'mobile'"
-                        :class="category === 'mobile' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                        </svg>
-                        Mobile
-                    </button>
-                    <button @click="category = 'pc'"
-                        :class="category === 'pc' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        PC
-                    </button>
-                    <button @click="category = 'console'"
-                        :class="category === 'console' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                        </svg>
-                        Console
-                    </button>
-                </div>
-            </div>
+    {{-- ── Page Header ── --}}
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-brand-neon mb-2">Katalog Lengkap</p>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none text-white">
+                Daftar <span class="text-brand-neon">Game</span>
+            </h1>
+            <p class="text-gray-500 text-sm mt-3 font-medium max-w-md leading-relaxed">
+                Top-up game favorit kamu dengan cepat, aman, dan harga terbaik.
+            </p>
         </div>
 
-        <!-- Search & Secondary Filter -->
-        <div
-            class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white/[0.02] p-4 md:p-6 rounded-xl border border-white/5 shadow-2xl">
-            <!-- Search Bar -->
-            <div class="relative flex-1 max-w-xl">
-                <input type="text" x-model="search" placeholder="Cari game favoritmu..."
-                    class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 px-14 focus:outline-none focus:border-brand-red/50 transition-all text-sm font-medium">
-                <div class="absolute left-5 top-1/2 -translate-y-1/2 text-brand-red">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        {{-- Stats --}}
+        <div class="flex items-center gap-4 flex-shrink-0">
+            <div class="text-center px-5 py-3 rounded-xl border border-white/[0.07]" style="background:#1a1d27">
+                <p class="text-xl font-black text-brand-neon leading-none">{{ $games->total() }}+</p>
+                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-1">Game</p>
+            </div>
+            <div class="text-center px-5 py-3 rounded-xl border border-white/[0.07]" style="background:#1a1d27">
+                <p class="text-xl font-black text-white leading-none">24/7</p>
+                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-1">Instan</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- ── Filter Bar ── --}}
+    <div class="rounded-2xl border border-white/[0.07] p-4 space-y-4" style="background:#1a1d27">
+
+        {{-- Search --}}
+        <div class="relative">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon pointer-events-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <input type="text" x-model="search"
+                placeholder="Cari nama game..."
+                class="w-full bg-white/[0.04] border border-white/[0.07] rounded-xl py-3 pl-12 pr-4
+                    focus:outline-none focus:border-brand-neon/40 focus:bg-white/[0.06]
+                    transition-all text-[14px] font-medium placeholder:text-white/25 text-white">
+        </div>
+
+        {{-- Platform + Category Filter --}}
+        <div class="flex flex-wrap gap-2 items-center justify-between">
+
+            {{-- Platform tabs --}}
+            <div class="flex flex-wrap gap-1.5">
+                @foreach([
+                    ['val' => 'all',     'label' => 'Semua',   'icon' => 'M4 6h16M4 12h16M4 18h16'],
+                    ['val' => 'mobile',  'label' => 'Mobile',  'icon' => 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z'],
+                    ['val' => 'pc',      'label' => 'PC',      'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
+                    ['val' => 'console', 'label' => 'Console', 'icon' => 'M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z'],
+                ] as $tab)
+                    <button @click="category = '{{ $tab['val'] }}'"
+                        :class="category === '{{ $tab['val'] }}'
+                            ? 'bg-brand-neon text-black border-transparent shadow-sm shadow-brand-neon/20'
+                            : 'bg-white/[0.03] text-gray-400 border-white/[0.07] hover:text-white hover:bg-white/[0.07]'"
+                        class="flex items-center gap-2 px-4 py-2 rounded-xl border text-[12px] font-bold uppercase tracking-wide transition-all duration-200 whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="{{ $tab['icon'] }}" />
+                        </svg>
+                        {{ $tab['label'] }}
+                    </button>
+                @endforeach
+            </div>
+
+            {{-- Service Dropdown --}}
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" @click.away="open = false"
+                    class="flex items-center gap-3 px-4 py-2 rounded-xl border border-white/[0.07] bg-white/[0.03]
+                        hover:border-white/20 hover:bg-white/[0.06] transition-all text-[12px] font-bold uppercase tracking-wide text-gray-400 hover:text-white whitespace-nowrap">
+                    <span x-text="service === 'all' ? 'Semua Layanan' : (serviceNames[service] || 'Layanan')"></span>
+                    <svg class="w-3.5 h-3.5 transition-transform" :class="open ? 'rotate-180' : ''"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
                     </svg>
-                </div>
-            </div>
-
-            <!-- Service Filter Dropdown -->
-            <div class="flex items-center gap-4" x-data="{ open: false }">
-                <span class="hidden lg:block text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Tipe
-                    Layanan:</span>
-                <div class="relative w-full md:w-64">
-                    <button @click="open = !open" @click.away="open = false"
-                        class="w-full flex items-center justify-between px-6 py-4 glass-dark rounded-xl border border-white/10 hover:border-brand-red/30 transition-all group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full"
-                                :class="service === 'all' ? 'bg-white/40' : 'bg-brand-red shadow-[0_0_8px_#e11d48]'"></div>
-                            <span class="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white"
-                                x-text="service === 'all' ? 'Semua Layanan' : (serviceNames[service] || 'Layanan')"></span>
-                        </div>
-                        <svg class="w-4 h-4 text-gray-500 transition-transform" :class="open ? 'rotate-180' : ''"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-                        </svg>
+                </button>
+                <div x-show="open" x-transition x-cloak
+                    class="absolute right-0 top-full mt-2 w-52 rounded-xl border border-white/[0.07] shadow-2xl z-20 overflow-hidden"
+                    style="background:#1a1d27">
+                    <button @click="service = 'all'; open = false"
+                        class="w-full flex items-center gap-3 px-4 py-3 text-[12px] font-bold uppercase tracking-wide transition-all hover:bg-white/[0.05]"
+                        :class="service === 'all' ? 'text-brand-neon' : 'text-gray-400'">
+                        <div class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                            :class="service === 'all' ? 'bg-brand-neon' : 'bg-white/20'"></div>
+                        Semua Layanan
                     </button>
-                    <div x-show="open" x-transition
-                        class="absolute top-full left-0 right-0 mt-3 p-1.5 glass-dark rounded-xl border border-white/10 shadow-2xl z-20">
-                        <button @click="service = 'all'; open = false"
-                            class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl hover:bg-white/5 transition-all group/item">
-                            <div class="w-1.5 h-1.5 rounded-full"
-                                :class="service === 'all' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'"></div>
-                            <span class="text-[10px] font-bold uppercase tracking-widest"
-                                :class="service === 'all' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">Semua
-                                Layanan</span>
+                    @foreach($categories as $cat)
+                        <button @click="service = '{{ $cat->slug }}'; open = false"
+                            class="w-full flex items-center gap-3 px-4 py-3 text-[12px] font-bold uppercase tracking-wide transition-all hover:bg-white/[0.05]"
+                            :class="service === '{{ $cat->slug }}' ? 'text-brand-neon' : 'text-gray-400'">
+                            <div class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                :class="service === '{{ $cat->slug }}' ? 'bg-brand-neon' : 'bg-white/20'"></div>
+                            {{ $cat->name }}
                         </button>
-                        @foreach($categories as $cat)
-                            <button @click="service = '{{ $cat->slug }}'; open = false"
-                                class="w-full flex items-center gap-3 px-5 py-3.5 rounded-xl hover:bg-white/5 transition-all group/item">
-                                <div class="w-1.5 h-1.5 rounded-full"
-                                    :class="service === '{{ $cat->slug }}' ? 'bg-brand-red shadow-[0_0_8px_#e11d48]' : 'bg-white/20'">
-                                </div>
-                                <span class="text-[10px] font-bold uppercase tracking-widest"
-                                    :class="service === '{{ $cat->slug }}' ? 'text-white' : 'text-gray-500 group-hover/item:text-white'">{{ $cat->name }}</span>
-                            </button>
-                        @endforeach
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+
+        {{-- Result count --}}
+        <p class="text-[11px] text-gray-600 font-medium" x-text="`Menampilkan ${filteredGames.length} game`"></p>
     </div>
 
-    <!-- Game Grid -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-10">
+    {{-- ── Game Grid ── --}}
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-6">
         <template x-for="game in filteredGames" :key="game.id">
-            <div x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0 translate-y-10 scale-90"
-                x-transition:enter-end="opacity-100 translate-y-0 scale-100">
+            <div x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100">
 
                 <a :href="'/game/' + game.slug"
-                    class="block relative aspect-[3/4] rounded-xl overflow-hidden metal-card group">
-                    <img :src="game.image" :alt="game.name"
-                        class="w-full h-full object-cover transition-transform duration-700 opacity-80 group-hover:opacity-100 group-hover:scale-110"
-                        loading="lazy">
-                    <div class="absolute top-4 right-4 z-10">
-                        <div
-                            class="glass-dark px-3 py-1.5 rounded-xl border border-white/10 group-hover:border-brand-red/50 transition-colors">
-                            <p class="text-[10px] text-white font-black uppercase tracking-widest" x-text="game.category">
-                            </p>
+                    class="block metal-card p-2 md:p-3 rounded-2xl group transition-all duration-300">
+                    
+                    {{-- Game Cover --}}
+                    <div class="aspect-square rounded-xl overflow-hidden mb-3 md:mb-4 border border-white/5 group-hover:border-brand-neon/50 transition-colors shadow-lg">
+                        <img :src="game.image" :alt="game.name"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy">
+                    </div>
+
+                    {{-- Info --}}
+                    <div class="px-1 pb-1 space-y-3">
+                        <h4
+                            class="text-[9px] sm:text-[10px] md:text-xs font-bold tracking-tight uppercase text-center line-clamp-1 group-hover:text-brand-neon transition-colors"
+                            x-text="game.name">
+                        </h4>
+
+                        <div class="flex justify-center">
+                            <div
+                                class="w-full py-2 rounded-xl bg-brand-neon text-black transition-all duration-300 shadow-[0_0_15px_rgba(124,255,0,0.2)] group-hover:shadow-[0_0_25px_rgba(124,255,0,0.4)] group-hover:scale-[1.02]">
+                                <span
+                                    class="text-[8px] sm:text-[9px] md:text-[11px] font-black uppercase tracking-widest block text-center">Top
+                                    Up</span>
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-95 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <div
-                        class="absolute bottom-8 md:bottom-12 left-0 right-0 px-6 text-center flex flex-col items-center gap-1">
-                        <h4 class="text-sm md:text-xl font-black tracking-tight italic uppercase px-1 item-title"
-                            x-text="game.name"></h4>
-                        <!-- Decorative Line -->
-                        <div class="w-0 group-hover:w-12 h-0.5 bg-brand-red transition-all duration-500 mt-1"></div>
                     </div>
                 </a>
             </div>
         </template>
     </div>
 
-    <!-- Empty State -->
-    <div x-show="filteredGames.length === 0" class="text-center py-20" x-cloak>
-        <div class="w-24 h-24 mx-auto mb-6 text-gray-600">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    {{-- ── Empty State ── --}}
+    <div x-show="filteredGames.length === 0" x-cloak class="text-center py-24 space-y-4">
+        <div class="w-16 h-16 mx-auto rounded-2xl border border-white/[0.07] flex items-center justify-center text-gray-600" style="background:#1a1d27">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
         </div>
-        <h3 class="text-xl font-black uppercase italic tracking-widest text-white">Pencarian Tidak Ditemukan</h3>
-        <p class="text-gray-500 mt-2 font-medium">Coba gunakan kata kunci atau filter layanan yang berbeda.</p>
+        <h3 class="text-base font-black uppercase tracking-widest text-white">Game Tidak Ditemukan</h3>
+        <p class="text-gray-500 text-sm font-medium">Coba kata kunci atau filter yang berbeda.</p>
+        <button @click="search = ''; category = 'all'; service = 'all'"
+            class="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-xl border border-white/10 text-[12px] font-bold text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/[0.04] transition-all">
+            Reset Filter
+        </button>
     </div>
 
-    <!-- Load More Button -->
-    <div class="flex justify-center mt-12 md:mt-16" x-show="nextPage" x-cloak>
+    {{-- ── Load More ── --}}
+    <div class="flex justify-center" x-show="nextPage" x-cloak>
         <button @click="loadMore()" :disabled="loading"
-            class="group flex items-center gap-3 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl transition-all duration-300 disabled:opacity-50">
-            <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white" 
-                  x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak'"></span>
-            
+            class="flex items-center gap-3 px-8 py-3 rounded-xl border border-white/[0.07] text-[13px] font-bold text-gray-400
+                hover:text-white hover:border-brand-neon/40 hover:bg-brand-neon/[0.06] transition-all duration-200 disabled:opacity-40"
+            style="background:#1a1d27">
             <template x-if="!loading">
-                <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-1 transition-transform duration-500" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </template>
-            
             <template x-if="loading">
-                <svg class="animate-spin h-4 w-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24">
+                <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
             </template>
+            <span x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak'"></span>
         </button>
     </div>
-    </div>
+
 @endsection

@@ -12,18 +12,10 @@ class UserSeeder extends Seeder
     {
         // ── Super Admin ────────────────────────────────────────────
         User::updateOrCreate(
-            ['email' => 'admin@ventuzstore.id'],
+            ['email' => 'admin@admin.id'],
             [
                 'name' => 'Administrator',
-                'password' => Hash::make('V3ntuz@Adm!n#2026'),
-                'role' => 'admin',
-            ]
-        );
-        User::updateOrCreate(
-            ['email' => 'admin@junastack.id'],
-            [
-                'name' => 'Arjunanda',
-                'password' => Hash::make('V3ntuz@Adm!n#2026'),
+                'password' => Hash::make('password'),
                 'role' => 'admin',
             ]
         );

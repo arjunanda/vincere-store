@@ -4,7 +4,7 @@
     <div class="space-y-8">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-                <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Kelola <span class="text-brand-red">Game</span></h1>
+                <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Kelola <span class="text-brand-neon">Game</span></h1>
                 <p class="text-gray-500 font-medium mt-1">Manajemen katalog produk dan harga layanan.</p>
             </div>
             <a href="{{ route('dashboard.games.create') }}"
@@ -68,7 +68,7 @@
                                 <td class="p-6">
                                     <div class="flex items-center gap-4">
                                         <img src="{{ asset('storage/' . $game->image) }}"
-                                            class="w-12 h-12 rounded-xl object-cover border border-white/10 group-hover:border-brand-red/50 transition-colors">
+                                            class="w-12 h-12 rounded-xl object-cover border border-white/10 group-hover:border-brand-neon/50 transition-colors">
                                         <div>
                                             <p class="font-bold text-white">{{ $game->name }}</p>
                                             <p class="text-[10px] text-gray-500 uppercase tracking-widest">{{ $game->slug }}</p>
@@ -102,7 +102,7 @@
                                             Set Item
                                         </a>
                                         <a href="{{ route('dashboard.games.edit', $game) }}"
-                                            class="p-1.5 hover:text-brand-red transition-colors text-gray-400">
+                                            class="p-1.5 hover:text-brand-neon transition-colors text-gray-400">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -124,7 +124,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada game yang
+                                <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada game yang
                                     terdaftar.</td>
                             </tr>
                         @endforelse

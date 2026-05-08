@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Semua <span class="text-brand-red">Pesanan</span></h1>
+            <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Semua <span class="text-brand-neon">Pesanan</span></h1>
             <p class="text-gray-500 font-medium mt-1">Daftar seluruh transaksi yang masuk ke Ventuz Store.</p>
         </div>
         <div class="text-sm text-gray-500 font-medium">
@@ -17,16 +17,16 @@
     <form method="GET" action="{{ route('dashboard.orders') }}" class="flex flex-col md:flex-row gap-3">
         <!-- Search -->
         <div class="relative flex-1">
-            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
             <input type="text" name="search" value="{{ request('search') }}"
                 placeholder="Cari invoice, game, atau metode bayar..."
-                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-neon/50 transition-all">
         </div>
         <!-- Status Filter -->
         <select name="status" onchange="this.form.submit()"
-            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-red/50 transition-all text-white appearance-none cursor-pointer min-w-[160px]">
+            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-neon/50 transition-all text-white appearance-none cursor-pointer min-w-[160px]">
             <option value="">Semua Status</option>
             <option value="pending"  {{ request('status') === 'pending'  ? 'selected' : '' }}>⏳ Pending</option>
             <option value="verif"    {{ request('status') === 'verif'    ? 'selected' : '' }}>🔍 Verifikasi</option>
@@ -104,14 +104,14 @@
                             </td>
                             <td class="p-6">
                                 @if($order->proof_of_payment)
-                                    <a href="{{ asset('storage/' . $order->proof_of_payment) }}" target="_blank" class="block w-12 h-12 rounded-lg overflow-hidden border border-white/10 hover:border-brand-red/50 transition-colors group relative">
+                                    <a href="{{ asset('storage/' . $order->proof_of_payment) }}" target="_blank" class="block w-12 h-12 rounded-lg overflow-hidden border border-white/10 hover:border-brand-neon/50 transition-colors group relative">
                                         <img src="{{ asset('storage/' . $order->proof_of_payment) }}" class="w-full h-full object-cover" alt="Bukti Pembayaran">
                                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
                                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                         </div>
                                     </a>
                                 @else
-                                    <span class="text-xs text-gray-600 italic">Belum ada</span>
+                                    <span class="text-xs text-gray-600 ">Belum ada</span>
                                 @endif
                             </td>
                             <td class="p-6">
@@ -125,7 +125,7 @@
                                     <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-black uppercase tracking-widest border border-blue-500/20">PROCESSING</span>
                                 </template>
                                 <template x-if="deliveryStatus !== 'success' && deliveryStatus !== 'failed' && paymentStatus === 'verif'">
-                                    <span class="px-3 py-1 rounded-full bg-brand-red/10 text-brand-red text-[10px] font-black uppercase tracking-widest border border-brand-red/20">VERIFY</span>
+                                    <span class="px-3 py-1 rounded-full bg-brand-neon/10 text-brand-neon text-[10px] font-black uppercase tracking-widest border border-brand-neon/20">VERIFY</span>
                                 </template>
                                 <template x-if="deliveryStatus !== 'success' && deliveryStatus !== 'failed' && paymentStatus !== 'paid' && paymentStatus !== 'failed' && paymentStatus !== 'verif'">
                                     <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase tracking-widest border border-amber-500/20">PENDING</span>
@@ -144,14 +144,14 @@
                                         </div>
                                     </template>
                                     <template x-if="deliveryStatus === 'success' || deliveryStatus === 'failed'">
-                                        <span class="text-xs text-gray-500 font-bold italic" x-text="deliveryStatus.toUpperCase()"></span>
+                                        <span class="text-xs text-gray-500 font-bold " x-text="deliveryStatus.toUpperCase()"></span>
                                     </template>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada transaksi yang tersedia.</td>
+                            <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada transaksi yang tersedia.</td>
                         </tr>
                     @endforelse
                 </tbody>

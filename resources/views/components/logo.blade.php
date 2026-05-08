@@ -47,19 +47,11 @@
                 {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @else
-            <img src="{{ asset('assets/images-logo/logo-2.jpeg') }}" 
+            <img src="{{ asset('assets/images-logo/logo.png') }}" 
                 alt="Ventuz Logo"
                 {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @endif
-        <div class="absolute inset-0 bg-brand-red/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-    </div>
-    <div class="flex flex-col items-center leading-none">
-        <span class="{{ $current['ventuz'] }} font-black italic tracking-tighter metallic-text uppercase pr-2">Ventuz</span>
-        <div class="flex items-center gap-2 {{ $current['line_w'] }} -mt-1">
-            <div class="{{ $current['line_h'] }} flex-1 bg-brand-red/40"></div>
-            <span class="{{ $current['store'] }} font-black text-brand-red tracking-[0.2em] uppercase">Store</span>
-            <div class="{{ $current['line_h'] }} flex-1 bg-brand-red/40"></div>
-        </div>
+        <div class="absolute inset-0 bg-brand-neon/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
     </div>
 </div>

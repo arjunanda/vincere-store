@@ -75,49 +75,79 @@
     <style>
         .metal-card {
             display: block;
-            background: #0f0f0f !important;
-            background: linear-gradient(145deg, #121212, #080808) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #2A2F3A !important;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 1;
             overflow: hidden;
+            border-radius: 12px;
         }
 
         .metal-card:hover {
-            transform: translateY(-10px);
-            border-color: #e11d48 !important;
-            background: #151515 !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(225, 29, 72, 0.15);
+            transform: translateY(-4px);
+            border-color: rgba(124, 255, 0, 0.4) !important;
+            box-shadow: 0 10px 30px rgba(124, 255, 0, 0.1);
         }
 
-        .metal-card.active {
-            border-color: #e11d48 !important;
-            background: #151515 !important;
-            box-shadow: 0 0 30px rgba(225, 29, 72, 0.25);
-            transform: translateY(-5px);
+        .section-header {
+            background: rgba(42, 47, 58, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #7CFF00, transparent);
+            opacity: 0.3;
         }
 
         .item-title {
-            background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.7));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #FFFFFF;
             transition: all 0.3s ease;
         }
 
         .group:hover .item-title {
-            background: none !important;
-            -webkit-text-fill-color: #e11d48 !important;
-            color: #e11d48 !important;
+            color: #7CFF00 !important;
         }
 
         .premium-glow {
-            box-shadow: 0 0 40px rgba(225, 29, 72, 0.2);
+            box-shadow: 0 0 40px rgba(124, 255, 0, 0.1);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .float-icon {
+            animation: float 4s ease-in-out infinite;
         }
 
         .btn-metal {
-            background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+            background: #7CFF00;
+            color: #000;
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
@@ -132,22 +162,8 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e11d48;
+            background: #7CFF00;
             border-radius: 10px;
-        }
-
-        .metallic-text {
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 25%, #4b5563 50%, #a1a1aa 75%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shine 8s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
         }
 
         .whatsapp-float {
@@ -158,73 +174,45 @@
         }
 
         .cs-main-btn {
-            background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
-            color: white;
+            background: #7CFF00;
+            color: #000;
             padding: 12px 24px;
-            border-radius: 16px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.3);
+            box-shadow: 0 10px 25px rgba(124, 255, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
 
         .cs-main-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(225, 29, 72, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(124, 255, 0, 0.3);
         }
 
         .cs-main-btn.active {
-            background: #111;
-            border-color: rgba(255, 255, 255, 0.1);
+            background: #1A1A1A;
+            color: #7CFF00;
+            border-color: rgba(124, 255, 0, 0.3);
         }
 
         .cs-menu-item {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .cs-ig {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-
-        .cs-wa {
-            background: #25D366;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: #1A1A1A;
         }
 
         .cs-menu-item:hover {
-            transform: scale(1.1);
-        }
-
-        .whatsapp-pulse {
-            position: absolute;
-            inset: -4px;
-            background: #e11d48;
-            border-radius: 18px;
-            z-index: -1;
-            animation: pulse-wa 2s infinite;
-            opacity: 0;
-        }
-
-        @keyframes pulse-wa {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(1.3);
-                opacity: 0;
-            }
+            transform: scale(1.05);
+            border-color: #7CFF00;
         }
 
         /* Status Stamps */
@@ -248,7 +236,7 @@
         }
 
         .stamp-success {
-            color: #10b981;
+            color: #7CFF00;
         }
 
         .stamp-failed {
@@ -270,7 +258,8 @@
     @stack('styles')
 </head>
 
-<body class="bg-[#050505] text-white selection:bg-brand-red selection:text-white overflow-x-hidden" @yield('body_attr')>
+<body class="bg-[#050505] text-white selection:bg-brand-neon selection:text-white overflow-x-hidden"
+    @yield('body_attr')>
     @unless(View::hasSection('hide_layout_elements'))
         @include('layouts.partials.navbar')
     @endunless

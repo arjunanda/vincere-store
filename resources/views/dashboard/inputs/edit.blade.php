@@ -14,15 +14,15 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-            <a href="{{ route('dashboard.inputs') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-red flex items-center gap-2 mb-4 transition-colors">
+            <a href="{{ route('dashboard.inputs') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-neon flex items-center gap-2 mb-4 transition-colors">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                 Kembali
             </a>
             <div class="flex flex-col md:flex-row md:items-center gap-4">
-                <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Kelola <span class="text-brand-red">Field</span></h1>
-                <button @click="openRename = true" class="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:border-brand-red/50 transition-all group w-fit">
+                <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Kelola <span class="text-brand-neon">Field</span></h1>
+                <button @click="openRename = true" class="flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:border-brand-neon/50 transition-all group w-fit">
                     <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-hover:text-white">{{ $group->name }}</span>
-                    <svg class="w-4 h-4 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                    <svg class="w-4 h-4 text-brand-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 </button>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     <tr class="hover:bg-white/[0.01] transition-colors group">
                         <td class="p-6">
                             <p class="font-bold text-white">{{ $field->label }}</p>
-                            <p class="text-[10px] text-gray-500 font-medium italic">Key: <span class="text-brand-red">{{ $field->name }}</span></p>
+                            <p class="text-[10px] text-gray-500 font-medium ">Key: <span class="text-brand-neon">{{ $field->name }}</span></p>
                         </td>
                         <td class="p-6">
                             <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full text-gray-400 border border-white/10">
@@ -59,7 +59,7 @@
                             </span>
                         </td>
                         <td class="p-6">
-                            <span class="text-xs text-gray-500 italic">{{ $field->placeholder ?? '-' }}</span>
+                            <span class="text-xs text-gray-500 ">{{ $field->placeholder ?? '-' }}</span>
                         </td>
                         <td class="p-6">
                             @if($field->max_length)
@@ -70,7 +70,7 @@
                         </td>
                         <td class="p-6 text-right">
                             <div class="flex items-center justify-end gap-3">
-                                <button type="button" @click="openEditModal({ id: {{ $field->id }}, label: '{{ addslashes($field->label) }}', type: '{{ $field->type }}', placeholder: '{{ addslashes($field->placeholder ?? '') }}', max_length: '{{ $field->max_length ?? '' }}' })" class="p-1.5 hover:text-brand-red transition-colors text-gray-400">
+                                <button type="button" @click="openEditModal({ id: {{ $field->id }}, label: '{{ addslashes($field->label) }}', type: '{{ $field->type }}', placeholder: '{{ addslashes($field->placeholder ?? '') }}', max_length: '{{ $field->max_length ?? '' }}' })" class="p-1.5 hover:text-brand-neon transition-colors text-gray-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                 </button>
                                 <form action="{{ route('dashboard.inputs.fields.destroy', $field) }}" method="POST" onsubmit="return confirm('Hapus field ini?')">
@@ -84,7 +84,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada field untuk template ini.</td>
+                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada field untuk template ini.</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -97,14 +97,14 @@
         <div class="fixed inset-0 z-[9999] flex items-center justify-center p-6">
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openRename = false" x-transition.opacity></div>
             <div class="stat-card relative w-full max-w-md shadow-2xl" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
-                <h3 class="text-lg font-black italic uppercase text-white mb-6">Ubah Nama <span class="text-brand-red">Template</span></h3>
+                <h3 class="text-lg font-black  uppercase text-white mb-6">Ubah Nama <span class="text-brand-neon">Template</span></h3>
                 <form action="{{ route('dashboard.inputs.update', $group) }}" method="POST">
                     @csrf @method('PUT')
                     <div class="space-y-4">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1 block mb-2">Nama Template <span class="text-brand-red">*</span></label>
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1 block mb-2">Nama Template <span class="text-brand-neon">*</span></label>
                             <input type="text" name="name" value="{{ $group->name }}" class="w-full input-metal rounded-xl py-4 px-6 text-sm" required>
-                            @error('name') <p class="text-brand-red text-[10px] italic mt-1 ml-1">{{ $message }}</p> @enderror
+                            @error('name') <p class="text-brand-neon text-[10px]  mt-1 ml-1">{{ $message }}</p> @enderror
                         </div>
                         <div class="flex gap-3">
                             <button type="button" @click="openRename = false" class="flex-1 py-3 px-6 bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-500">Batal</button>
@@ -121,15 +121,15 @@
         <div class="fixed inset-0 z-[9999] flex items-center justify-center p-6">
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openAddField = false" x-transition.opacity></div>
             <div class="stat-card relative w-full max-w-md shadow-2xl" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
-                <h3 class="text-lg font-black italic uppercase text-white mb-6">Tambah <span class="text-brand-red">Field Baru</span></h3>
+                <h3 class="text-lg font-black  uppercase text-white mb-6">Tambah <span class="text-brand-neon">Field Baru</span></h3>
                 <form action="{{ route('dashboard.inputs.fields.store', $group) }}" method="POST" class="space-y-5">
                     @csrf
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Label Input <span class="text-brand-red">*</span></label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Label Input <span class="text-brand-neon">*</span></label>
                         <input type="text" name="label" required placeholder="Contoh: Masukkan User ID" class="w-full input-metal rounded-xl py-3 px-4 text-xs">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Tipe Input <span class="text-brand-red">*</span></label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Tipe Input <span class="text-brand-neon">*</span></label>
                         <select name="type" required class="w-full input-metal rounded-xl py-3 px-4 text-xs appearance-none">
                             <option value="text">Text / Angka</option>
                             <option value="number">Hanya Angka</option>
@@ -158,15 +158,15 @@
         <div class="fixed inset-0 z-[9999] flex items-center justify-center p-6">
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openFieldEdit = false" x-transition.opacity></div>
             <div class="stat-card relative w-full max-w-md shadow-2xl" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
-                <h3 class="text-lg font-black italic uppercase text-white mb-6">Edit <span class="text-brand-red">Field</span></h3>
+                <h3 class="text-lg font-black  uppercase text-white mb-6">Edit <span class="text-brand-neon">Field</span></h3>
                 <form :action="'{{ url('dashboard/inputs/fields') }}/' + editData.id" method="POST" class="space-y-5">
                     @csrf @method('PUT')
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Label Input <span class="text-brand-red">*</span></label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Label Input <span class="text-brand-neon">*</span></label>
                         <input type="text" name="label" x-model="editData.label" class="w-full input-metal rounded-xl py-3 px-4 text-xs" required>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Tipe Input <span class="text-brand-red">*</span></label>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Tipe Input <span class="text-brand-neon">*</span></label>
                         <select name="type" x-model="editData.type" required class="w-full input-metal rounded-xl py-3 px-4 text-xs appearance-none">
                             <option value="text">Text / Angka</option>
                             <option value="number">Hanya Angka</option>

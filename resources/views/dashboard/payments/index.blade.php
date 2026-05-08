@@ -4,8 +4,8 @@
     <div class="space-y-8">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-                <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Metode <span
-                        class="text-brand-red">Pembayaran</span></h1>
+                <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Metode <span
+                        class="text-brand-neon">Pembayaran</span></h1>
                 <p class="text-gray-500 font-medium mt-1">Kelola bank, e-wallet, dan QRIS untuk pembayaran.</p>
             </div>
             <a href="{{ route('dashboard.payments.create') }}"
@@ -45,7 +45,7 @@
                             <h3 class="font-bold text-white truncate">{{ $payment->name }}</h3>
                             <p class="text-xs text-gray-500 font-medium truncate">
                                 {{ $payment->account_number ?? $payment->code }}</p>
-                            <p class="text-[10px] text-gray-600 truncate mt-1 italic">
+                            <p class="text-[10px] text-gray-600 truncate mt-1 ">
                                 {{ $payment->account_name ?? 'Digital System' }}</p>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                 </div>
             @empty
                 <div class="col-span-full py-20 text-center stat-card border-dashed">
-                    <p class="text-gray-500 italic">Belum ada metode pembayaran.</p>
+                    <p class="text-gray-500 ">Belum ada metode pembayaran.</p>
                 </div>
             @endforelse
         </div>

@@ -3,11 +3,11 @@
 @section('content')
 <div class="max-w-5xl mx-auto space-y-8">
     <div>
-        <a href="{{ route('dashboard.articles') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-red flex items-center gap-2 mb-4 transition-colors">
+        <a href="{{ route('dashboard.articles') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-neon flex items-center gap-2 mb-4 transition-colors">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Kembali
         </a>
-        <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Tulis <span class="text-brand-red">Artikel Baru</span></h1>
+        <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Tulis <span class="text-brand-neon">Artikel Baru</span></h1>
     </div>
 
     <form action="{{ route('dashboard.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
@@ -18,12 +18,12 @@
                 <div class="stat-card space-y-6">
                     <div class="space-y-3">
                         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Judul Artikel</label>
-                        <input type="text" name="title" required placeholder="Contoh: Update Patch Note MLBB v1.2" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white font-bold text-lg">
+                        <input type="text" name="title" required placeholder="Contoh: Update Patch Note MLBB v1.2" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-bold text-lg">
                     </div>
 
                     <div class="space-y-3">
                         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Konten Lengkap</label>
-                        <textarea name="content" id="content-editor" rows="15" required class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-6 px-6 focus:outline-none focus:border-brand-red/50 text-white font-medium leading-relaxed" placeholder="Tulis artikel di sini..."></textarea>
+                        <textarea name="content" id="content-editor" rows="15" required class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-6 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-medium leading-relaxed" placeholder="Tulis artikel di sini..."></textarea>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <div class="stat-card space-y-6 sticky top-24">
                     <div class="space-y-3">
                         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Tipe Konten</label>
-                        <select name="type" required class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white font-medium appearance-none">
+                        <select name="type" required class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-medium appearance-none">
                             <option value="berita" class="bg-black">Berita / Update</option>
                             <option value="promo" class="bg-black">Promo / Event</option>
                         </select>
@@ -51,7 +51,7 @@
                         }
                     }">
                         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Thumbnail Artikel</label>
-                        <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed border-white/10 group hover:border-brand-red/50 transition-all">
+                        <div class="flex flex-col items-center gap-4 p-6 bg-white/[0.02] rounded-2xl border border-dashed border-white/10 group hover:border-brand-neon/50 transition-all">
                             <div class="w-full aspect-video rounded-xl bg-white/5 flex items-center justify-center overflow-hidden border border-white/10">
                                 <template x-if="photoPreview">
                                     <img :src="photoPreview" class="w-full h-full object-cover">
@@ -72,10 +72,10 @@
 
                     <div class="space-y-3">
                         <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Ringkasan (Excerpt)</label>
-                        <textarea name="excerpt" rows="3" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white text-xs leading-relaxed" placeholder="Ringkasan singkat artikel..."></textarea>
+                        <textarea name="excerpt" rows="3" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white text-xs leading-relaxed" placeholder="Ringkasan singkat artikel..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-red/20">
+                    <button type="submit" class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-neon/20">
                         <span class="btn-text">Terbitkan Artikel</span>
                     </button>
                 </div>
@@ -94,7 +94,7 @@
             content_css: 'dark',
             height: 500,
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold  underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
             menubar: false,
             setup: function (editor) {
                 editor.on('change', function () { editor.save(); });

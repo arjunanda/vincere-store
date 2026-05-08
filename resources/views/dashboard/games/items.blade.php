@@ -6,21 +6,21 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex-1 min-w-0">
                 <a href="{{ route('dashboard.games') }}"
-                    class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-red flex items-center gap-2 mb-2 transition-colors">
+                    class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-neon flex items-center gap-2 mb-2 transition-colors">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                     Kembali
                 </a>
-                <h1 class="text-xl md:text-3xl font-black italic uppercase tracking-tight truncate">
-                    Set Item: <span class="text-brand-red">{{ $game->name }}</span>
+                <h1 class="text-xl md:text-3xl font-black  uppercase tracking-tight truncate">
+                    Set Item: <span class="text-brand-neon">{{ $game->name }}</span>
                 </h1>
                 <p class="text-gray-500 font-medium mt-1 text-[10px] md:text-sm">Manajemen varian produk dan harga.</p>
             </div>
             <div class="flex items-center gap-3">
                 <button @click="copyModal = true"
-                    class="px-6 py-3 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:border-brand-red hover:text-brand-red transition-all">
+                    class="px-6 py-3 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-400 hover:border-brand-neon hover:text-brand-neon transition-all">
                     Import Item (.csv)
                 </button>
             </div>
@@ -29,9 +29,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <!-- Form Section (Above on Mobile) -->
             <div class="lg:col-span-1 space-y-6 lg:sticky lg:top-24 order-1">
-                <div class="stat-card border-brand-red/20 border">
+                <div class="stat-card border-brand-neon/20 border">
                     <div class="mb-8">
-                        <h3 class="text-lg font-black italic uppercase text-white">Tambah <span class="text-brand-red">Item Baru</span></h3>
+                        <h3 class="text-lg font-black  uppercase text-white">Tambah <span class="text-brand-neon">Item Baru</span></h3>
                         <p class="text-[10px] text-gray-500 font-medium uppercase tracking-widest mt-1">Input varian & harga jaring.</p>
                     </div>
 
@@ -48,7 +48,7 @@
                                 class="w-full input-metal rounded-2xl py-4 px-6 text-sm">
                         </div>
                         <button type="submit"
-                            class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-brand-red/20 mt-4">
+                            class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-brand-neon/20 mt-4">
                             Simpan Item Baru
                         </button>
                     </form>
@@ -77,12 +77,12 @@
                                             <p class="font-bold text-white uppercase tracking-tight text-sm">{{ $variant->name }}</p>
                                         </td>
                                         <td class="p-6">
-                                            <span class="text-brand-red font-black italic">Rp {{ number_format($variant->price, 0, ',', '.') }}</span>
+                                            <span class="text-brand-neon font-black ">Rp {{ number_format($variant->price, 0, ',', '.') }}</span>
                                         </td>
                                         <td class="p-6 text-right">
                                             <div class="flex items-center justify-end gap-3">
                                                 <a href="{{ route('dashboard.items.edit', $variant) }}"
-                                                    class="p-2 hover:text-brand-red transition-colors text-gray-400">
+                                                    class="p-2 hover:text-brand-neon transition-colors text-gray-400">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
@@ -101,7 +101,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="p-12 text-center text-gray-600 font-medium italic text-xs uppercase tracking-widest">
+                                        <td colspan="3" class="p-12 text-center text-gray-600 font-medium  text-xs uppercase tracking-widest">
                                             Belum ada item yang terdaftar.
                                         </td>
                                     </tr>
@@ -118,8 +118,8 @@
             class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
             <div @click.away="copyModal = false" class="stat-card w-full max-w-lg border-white/10 border border-dashed">
                 <div class="flex items-center justify-between mb-8">
-                    <h3 class="text-xl font-black italic uppercase metallic-text">Import <span
-                            class="text-brand-red">Item</span></h3>
+                    <h3 class="text-xl font-black  uppercase metallic-text">Import <span
+                            class="text-brand-neon">Item</span></h3>
                     <button @click="copyModal = false" class="text-gray-500 hover:text-white transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M6 18L18 6M6 6l12 12" />
@@ -127,8 +127,8 @@
                     </button>
                 </div>
 
-                <div class="bg-brand-red/5 border border-brand-red/20 rounded-2xl p-6 mb-8">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-brand-red mb-3">Format CSV:</p>
+                <div class="bg-brand-neon/5 border border-brand-neon/20 rounded-2xl p-6 mb-8">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-brand-neon mb-3">Format CSV:</p>
                     <div class="bg-black/40 rounded-xl p-4 font-mono text-[10px] text-gray-300">
                         nama_item,harga<br>
                         86 Diamonds,20000<br>
@@ -147,7 +147,7 @@
                             class="w-full input-metal rounded-2xl py-4 px-6 text-sm file:hidden cursor-pointer">
                     </div>
                     <button type="submit"
-                        class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-brand-red/20 mt-4">
+                        class="btn-metal w-full py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-brand-neon/20 mt-4">
                         Mulai Import Item
                     </button>
                 </form>

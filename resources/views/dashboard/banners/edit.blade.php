@@ -3,11 +3,11 @@
 @section('content')
 <div class="max-w-4xl mx-auto space-y-8">
     <div>
-        <a href="{{ route('dashboard.banners') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-red flex items-center gap-2 mb-4 transition-colors">
+        <a href="{{ route('dashboard.banners') }}" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-brand-neon flex items-center gap-2 mb-4 transition-colors">
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Kembali
         </a>
-        <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Edit <span class="text-brand-red">Banner</span></h1>
+        <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Edit <span class="text-brand-neon">Banner</span></h1>
     </div>
 
     <form action="{{ route('dashboard.banners.update', $banner) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -17,24 +17,24 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Judul Banner (Opsional)</label>
-                    <input type="text" name="title" value="{{ $banner->title }}" placeholder="Contoh: Promo Ramadhan" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white font-medium">
+                    <input type="text" name="title" value="{{ $banner->title }}" placeholder="Contoh: Promo Ramadhan" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-medium">
                 </div>
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Urutan (Position)</label>
-                    <input type="number" name="order_position" value="{{ $banner->order_position }}" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white font-medium">
+                    <input type="number" name="order_position" value="{{ $banner->order_position }}" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-medium">
                 </div>
             </div>
 
             <div class="space-y-3">
                 <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Link Tujuan (URL)</label>
-                <input type="text" name="link" value="{{ $banner->link }}" placeholder="Contoh: https://ventuz.store/promo/abc" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-red/50 text-white font-medium">
+                <input type="text" name="link" value="{{ $banner->link }}" placeholder="Contoh: https://ventuz.store/promo/abc" class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6 focus:outline-none focus:border-brand-neon/50 text-white font-medium">
             </div>
             
             <div class="space-y-3">
                 <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Status Banner</label>
                 <div class="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl py-4 px-6">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="is_active" value="1" {{ $banner->is_active ? 'checked' : '' }} class="text-brand-red focus:ring-brand-red bg-black border-white/20">
+                        <input type="radio" name="is_active" value="1" {{ $banner->is_active ? 'checked' : '' }} class="text-brand-neon focus:ring-brand-neon bg-black border-white/20">
                         <span class="text-sm font-bold text-white">Aktif</span>
                     </label>
                     <label class="flex items-center gap-2 cursor-pointer">
@@ -57,7 +57,7 @@
             }">
                 <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">File Gambar Banner (Ganti Opsional)</label>
                 
-                <div class="flex flex-col items-center gap-4 p-8 bg-white/[0.02] rounded-3xl border border-dashed border-white/10 group hover:border-brand-red/50 transition-all">
+                <div class="flex flex-col items-center gap-4 p-8 bg-white/[0.02] rounded-3xl border border-dashed border-white/10 group hover:border-brand-neon/50 transition-all">
                     <div class="w-full aspect-video max-h-48 rounded-2xl bg-white/5 flex items-center justify-center overflow-hidden border border-white/10">
                         <template x-if="photoPreview">
                             <img :src="photoPreview" class="w-full h-full object-cover">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="btn-metal px-10 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-red/20">
+                <button type="submit" class="btn-metal px-10 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-neon/20">
                     Perbarui Banner
                 </button>
             </div>

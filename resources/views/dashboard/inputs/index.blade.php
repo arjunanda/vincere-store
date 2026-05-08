@@ -4,7 +4,7 @@
 <div class="space-y-8">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-            <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Master <span class="text-brand-red">Input</span></h1>
+            <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Master <span class="text-brand-neon">Input</span></h1>
             <p class="text-gray-500 font-medium mt-1">Buat template input data pelanggan (ID, Zone, Username, dll).</p>
         </div>
     </div>
@@ -15,9 +15,9 @@
             <form action="{{ route('dashboard.inputs.store') }}" method="POST" class="stat-card space-y-6">
                 @csrf
                 <div class="space-y-3">
-                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Nama Template <span class="text-brand-red">*</span></label>
+                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Nama Template <span class="text-brand-neon">*</span></label>
                     <input type="text" name="name" required placeholder="Contoh: Format MLBB" class="w-full input-metal rounded-2xl py-4 px-6">
-                    @error('name') <p class="text-brand-red text-[10px] italic mt-1 ml-1">{{ $message }}</p> @enderror
+                    @error('name') <p class="text-brand-neon text-[10px]  mt-1 ml-1">{{ $message }}</p> @enderror
                 </div>
                 <button type="submit" class="btn-metal w-full py-4 rounded-xl font-black uppercase tracking-widest text-xs">
                     Buat Template
@@ -30,12 +30,12 @@
             <!-- Search Bar -->
             <form method="GET" action="{{ route('dashboard.inputs') }}" class="flex gap-3">
                 <div class="relative flex-1">
-                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </div>
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Cari nama template input..."
-                        class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                        class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-neon/50 transition-all">
                 </div>
                 <button type="submit" class="btn-metal px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest whitespace-nowrap">Cari</button>
                 @if(request('search'))
@@ -65,7 +65,7 @@
                                 </td>
                                 <td class="p-6 text-right">
                                     <div class="flex items-center justify-end gap-3">
-                                        <a href="{{ route('dashboard.inputs.edit', $group) }}" class="p-2 hover:text-brand-red transition-colors text-gray-400">
+                                        <a href="{{ route('dashboard.inputs.edit', $group) }}" class="p-2 hover:text-brand-neon transition-colors text-gray-400">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                                         </a>
                                         <form action="{{ route('dashboard.inputs.destroy', $group) }}" method="POST" onsubmit="return confirm('Hapus template ini?')">
@@ -79,7 +79,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="p-12 text-center text-gray-600 font-medium italic">
+                                <td colspan="3" class="p-12 text-center text-gray-600 font-medium ">
                                     @if(request('search'))
                                         Tidak ada template dengan nama "<span class="text-white">{{ request('search') }}</span>".
                                     @else

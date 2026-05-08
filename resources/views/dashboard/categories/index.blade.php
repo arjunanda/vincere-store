@@ -26,8 +26,8 @@
 
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-                <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Master <span
-                        class="text-brand-red">Kategori</span></h1>
+                <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Master <span
+                        class="text-brand-neon">Kategori</span></h1>
                 <p class="text-gray-500 font-medium mt-1">Kelola daftar kategori game yang tersedia.</p>
             </div>
             <button @click="openCreate()"
@@ -42,12 +42,12 @@
         <!-- Search -->
         <form method="GET" action="{{ route('dashboard.categories.index') }}" class="flex flex-col md:flex-row gap-3">
             <div class="relative flex-1 max-w-xl">
-                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Cari nama atau slug kategori..."
-                    class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                    class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-neon/50 transition-all">
             </div>
             <button type="submit" class="btn-metal px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest whitespace-nowrap">Cari</button>
             @if(request('search'))
@@ -112,7 +112,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada kategori
+                                <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada kategori
                                     yang ditambahkan.</td>
                             </tr>
                         @endforelse
@@ -135,9 +135,9 @@
                     x-transition:enter-end="opacity-100 scale-100 translate-y-0">
 
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-black italic tracking-tight text-white">
+                        <h3 class="text-xl font-black  tracking-tight text-white">
                             <span x-text="isEdit ? 'EDIT' : 'TAMBAH'"></span> 
-                            <span class="text-brand-red">KATEGORI</span>
+                            <span class="text-brand-neon">KATEGORI</span>
                         </h3>
                         <button @click="showModal = false" class="text-gray-500 hover:text-white transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,11 +157,11 @@
                             <div>
                                 <label
                                     class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1 block mb-2">Nama
-                                    Kategori <span class="text-brand-red">*</span></label>
+                                    Kategori <span class="text-brand-neon">*</span></label>
                                 <input type="text" name="name" x-model="categoryName" required
                                     placeholder="Contoh: Mobile Legends"
-                                    class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-3 px-4 focus:outline-none focus:border-brand-red/50 text-white font-medium text-sm transition-colors">
-                                @error('name') <p class="text-brand-red text-[10px] italic mt-1">{{ $message }}</p>
+                                    class="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-3 px-4 focus:outline-none focus:border-brand-neon/50 text-white font-medium text-sm transition-colors">
+                                @error('name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                                 Batal
                             </button>
                             <button type="submit"
-                                class="flex-1 btn-metal py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-red/20">
+                                class="flex-1 btn-metal py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-lg shadow-brand-neon/20">
                                 <span class="btn-text" x-text="isEdit ? 'Simpan Perubahan' : 'Tambahkan Kategori'"></span>
                             </button>
                         </div>

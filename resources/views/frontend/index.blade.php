@@ -28,40 +28,40 @@
     <section
         class="relative w-full aspect-[2.4/1] md:aspect-none md:h-[480px] rounded-xl md:rounded-xl overflow-hidden shadow-2xl premium-glow group border border-white/10"
         x-data="{ 
-                        activeSlide: 0,
-                        flash: false,
-                        autoplayInterval: null,
-                        totalSlides: {{ $banners->isEmpty() ? 3 : $banners->count() }},
-                        triggerFlash() {
-                            this.flash = true;
-                            setTimeout(() => this.flash = false, 1000);
-                        },
-                        nextSlide(isManual = false) {
-                            this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
-                            if (isManual) {
-                                this.resetAutoplay();
-                            }
-                        },
-                        prevSlide(isManual = false) {
-                            this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
-                            if (isManual) {
-                                this.resetAutoplay();
-                            }
-                        },
-                        startAutoplay() {
-                            this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
-                        },
-                        resetAutoplay() {
-                            clearInterval(this.autoplayInterval);
-                            this.startAutoplay();
-                        }
-                    }" x-init="startAutoplay()">
+                                                activeSlide: 0,
+                                                flash: false,
+                                                autoplayInterval: null,
+                                                totalSlides: {{ $banners->isEmpty() ? 3 : $banners->count() }},
+                                                triggerFlash() {
+                                                    this.flash = true;
+                                                    setTimeout(() => this.flash = false, 1000);
+                                                },
+                                                nextSlide(isManual = false) {
+                                                    this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+                                                    if (isManual) {
+                                                        this.resetAutoplay();
+                                                    }
+                                                },
+                                                prevSlide(isManual = false) {
+                                                    this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
+                                                    if (isManual) {
+                                                        this.resetAutoplay();
+                                                    }
+                                                },
+                                                startAutoplay() {
+                                                    this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
+                                                },
+                                                resetAutoplay() {
+                                                    clearInterval(this.autoplayInterval);
+                                                    this.startAutoplay();
+                                                }
+                                            }" x-init="startAutoplay()">
         <!-- Banner Content -->
         @php
             $slideItems = $banners->isEmpty() ? collect([
-                (object) ['image' => 'assets/images-logo/banner-1.jpeg', 'title' => 'PENAWARAN EKSKLUSIF VENTUZ', 'is_asset' => true],
-                (object) ['image' => 'assets/images-logo/banner-2.jpeg', 'title' => 'TINGKATKAN PENGALAMAN GAMING', 'is_asset' => true],
-                (object) ['image' => 'assets/images-logo/banner-3.jpeg', 'title' => 'TOP-UP CEPAT & AMAN', 'is_asset' => true]
+                (object) ['image' => 'assets/images-logo/banner-1.png', 'title' => 'PENAWARAN EKSKLUSIF VENTUZ', 'is_asset' => true],
+                (object) ['image' => 'assets/images-logo/banner-1.png', 'title' => 'TINGKATKAN PENGALAMAN GAMING', 'is_asset' => true],
+                (object) ['image' => 'assets/images-logo/banner-1.png', 'title' => 'TOP-UP CEPAT & AMAN', 'is_asset' => true]
             ]) : $banners;
         @endphp
 
@@ -76,8 +76,8 @@
                 @php
                     $imgSrc = isset($slide->is_asset) ? asset($slide->image) : asset('storage/' . $slide->image);
                 @endphp
-                <img src="{{ $imgSrc }}" alt="{{ $slide->title }}" width="1200" height="480" class="w-full h-full object-cover" @if($index === 0)
-                fetchpriority="high" @else loading="lazy" @endif>
+                <img src="{{ $imgSrc }}" alt="{{ $slide->title }}" width="1200" height="480" class="w-full h-full object-cover"
+                    @if($index === 0) fetchpriority="high" @else loading="lazy" @endif>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
             </div>
         @endforeach
@@ -86,13 +86,13 @@
         <div
             class="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex justify-between px-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
             <button @click="prevSlide(true)"
-                class="w-14 h-14 rounded-xl glass-dark flex items-center justify-center hover:bg-brand-red transition-all">
+                class="w-14 h-14 rounded-xl glass-dark flex items-center justify-center hover:bg-brand-neon transition-all">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
             <button @click="nextSlide(true)"
-                class="w-14 h-14 rounded-xl glass-dark flex items-center justify-center hover:bg-brand-red transition-all">
+                class="w-14 h-14 rounded-xl glass-dark flex items-center justify-center hover:bg-brand-neon transition-all">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
                 </svg>
@@ -103,7 +103,7 @@
             <template x-for="(_, index) in Array.from({length: totalSlides})" :key="index">
                 <button @click="activeSlide = index; resetAutoplay()"
                     class="h-1.5 md:h-2 transition-all duration-500 rounded-full"
-                    :class="activeSlide === index ? 'w-10 md:w-16 bg-brand-red' : 'w-4 md:w-6 bg-white/20'"></button>
+                    :class="activeSlide === index ? 'w-10 md:w-16 bg-brand-neon' : 'w-4 md:w-6 bg-white/20'"></button>
             </template>
         </div>
 
@@ -113,223 +113,168 @@
     </section>
 
     <!-- Game Grid Section -->
-    <section id="games-section" class="space-y-12">
-        <div class="flex flex-col gap-10">
-            <!-- Title Block -->
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-[2px] bg-brand-red"></div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Top-up & Voucher Game</p>
-                </div>
-                <h1 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
-                    GAME <span class="text-brand-red">TERPOPULER</span>
-                </h1>
+    <section id="games-section" class="space-y-8">
+        <div class="flex flex-col gap-6">
+            <div class="section-header">
+                <div class="w-1.5 h-6 bg-brand-neon rounded-full"></div>
+                <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight">Game <span
+                        class="text-brand-neon">Terpopuler</span></h2>
             </div>
+        </div>
 
-            <!-- Filters Block -->
-            <div class="w-full sm:w-max overflow-hidden md:overflow-visible">
-                <div
-                    class="flex flex-nowrap items-center p-1 glass-dark rounded-xl border border-white/5 gap-1 overflow-x-auto md:overflow-x-visible custom-scrollbar">
-                    <button @click="category = 'all'"
-                        :class="category === 'all' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        Semua
-                    </button>
-                    <button @click="category = 'mobile'"
-                        :class="category === 'mobile' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                        </svg>
-                        Mobile
-                    </button>
-                    <button @click="category = 'pc'"
-                        :class="category === 'pc' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        PC
-                    </button>
-                    <button @click="category = 'console'"
-                        :class="category === 'console' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'"
-                        class="flex shrink-0 items-center gap-2 px-5 py-2.5 md:px-10 md:py-3.5 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 011-1V4z" />
-                        </svg>
-                        Console
-                    </button>
-                </div>
-            </div>
-            <!-- Single Pure Blade Grid for Perfect LCP & SEO -->
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-12" x-data="{
-                             get matchingGameIds() {
-                                 return games.filter(g => (category === 'all' || g.category === category) && (search === '' || g.name.toLowerCase().includes(search.toLowerCase()))).map(g => g.id);
-                             }
-                         }">
-                @foreach($games as $index => $game)
-                    <div x-show="matchingGameIds.includes({{ $game->id }}) && matchingGameIds.indexOf({{ $game->id }}) < 8"
-                        x-transition:enter="transition ease-out duration-500"
-                        x-transition:enter-start="opacity-0 translate-y-10 scale-90"
-                        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                        style="{{ $index >= 8 ? 'display: none;' : '' }}" class="game-card-wrapper">
-
-                        <a href="{{ url('/game/' . $game->slug) }}"
-                            class="block relative aspect-[3/4] rounded-xl overflow-hidden metal-card group">
-                            <!-- Image -->
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-6">
+            @foreach($games->take(18) as $index => $game)
+                <div class="game-card-wrapper">
+                    <a href="{{ url('/game/' . $game->slug) }}"
+                        class="block metal-card p-2 md:p-3 rounded-2xl group transition-all duration-300">
+                        <!-- Icon Wrapper -->
+                        <div
+                            class="aspect-square rounded-xl overflow-hidden mb-3 md:mb-4 border border-white/5 group-hover:border-brand-neon/50 transition-colors shadow-lg">
                             <img src="{{ asset('storage/' . $game->image) }}" alt="{{ $game->name }}"
-                                class="w-full h-full object-cover transition-transform duration-700 opacity-80 group-hover:opacity-100 group-hover:scale-110"
-                                @if($index < 4) fetchpriority="high" @else loading="lazy" @endif>
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                @if($index < 6) fetchpriority="high" @else loading="lazy" @endif>
+                        </div>
 
-                            <!-- Category Badge -->
-                            <div class="absolute top-4 right-4 z-10">
+                        <!-- Title & Button -->
+                        <div class="px-1 pb-1 space-y-3">
+                            <h4
+                                class="text-[9px] sm:text-[10px] md:text-xs font-bold tracking-tight uppercase text-center line-clamp-1 group-hover:text-brand-neon transition-colors">
+                                {{ $game->name }}
+                            </h4>
+
+                            <div class="flex justify-center">
                                 <div
-                                    class="glass-dark px-3 py-1.5 rounded-xl border border-white/10 group-hover:border-brand-red/50 transition-colors">
-                                    <p class="text-[10px] text-white font-black uppercase tracking-widest">
-                                        {{ $game->platform_type }}
-                                    </p>
+                                    class="w-full py-2 rounded-xl bg-brand-neon text-black transition-all duration-300 shadow-[0_0_15px_rgba(124,255,0,0.2)] group-hover:shadow-[0_0_25px_rgba(124,255,0,0.4)] group-hover:scale-[1.02]">
+                                    <span
+                                        class="text-[8px] sm:text-[9px] md:text-[11px] font-black uppercase tracking-widest block text-center">Top
+                                        Up</span>
                                 </div>
                             </div>
-
-                            <!-- Premium Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-95 group-hover:opacity-100 transition-opacity">
-                            </div>
-
-                            <!-- Card Content -->
-                            <div
-                                class="absolute bottom-8 md:bottom-12 left-0 right-0 px-6 text-center flex flex-col items-center gap-1">
-                                <h4 class="text-sm md:text-xl font-black tracking-tight italic uppercase px-1 item-title">
-                                    {{ $game->name }}
-                                </h4>
-                                <div class="w-0 group-hover:w-12 h-0.5 bg-brand-red transition-all duration-500 mt-1"></div>
-                            </div>
-
-                            <!-- Corner Glow -->
-                            <div
-                                class="absolute -bottom-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,rgba(225,29,72,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-
-            <!-- View All Games Section -->
-            <div class="flex justify-center pt-10 md:pt-16 pb-10">
-                <a href="{{ route('games.index') }}"
-                    class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl md:rounded-xl transition-all duration-300">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat
-                            Semua Game</span>
-                        <div
-                            class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500">
                         </div>
-                        <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- View All Games Section -->
+        <div class="flex justify-center pt-10 md:pt-16 pb-10">
+            <a href="{{ route('games.index') }}"
+                class="group relative flex items-center justify-center gap-4 px-10 py-4 bg-brand-neon rounded-xl text-black font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(124,255,0,0.3)]">
+                <span>Lihat Semua Game</span>
+                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="space-y-16">
-        <div class="text-center space-y-4 max-w-2xl mx-auto">
-            <div class="flex items-center justify-center gap-3">
-                <div class="w-10 h-[1px] bg-white/10"></div>
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Standar Elit</p>
-                <div class="w-10 h-[1px] bg-white/10"></div>
-            </div>
-            <h3 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
-                Kenapa Pilih <span class="text-brand-red">Kami?</span>
-            </h3>
-            <p class="text-gray-500 text-sm md:text-base font-medium px-4">Kami menghadirkan pengalaman top-up
-                paling kencang, aman, dan terpercaya untuk seluruh gamer Indonesia.</p>
+    <!-- Why Choose Us Section (Numbered Showcase) -->
+    <section class="py-10">
+        <div class="section-header w-full">
+            <div class="w-1.5 h-6 bg-brand-neon rounded-full"></div>
+            <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight">Kenapa Harus <span
+                    class="text-brand-neon">Kami?</span></h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="metal-card p-12 rounded-xl relative overflow-hidden group">
-                <div
-                    class="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle,rgba(225,29,72,0.1)_0%,transparent_70%)] pointer-events-none">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <!-- Left Side: Branding/Title -->
+            <div class="lg:col-span-5 space-y-8">
+                <h3 class="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[1.1]">
+                    Pengalaman <span class="text-brand-neon">Top-Up</span> <br>Gamer Paling <span
+                        class="text-white/40">Solid.</span>
+                </h3>
+                <p class="text-gray-400 text-base md:text-lg font-medium leading-relaxed max-w-md">
+                    Dibuat oleh gamers untuk gamers. Kami mengutamakan kecepatan, keamanan, dan kenyamanan dalam setiap
+                    transaksi kamu.
+                </p>
+                <div class="flex items-center gap-6 pt-4">
+                    <div class="flex -space-x-3">
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-brand-dark bg-brand-card flex items-center justify-center text-[10px] font-bold text-brand-neon">
+                            10k+</div>
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-brand-dark bg-brand-neon flex items-center justify-center text-[10px] font-bold text-black">
+                            TOP</div>
+                    </div>
+                    <p class="text-xs font-bold uppercase tracking-widest text-gray-500">Pilihan Utama <br>Komunitas Gamer
+                    </p>
                 </div>
-                <div
-                    class="w-20 h-20 bg-brand-red/10 rounded-xl flex items-center justify-center text-brand-red mb-12 group-hover:scale-110 transition-transform">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                </div>
-                <h4
-                    class="text-3xl font-black uppercase tracking-tighter mb-6 italic bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                    KILAT</h4>
-                <p class="text-gray-400 font-medium text-base leading-relaxed">Voucher masuk dalam hitungan detik
-                    setelah pembayaran.</p>
             </div>
-            <div class="metal-card p-12 rounded-xl relative overflow-hidden group">
-                <div
-                    class="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle,rgba(225,29,72,0.1)_0%,transparent_70%)] pointer-events-none">
+
+            <!-- Right Side: Features List -->
+            <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Feature 1 -->
+                <div class="group space-y-4">
+                    <div class="flex items-end gap-3">
+                        <span
+                            class="text-4xl font-black text-white/30 group-hover:text-brand-neon transition-colors duration-500">01</span>
+                        <div class="w-full h-px bg-white/10 mb-3 group-hover:bg-brand-neon/30 transition-colors"></div>
+                    </div>
+                    <h4
+                        class="text-lg font-bold uppercase tracking-tight text-white group-hover:text-brand-neon transition-colors">
+                        Proses Otomatis</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Sistem kami terintegrasi langsung dengan provider,
+                        pesananmu masuk dalam hitungan detik 24/7.</p>
                 </div>
-                <div
-                    class="w-20 h-20 bg-brand-red/10 rounded-xl flex items-center justify-center text-brand-red mb-12 group-hover:scale-110 transition-transform">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
+
+                <!-- Feature 2 -->
+                <div class="group space-y-4">
+                    <div class="flex items-end gap-3">
+                        <span
+                            class="text-4xl font-black text-white/30 group-hover:text-brand-neon transition-colors duration-500">02</span>
+                        <div class="w-full h-px bg-white/10 mb-3 group-hover:bg-brand-neon/30 transition-colors"></div>
+                    </div>
+                    <h4
+                        class="text-lg font-bold uppercase tracking-tight text-white group-hover:text-brand-neon transition-colors">
+                        Legal & Resmi</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Semua produk yang kami jual 100% legal dan aman.
+                        Garansi anti-banned untuk setiap transaksi.</p>
                 </div>
-                <h4
-                    class="text-3xl font-black uppercase tracking-tighter mb-6 italic bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                    AMAN</h4>
-                <p class="text-gray-400 font-medium text-base leading-relaxed">Keamanan data dan transaksi adalah
-                    prioritas utama kami.</p>
-            </div>
-            <div class="metal-card p-14 rounded-xl relative overflow-hidden group">
-                <div
-                    class="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(circle,rgba(225,29,72,0.1)_0%,transparent_70%)] pointer-events-none">
+
+                <!-- Feature 3 -->
+                <div class="group space-y-4">
+                    <div class="flex items-end gap-3">
+                        <span
+                            class="text-4xl font-black text-white/30 group-hover:text-brand-neon transition-colors duration-500">03</span>
+                        <div class="w-full h-px bg-white/10 mb-3 group-hover:bg-brand-neon/30 transition-colors"></div>
+                    </div>
+                    <h4
+                        class="text-lg font-bold uppercase tracking-tight text-white group-hover:text-brand-neon transition-colors">
+                        Metode Terlengkap</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Mulai dari QRIS, E-Wallet, hingga Virtual Account Bank
+                        tersedia untuk memudahkan pembayaranmu.</p>
                 </div>
-                <div
-                    class="w-20 h-20 bg-brand-red/10 rounded-xl flex items-center justify-center text-brand-red mb-12 group-hover:scale-110 transition-transform">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+
+                <!-- Feature 4 -->
+                <div class="group space-y-4">
+                    <div class="flex items-end gap-3">
+                        <span
+                            class="text-4xl font-black text-white/30 group-hover:text-brand-neon transition-colors duration-500">04</span>
+                        <div class="w-full h-px bg-white/10 mb-3 group-hover:bg-brand-neon/30 transition-colors"></div>
+                    </div>
+                    <h4
+                        class="text-lg font-bold uppercase tracking-tight text-white group-hover:text-brand-neon transition-colors">
+                        Support Responsif</h4>
+                    <p class="text-gray-500 text-sm leading-relaxed">Tim Customer Service kami selalu siap membantu jika
+                        kamu menemui kendala dalam transaksi.</p>
                 </div>
-                <h4
-                    class="text-3xl font-black uppercase tracking-tighter mb-6 italic bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                    MURAH</h4>
-                <p class="text-gray-400 font-medium text-base leading-relaxed">Dapatkan penawaran terbaik dan promo
-                    eksklusif setiap harinya.</p>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
     <section class="space-y-16">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-[2px] bg-brand-red"></div>
-                    <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Ulasan Komunitas</p>
-                </div>
-                <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
-                    Suara <span class="text-brand-red">Pelanggan</span>
-                </h3>
-            </div>
-            <div class="flex-1 h-[1px] bg-white/5 hidden md:block mb-4"></div>
+        <div class="section-header w-full">
+            <div class="w-1.5 h-6 bg-brand-neon rounded-full"></div>
+            <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight">Suara <span
+                    class="text-brand-neon">Pelanggan</span></h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Review 1 -->
             <div
                 class="glass-dark p-8 rounded-xl border border-white/5 flex flex-col h-full space-y-6 hover:bg-white/[0.03] transition-all group">
-                <div class="flex gap-1 text-brand-red">
+                <div class="flex gap-1 text-brand-neon">
                     <template x-for="i in 5">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                             <path
@@ -337,11 +282,11 @@
                         </svg>
                     </template>
                 </div>
-                <p class="text-gray-400 font-medium text-sm leading-relaxed italic flex-1">"Gila sih, baru bayar
+                <p class="text-gray-400 font-medium text-sm leading-relaxed  flex-1">"Gila sih, baru bayar
                     sedetik kemudian langsung masuk diamond-nya. Ventuz Store emang paling kenceng!"</p>
                 <div class="flex items-center gap-4 pt-6 border-t border-white/5">
                     <div
-                        class="w-10 h-10 bg-brand-red/20 rounded-full flex items-center justify-center font-bold text-brand-red text-xs">
+                        class="w-10 h-10 bg-brand-neon/20 rounded-full flex items-center justify-center font-bold text-brand-neon text-xs">
                         BK</div>
                     <div>
                         <p class="text-xs font-bold text-white">Budi Kusuma</p>
@@ -353,7 +298,7 @@
             <!-- Review 2 -->
             <div
                 class="glass-dark p-8 rounded-xl border border-white/5 flex flex-col h-full space-y-6 hover:bg-white/[0.03] transition-all group">
-                <div class="flex gap-1 text-brand-red">
+                <div class="flex gap-1 text-brand-neon">
                     <template x-for="i in 5">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                             <path
@@ -361,11 +306,11 @@
                         </svg>
                     </template>
                 </div>
-                <p class="text-gray-400 font-medium text-sm leading-relaxed italic flex-1">"Udah sering top-up di
+                <p class="text-gray-400 font-medium text-sm leading-relaxed  flex-1">"Udah sering top-up di
                     sini buat UC PUBG. Harganya selalu miring dibanding yang lain. Recommended!"</p>
                 <div class="flex items-center gap-4 pt-6 border-t border-white/5">
                     <div
-                        class="w-10 h-10 bg-brand-red/20 rounded-full flex items-center justify-center font-bold text-brand-red text-xs">
+                        class="w-10 h-10 bg-brand-neon/20 rounded-full flex items-center justify-center font-bold text-brand-neon text-xs">
                         SA</div>
                     <div>
                         <p class="text-xs font-bold text-white">Siska Amelia</p>
@@ -377,7 +322,7 @@
             <!-- Review 3 -->
             <div
                 class="glass-dark p-8 rounded-xl border border-white/5 flex flex-col h-full space-y-6 hover:bg-white/[0.03] transition-all group">
-                <div class="flex gap-1 text-brand-red">
+                <div class="flex gap-1 text-brand-neon">
                     <template x-for="i in 5">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                             <path
@@ -385,11 +330,11 @@
                         </svg>
                     </template>
                 </div>
-                <p class="text-gray-400 font-medium text-sm leading-relaxed italic flex-1">"Baru pertama kali coba
+                <p class="text-gray-400 font-medium text-sm leading-relaxed  flex-1">"Baru pertama kali coba
                     dan langsung puas. CS-nya juga ramah banget pas ditanya-tanya. Mantap pokoknya!"</p>
                 <div class="flex items-center gap-4 pt-6 border-t border-white/5">
                     <div
-                        class="w-10 h-10 bg-brand-red/20 rounded-full flex items-center justify-center font-bold text-brand-red text-xs">
+                        class="w-10 h-10 bg-brand-neon/20 rounded-full flex items-center justify-center font-bold text-brand-neon text-xs">
                         RF</div>
                     <div>
                         <p class="text-xs font-bold text-white">Rizky Fauzi</p>
@@ -401,7 +346,7 @@
             <!-- Review 4 -->
             <div
                 class="glass-dark p-8 rounded-xl border border-white/5 flex flex-col h-full space-y-6 hover:bg-white/[0.03] transition-all group">
-                <div class="flex gap-1 text-brand-red">
+                <div class="flex gap-1 text-brand-neon">
                     <template x-for="i in 5">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                             <path
@@ -409,11 +354,11 @@
                         </svg>
                     </template>
                 </div>
-                <p class="text-gray-400 font-medium text-sm leading-relaxed italic flex-1">"Gak nyesel langganan di
+                <p class="text-gray-400 font-medium text-sm leading-relaxed  flex-1">"Gak nyesel langganan di
                     sini. Sistem vouchernya otomatis dan harganya paling masuk akal."</p>
                 <div class="flex items-center gap-4 pt-6 border-t border-white/5">
                     <div
-                        class="w-10 h-10 bg-brand-red/20 rounded-full flex items-center justify-center font-bold text-brand-red text-xs">
+                        class="w-10 h-10 bg-brand-neon/20 rounded-full flex items-center justify-center font-bold text-brand-neon text-xs">
                         DA</div>
                     <div>
                         <p class="text-xs font-bold text-white">Dani Anwar</p>
@@ -425,66 +370,99 @@
     </section>
 
     <!-- News & Promo Section -->
-    <section class="space-y-16">
-        <div class="space-y-2">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-[2px] bg-brand-red"></div>
-                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red">Update Terbaru</p>
-            </div>
-            <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
-                Berita & <span class="text-brand-red">Promo</span>
-            </h3>
-        </div>
+    <div class="section-header">
+        <div class="w-1.5 h-6 bg-brand-neon rounded-full"></div>
+        <h2 class="text-xl md:text-2xl font-bold uppercase tracking-tight">Berita & <span
+                class="text-brand-neon">Promo</span></h2>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach($articles as $article)
-                <a href="{{ route('news.detail', $article->slug) }}" class="metal-card rounded-xl overflow-hidden group">
-                    <div class="aspect-video overflow-hidden">
-                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    </div>
-                    <div class="p-8 space-y-4">
-                        <div class="flex items-center gap-3">
-                            <span
-                                class="px-3 py-1 rounded-lg bg-brand-red/10 text-brand-red text-[10px] font-bold uppercase tracking-widest">{{ $article->type }}</span>
-                            <span
-                                class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{{ $article->created_at->translatedFormat('d M Y') }}</span>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        @php
+            $featuredArticle = $articles->first();
+            $otherArticles = $articles->skip(1);
+        @endphp
+
+        @if($featuredArticle)
+            <!-- Featured Article -->
+            <div class="lg:col-span-7">
+                <a href="{{ route('news.detail', $featuredArticle->slug) }}"
+                    class="metal-card rounded-2xl overflow-hidden group flex flex-col h-full">
+                    <div class="relative aspect-video lg:aspect-auto lg:h-full overflow-hidden">
+                        <img src="{{ asset('storage/' . $featuredArticle->image) }}" alt="{{ $featuredArticle->title }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 md:p-8 space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-brand-neon text-black text-[10px] font-black uppercase tracking-widest">{{ $featuredArticle->type }}</span>
+                                <span
+                                    class="text-[10px] text-white/70 font-bold uppercase tracking-widest">{{ $featuredArticle->created_at->translatedFormat('d M Y') }}</span>
+                            </div>
+                            <h4
+                                class="text-2xl md:text-3xl font-black leading-tight group-hover:text-brand-neon transition-colors uppercase">
+                                {{ $featuredArticle->title }}
+                            </h4>
+                            <p class="text-gray-300 text-sm line-clamp-2 max-w-xl hidden md:block">
+                                {{ Str::limit(strip_tags($featuredArticle->content), 150) }}
+                            </p>
                         </div>
-                        <h4
-                            class="text-xl font-bold leading-tight group-hover:text-brand-red transition-colors line-clamp-2 uppercase italic">
-                            {{ $article->title }}
-                        </h4>
-                        <p class="text-gray-400 text-sm line-clamp-3 leading-relaxed">
-                            {{ Str::limit(strip_tags($article->content), 100) }}
-                        </p>
-                        <!-- Read More Button -->
-                        <div class="pt-6 border-t border-white/5 flex items-center justify-between group/btn">
-                            <span
-                                class="text-[10px] font-black uppercase tracking-widest text-white group-hover/btn:text-brand-red transition-colors">Selengkapnya</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Side Articles -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                @foreach($otherArticles->take(2) as $article)
+                    <a href="{{ route('news.detail', $article->slug) }}"
+                        class="metal-card rounded-2xl overflow-hidden group flex flex-1 gap-4 md:gap-6 p-4 md:p-5">
+                        <div class="w-24 md:w-32 lg:w-40 aspect-square rounded-xl overflow-hidden flex-shrink-0">
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between py-1 min-w-0">
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span
+                                        class="text-[9px] text-brand-neon font-black uppercase tracking-widest">{{ $article->type }}</span>
+                                    <span
+                                        class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">{{ $article->created_at->translatedFormat('d M Y') }}</span>
+                                </div>
+                                <h4
+                                    class="text-sm md:text-base font-bold leading-tight group-hover:text-brand-neon transition-colors line-clamp-2 uppercase">
+                                    {{ $article->title }}
+                                </h4>
+                            </div>
                             <div
-                                class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover/btn:bg-brand-red transition-all duration-300">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/40 group-hover:text-brand-neon transition-colors">
+                                <span>Baca Selengkapnya</span>
+                                <svg class="w-3 h-3 transition-transform group-hover:translate-x-1" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
                                 </svg>
                             </div>
                         </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+    </div>
 
-        <!-- View All News Section -->
-        <div class="flex justify-center pt-10 md:pt-16">
-            <a href="/news"
-                class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl md:rounded-xl transition-all duration-300">
-                <div class="flex items-center gap-3 md:gap-4">
-                    <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat Semua Berita</span>
-                    <div class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500"></div>
-                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+    <!-- View All News Section -->
+    <div class="flex justify-center pt-8 md:pt-10">
+        <a href="/news"
+            class="group flex items-center gap-3 md:gap-4 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-neon border border-white/10 hover:border-brand-neon rounded-xl md:rounded-xl transition-all duration-300">
+            <div class="flex items-center gap-3 md:gap-4">
+                <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white">Lihat Semua
+                    Berita</span>
+                <div
+                    class="w-6 md:w-10 h-px bg-white/20 group-hover:w-10 md:group-hover:w-16 group-hover:bg-white transition-all duration-500">
                 </div>
-            </a>
-        </div>
+                <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-2 transition-transform duration-500" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </div>
+        </a>
+    </div>
     </section>
 @endsection

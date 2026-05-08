@@ -7,35 +7,49 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: "Outfit Variable", "Outfit", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     
-    --color-brand-red: #e11d48;
-    --color-brand-dark: #0a0a0a;
-    --color-brand-card: #121212;
+    --color-brand-neon: #7CFF00;
+    --color-brand-neon-glow: #39FF14;
+    --color-brand-dark: #1A1E26;
+    --color-brand-card: #2A2F3A;
+    --color-text-secondary: #94A3B8;
     
-    --radius-premium: 1.5rem;
+    --radius-premium: 0.75rem;
 }
 
 [x-cloak] {
     display: none !important;
 }
 
-/* Page Transitions */
-@view-transition {
-    navigation: auto;
-}
-
 body {
     font-family: var(--font-sans);
-    background-color: #050505;
-    color: white;
-    opacity: 0;
-    animation: fadeIn 0.4s ease-out forwards;
+    background-color: #1a1e26;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(124, 255, 0, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 40%),
+        linear-gradient(180deg, #242933 0%, #1a1e26 100%);
+    background-attachment: fixed;
+    color: #F1F5F9;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
 }
 
 @layer base {
     select {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 8l5 5 5-5'/%3e%3c/svg%3e") !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%237CFF00' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 8l5 5 5-5'/%3e%3c/svg%3e") !important;
         background-position: right 1rem center !important;
         background-repeat: no-repeat !important;
         background-size: 1.25em 1.25em !important;
@@ -49,49 +63,34 @@ body {
         cursor: pointer !important;
     }
     
-    /* Fix Webkit Autofill Background for Dark Mode */
-    /* Fix Webkit Autofill Background for Dark Mode */
     input:-webkit-autofill,
     input:-webkit-autofill:hover, 
     input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px #191919 inset !important;
+        -webkit-box-shadow: 0 0 0 30px #1A1A1A inset !important;
         -webkit-text-fill-color: white !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(124, 255, 0, 0.2) !important;
         transition: background-color 5000s ease-in-out 0s;
     }
 
-    /* Keep the red border on focus even if autofilled */
     input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0 30px #191919 inset !important;
+        -webkit-box-shadow: 0 0 0 30px #1A1A1A inset !important;
         -webkit-text-fill-color: white !important;
-        border-color: rgba(225, 29, 72, 0.5) !important;
+        border-color: rgba(124, 255, 0, 0.5) !important;
         transition: background-color 5000s ease-in-out 0s;
     }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 @utility glass-dark {
-    background: rgba(20, 20, 20, 0.9);
+    background: rgba(15, 15, 15, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@utility metal-silver {
-    background: linear-gradient(135deg, #f3f4f6 0%, #9ca3af 50%, #4b5563 100%);
+@utility neon-glow {
+    box-shadow: 0 0 20px rgba(124, 255, 0, 0.2), 0 0 40px rgba(124, 255, 0, 0.1);
 }
 
-@utility metal-chrome {
-    background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 20%, #27272a 50%, #a1a1aa 80%, #ffffff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-@utility metal-border {
-    border: 1px solid;
-    border-image: linear-gradient(135deg, #ffffff 0%, #4b5563 50%, #ffffff 100%) 1;
+@utility neon-border {
+    border: 1px solid rgba(124, 255, 0, 0.3);
 }
 
 .whatsapp-float {
@@ -105,38 +104,22 @@ body {
     gap: 12px;
 }
 
-@media (max-width: 768px) {
-    .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-    }
-}
-
 .cs-menu-item {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
-    border-radius: 9999px;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: #1A1A1A;
+    transition: all 0.3s ease;
     color: white;
-    text-decoration: none;
 }
 
 .cs-menu-item:hover {
-    transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.cs-wa {
-    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-}
-
-.cs-ig {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    transform: scale(1.05);
+    border-color: var(--color-brand-neon);
 }
 
 .cs-main-btn {
@@ -144,44 +127,24 @@ body {
     align-items: center;
     gap: 12px;
     padding: 14px 28px;
-    background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
-    border-radius: 9999px;
-    box-shadow: 0 10px 25px rgba(225, 29, 72, 0.3);
+    background: var(--color-brand-neon);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(124, 255, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    transition: all 0.4s ease;
-    color: white;
+    transition: all 0.3s ease;
+    color: #000;
 }
 
 .cs-main-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(225, 29, 72, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(124, 255, 0, 0.3);
 }
 
 .cs-main-btn.active {
-    background: #1a1a1a;
-    border-color: #e11d48;
-}
-
-.whatsapp-pulse {
-    position: absolute;
-    inset: -2px;
-    border-radius: 9999px;
-    background: #e11d48;
-    opacity: 0.5;
-    z-index: -1;
-    animation: whatsapp-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes whatsapp-pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
+    background: #1A1A1A;
+    border-color: var(--color-brand-neon);
+    color: var(--color-brand-neon);
 }
 
 .no-scrollbar::-webkit-scrollbar {

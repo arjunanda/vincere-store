@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 class="text-3xl font-black italic uppercase tracking-tight text-white">Riwayat <span class="text-brand-red">Aktivitas</span></h1>
+            <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Riwayat <span class="text-brand-neon">Aktivitas</span></h1>
             <p class="text-gray-500 font-medium mt-1">Audit log seluruh tindakan administrator di sistem.</p>
         </div>
         <div class="text-sm text-gray-500">Total: <span class="text-white font-black">{{ $logs->total() }}</span> log</div>
@@ -14,16 +14,16 @@
     <!-- Search & Filter -->
     <form method="GET" action="{{ route('dashboard.logs') }}" class="flex flex-col md:flex-row gap-3">
         <div class="relative flex-1">
-            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-red">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-neon">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
             <input type="text" name="search" value="{{ request('search') }}"
                 placeholder="Cari aksi, keterangan, atau IP..."
-                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-red/50 transition-all">
+                class="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-4 text-sm font-medium focus:outline-none focus:border-brand-neon/50 transition-all">
         </div>
         @if($admins->isNotEmpty())
         <select name="user_id" onchange="this.form.submit()"
-            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-red/50 transition-all text-white appearance-none cursor-pointer min-w-[180px]">
+            class="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold focus:outline-none focus:border-brand-neon/50 transition-all text-white appearance-none cursor-pointer min-w-[180px]">
             <option value="">Semua Admin</option>
             @foreach($admins as $admin)
                 <option value="{{ $admin->id }}" {{ request('user_id') == $admin->id ? 'selected' : '' }}>{{ $admin->name }}</option>
@@ -61,7 +61,7 @@
                             </div>
                         </td>
                         <td class="p-6">
-                            <span class="px-2 py-1 bg-brand-red/5 text-brand-red text-[8px] font-black uppercase tracking-tighter border border-brand-red/10 rounded">
+                            <span class="px-2 py-1 bg-brand-neon/5 text-brand-neon text-[8px] font-black uppercase tracking-tighter border border-brand-neon/10 rounded">
                                 {{ str_replace('_', ' ', $log->action) }}
                             </span>
                         </td>
@@ -77,7 +77,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium italic">Belum ada riwayat aktivitas.</td>
+                        <td colspan="5" class="p-12 text-center text-gray-600 font-medium ">Belum ada riwayat aktivitas.</td>
                     </tr>
                     @endforelse
                 </tbody>

@@ -27,22 +27,22 @@ x-data="newsPage()"
             nextPage: '{{ $articles->nextPageUrl() }}',
             loading: false,
 
+            get filtered() {
+                return this.articles.filter(a => this.category === 'all' || a.category === this.category);
+            },
+
             async loadMore() {
                 if (!this.nextPage || this.loading) return;
-                
                 this.loading = true;
                 try {
                     const response = await fetch(this.nextPage, {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
                     const result = await response.json();
-                    
                     this.articles = [...this.articles, ...result.data];
                     this.nextPage = result.next_page_url;
                 } catch (error) {
-                    console.error('Error loading more articles:', error);
+                    console.error('Error:', error);
                 } finally {
                     this.loading = false;
                 }
@@ -52,107 +52,161 @@ x-data="newsPage()"
 </script>
 @endpush
 
-@section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-24 space-y-16')
+@section('main_class', 'max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16 space-y-10')
 
 @section('content')
-<!-- Header -->
-<div class="text-center space-y-6 max-w-3xl mx-auto">
-    <h1 class="text-4xl md:text-7xl font-black tracking-tighter italic metallic-text uppercase leading-none">
-        Promo & <span class="text-brand-red">Berita</span>
-    </h1>
-    <p class="text-gray-500 text-base md:text-xl font-medium leading-relaxed">
-        Tetap terupdate dengan penawaran eksklusif dan informasi terbaru seputar dunia gaming dari Ventuz Store.
-    </p>
-</div>
 
-<!-- Filter Tab -->
-<div class="flex justify-center px-4">
-    <div class="w-full md:w-max overflow-hidden md:overflow-visible">
-        <div class="flex items-center p-1 glass-dark rounded-xl border border-white/5 gap-1 overflow-x-auto md:overflow-x-visible custom-scrollbar">
-            <button @click="category = 'all'" 
-                :class="category === 'all' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'" 
-                class="flex-1 md:flex-none shrink-0 px-4 py-2.5 md:px-8 md:py-3 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                Semua
-            </button>
-            <button @click="category = 'promo'" 
-                :class="category === 'promo' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'" 
-                class="flex-1 md:flex-none shrink-0 px-4 py-2.5 md:px-8 md:py-3 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                Promo
-            </button>
-            <button @click="category = 'berita'" 
-                :class="category === 'berita' ? 'btn-metal shadow-lg text-white' : 'text-gray-500 hover:text-white hover:bg-white/5'" 
-                class="flex-1 md:flex-none shrink-0 px-4 py-2.5 md:px-8 md:py-3 rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap">
-                Berita
-            </button>
+    {{-- ── Header ── --}}
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+            <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-brand-neon mb-2">Update Terbaru</p>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none text-white">
+                Promo & <span class="text-brand-neon">Berita</span>
+            </h1>
+            <p class="text-gray-500 text-sm mt-3 font-medium max-w-md leading-relaxed">
+                Penawaran eksklusif dan info terbaru seputar dunia gaming.
+            </p>
+        </div>
+
+        {{-- Filter Tabs --}}
+        <div class="flex items-center gap-1.5 flex-shrink-0 flex-wrap">
+            @foreach([
+                ['val' => 'all',    'label' => 'Semua'],
+                ['val' => 'promo',  'label' => 'Promo'],
+                ['val' => 'berita', 'label' => 'Berita'],
+            ] as $tab)
+                <button @click="category = '{{ $tab['val'] }}'"
+                    :class="category === '{{ $tab['val'] }}'
+                        ? 'bg-brand-neon text-black border-transparent'
+                        : 'bg-white/[0.03] text-gray-400 border-white/[0.07] hover:text-white hover:bg-white/[0.07]'"
+                    class="px-5 py-2 rounded-xl border text-[12px] font-bold uppercase tracking-wide transition-all duration-200">
+                    {{ $tab['label'] }}
+                </button>
+            @endforeach
         </div>
     </div>
-</div>
 
-<!-- News Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-    <template x-for="article in articles" :key="article.id">
-        <div x-show="category === 'all' || article.category === category"
-            x-transition:enter="transition ease-out duration-500"
-            x-transition:enter-start="opacity-0 translate-y-10"
-            x-transition:enter-end="opacity-100 translate-y-0">
-            
-            <a :href="'/news/' + article.slug" class="block metal-card rounded-xl overflow-hidden group h-full flex flex-col">
-                <!-- Image Wrap -->
-                <div class="relative aspect-video overflow-hidden">
-                    <img :src="article.image" :alt="article.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
-                    <div class="absolute top-6 left-6">
-                        <div class="glass-dark px-4 py-2 rounded-lg border border-white/10 group-hover:border-brand-red/50 transition-colors shadow-2xl">
-                            <p class="text-[10px] text-white font-black uppercase tracking-widest" x-text="article.category"></p>
-                        </div>
+    {{-- ── Featured + Grid ── --}}
+    <div x-show="filtered.length > 0">
+
+        {{-- Featured Article (first item) --}}
+        <template x-if="filtered.length > 0">
+            <a :href="'/news/' + filtered[0].slug"
+                class="group flex flex-col h-auto lg:h-80 md:flex-row gap-0 metal-card rounded-2xl overflow-hidden transition-all duration-300 mb-6">
+
+                {{-- Image --}}
+                <div class="md:w-1/2 aspect-video md:aspect-auto overflow-hidden relative">
+                    <img :src="filtered[0].image" :alt="filtered[0].title"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#1a1d27]/60 hidden md:block"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border"
+                            style="background:rgba(0,0,0,0.6); border-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8);"
+                            x-text="filtered[0].category"></span>
                     </div>
                 </div>
 
-                <!-- Content -->
-                <div class="p-8 flex-1 flex flex-col space-y-6">
-                    <div class="flex items-center gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-brand-red"></div>
-                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-500" x-text="article.date"></p>
+                {{-- Info --}}
+                <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-between gap-4">
+                    <div class="space-y-3">
+                        <p class="text-[10px] font-bold text-brand-neon uppercase tracking-widest flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-neon inline-block"></span>
+                            <span x-text="filtered[0].date"></span>
+                        </p>
+                        <h2 class="text-xl md:text-2xl font-black text-white uppercase leading-tight group-hover:text-brand-neon transition-colors line-clamp-3"
+                            x-text="filtered[0].title"></h2>
+                        <p class="text-gray-400 text-sm leading-relaxed line-clamp-3"
+                            x-text="filtered[0].excerpt"></p>
                     </div>
-                    <div class="space-y-4 flex-1">
-                        <h4 class="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-tight group-hover:text-brand-red transition-colors item-title line-clamp-2" x-text="article.title"></h4>
-                        <p class="text-gray-400 text-sm leading-relaxed line-clamp-3" x-text="article.excerpt"></p>
-                    </div>
-
-                    <!-- Read More Button -->
-                    <div class="pt-6 border-t border-white/5 flex items-center justify-between group/btn">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-white group-hover/btn:text-brand-red transition-colors">Selengkapnya</span>
-                        <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover/btn:bg-brand-red transition-all duration-300">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </div>
+                    <div class="flex items-center gap-2 text-[12px] font-bold text-brand-neon uppercase tracking-wide">
+                        <span>Baca Selengkapnya</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                     </div>
                 </div>
             </a>
-        </div>
-    </template>
-</div>
+        </template>
 
-<!-- Load More Button -->
-<div x-show="nextPage" class="flex justify-center mt-12 md:mt-24" x-cloak>
-    <button @click="loadMore()" :disabled="loading"
-        class="group flex items-center gap-3 px-8 py-4 md:px-12 md:py-5 bg-white/[0.03] hover:bg-brand-red border border-white/10 hover:border-brand-red rounded-xl transition-all duration-300 disabled:opacity-50">
-        <span class="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] text-white" 
-              x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak'"></span>
-        
-        <template x-if="!loading">
-            <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-1 transition-transform duration-500" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        {{-- Rest of articles grid --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <template x-for="(article, index) in filtered" :key="article.id">
+                <div x-show="index > 0"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100">
+
+                    <a :href="'/news/' + article.slug"
+                        class="group flex flex-col metal-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 h-full">
+
+                        {{-- Image --}}
+                        <div class="relative aspect-video overflow-hidden">
+                            <img :src="article.image" :alt="article.title"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                loading="lazy">
+                            <div class="absolute top-3 left-3">
+                                <span class="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border"
+                                    style="background:rgba(0,0,0,0.6); border-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7);"
+                                    x-text="article.category"></span>
+                            </div>
+                        </div>
+
+                        {{-- Info --}}
+                        <div class="p-4 flex flex-col gap-2.5 flex-1">
+                            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1.5">
+                                <span class="w-1 h-1 rounded-full bg-brand-neon inline-block"></span>
+                                <span x-text="article.date"></span>
+                            </p>
+                            <h4 class="text-[14px] font-black text-white uppercase leading-snug line-clamp-2 group-hover:text-brand-neon transition-colors"
+                                x-text="article.title"></h4>
+                            <p class="text-gray-500 text-[12px] leading-relaxed line-clamp-2 flex-1"
+                                x-text="article.excerpt"></p>
+                            <div class="flex items-center justify-between pt-3 border-t border-white/[0.06]">
+                                <span class="text-[11px] font-bold text-gray-500 group-hover:text-brand-neon transition-colors uppercase tracking-wide">Selengkapnya</span>
+                                <div class="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center group-hover:bg-brand-neon group-hover:border-transparent transition-all duration-200">
+                                    <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    {{-- ── Empty State ── --}}
+    <div x-show="filtered.length === 0" x-cloak class="text-center py-24 space-y-4">
+        <div class="w-14 h-14 mx-auto rounded-2xl metal-card flex items-center justify-center text-gray-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" />
             </svg>
-        </template>
-        
-        <template x-if="loading">
-            <svg class="animate-spin h-4 w-4 md:w-5 md:h-5 text-white" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        </template>
-    </button>
-</div>
+        </div>
+        <h3 class="text-base font-black uppercase tracking-widest text-white">Belum Ada Artikel</h3>
+        <p class="text-gray-500 text-sm font-medium">Belum ada konten untuk kategori ini.</p>
+    </div>
+
+    {{-- ── Load More ── --}}
+    <div class="flex justify-center" x-show="nextPage" x-cloak>
+        <button @click="loadMore()" :disabled="loading"
+            class="flex items-center gap-3 px-8 py-3 rounded-xl border border-white/[0.07] text-[13px] font-bold text-gray-400
+                hover:text-white hover:border-brand-neon/40 hover:bg-brand-neon/[0.06] transition-all duration-200 disabled:opacity-40 metal-card">
+            <template x-if="!loading">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </template>
+            <template x-if="loading">
+                <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </template>
+            <span x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak'"></span>
+        </button>
+    </div>
+
 @endsection
