@@ -20,21 +20,33 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nama Lengkap <span class="text-brand-neon">*</span></label>
-                        <input type="text" name="name" value="{{ $user->name }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
+                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
                         @error('name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Username <span class="text-brand-neon">*</span></label>
+                        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
+                        @error('username') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Email Address <span class="text-brand-neon">*</span></label>
-                        <input type="email" name="email" value="{{ $user->email }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
+                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
                         @error('email') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nomor WhatsApp</label>
+                        <input type="text" name="whatsapp" value="{{ old('whatsapp', $user->whatsapp) }}" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="0812xxxxxxxx">
+                        @error('whatsapp') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Role Akses <span class="text-brand-neon">*</span></label>
                         <select name="role" class="w-full input-metal py-3 px-4 rounded-xl text-xs appearance-none" required>
-                            <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User / Pelanggan</option>
-                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Administrator</option>
+                            <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User / Pelanggan</option>
+                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Administrator</option>
                         </select>
                         @error('role') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                     </div>
