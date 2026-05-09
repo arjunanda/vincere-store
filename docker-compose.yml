@@ -7,25 +7,25 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
-    image: ventuz-store:latest
-    container_name: ventuz_app
+    image: vincere-store:latest
+    container_name: vincere_app
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-8000}:8000"
-      - "${REVERB_PORT:-8080}:8080"
+      - "${APP_PORT:-8002}:8000"
+      - "${REVERB_PORT:-8081}:8080"
 
     environment:
       APP_NAME: "${APP_NAME:-Vincere Store}"
       APP_ENV: "${APP_ENV:-production}"
       APP_KEY: "${APP_KEY}"
       APP_DEBUG: "${APP_DEBUG:-false}"
-      APP_URL: "${APP_URL:-http://localhost:8000}"
+      APP_URL: "${APP_URL:-https://vincerestore.com}"
 
       # Database (HOST MACHINE POSTGRESQL)
       DB_CONNECTION: pgsql
       DB_HOST: host.docker.internal
       DB_PORT: 5432
-      DB_DATABASE: ventuz_store
+      DB_DATABASE: vincere_store
       DB_USERNAME: junastack
       DB_PASSWORD: "Junedi12345**##"
 
@@ -51,7 +51,7 @@ services:
       REVERB_APP_KEY: "${REVERB_APP_KEY}"
       REVERB_APP_SECRET: "${REVERB_APP_SECRET}"
       REVERB_HOST: "0.0.0.0"
-      REVERB_PORT: 8080
+      REVERB_PORT: 8081
       REVERB_SCHEME: http
 
       # Broadcast
@@ -60,7 +60,7 @@ services:
       # Vite (Frontend Environment Variables)
       VITE_REVERB_APP_KEY: "${REVERB_APP_KEY}"
       VITE_REVERB_HOST: "217.15.167.231"
-      VITE_REVERB_PORT: 8080
+      VITE_REVERB_PORT: 8081
       VITE_REVERB_SCHEME: http
 
       # WhatsApp Service
@@ -77,7 +77,7 @@ services:
       - "host.docker.internal:host-gateway"
 
     networks:
-      - ventuz_network
+      - vincere_network
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/up"]
@@ -91,15 +91,13 @@ services:
   # ──────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
-    container_name: ventuz_redis
+    container_name: vincere_redis
     restart: unless-stopped
     command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
-      - ventuz_network
+      - vincere_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -119,5 +117,5 @@ volumes:
 # Networks
 # ──────────────────────────────────────────────────────────
 networks:
-  ventuz_network:
+  vincere_network:
     driver: bridge
