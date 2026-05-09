@@ -25,7 +25,8 @@
             search: '{{ request('search') }}',
             category: 'all',
             service: 'all',
-            games: @json($gamesData),
+            initialGames: @json($gamesData),
+            extraGames: [],
             serviceNames: {
                 @foreach($categories as $cat)
                     '{{ $cat->slug }}': '{{ addslashes($cat->name) }}',
@@ -34,12 +35,22 @@
             nextPage: '{{ $games->nextPageUrl() }}',
             loading: false,
 
-            get filteredGames() {
-                return this.games.filter(game =>
-                    (this.category === 'all' || game.category === this.category) &&
-                    (this.service === 'all' || game.service === this.service) &&
-                    (this.search === '' || game.name.toLowerCase().includes(this.search.toLowerCase()))
-                );
+            get filteredInitialCount() {
+                return this.initialGames.filter(g => this.matches(g)).length;
+            },
+
+            get filteredExtraCount() {
+                return this.extraGames.filter(g => this.matches(g)).length;
+            },
+
+            get totalVisible() {
+                return this.filteredInitialCount + this.filteredExtraCount;
+            },
+
+            matches(game) {
+                return (this.category === 'all' || game.category === this.category) &&
+                       (this.service === 'all' || game.service === this.service) &&
+                       (this.search === '' || game.name.toLowerCase().includes(this.search.toLowerCase()));
             },
 
             async loadMore() {
@@ -51,7 +62,13 @@
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
                     const result = await response.json();
-                    this.games = [...this.games, ...result.data];
+                    
+                    const newGames = result.data.map(g => ({
+                        ...g,
+                        service: g.service || 'all'
+                    }));
+
+                    this.extraGames = [...this.extraGames, ...newGames];
                     this.nextPage = result.next_page_url;
                 } catch (error) {
                     console.error('Error loading more games:', error);
@@ -170,39 +187,40 @@
         </div>
 
         {{-- Result count --}}
-        <p class="text-[11px] text-gray-600 font-medium" x-text="`Menampilkan ${filteredGames.length} game`"></p>
+        <p class="text-[11px] text-gray-600 font-medium" x-text="`Menampilkan ${totalVisible} game`"></p>
     </div>
 
     {{-- ── Game Grid ── --}}
     <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-6">
-        <template x-for="game in filteredGames" :key="game.id">
-            <div x-transition:enter="transition ease-out duration-300"
+        {{-- SSR Initial Games --}}
+        @foreach($games as $game)
+            <div x-show="(category === 'all' || '{{ $game->platform_type }}' === category) && (service === 'all' || '{{ $game->category->slug ?? 'all' }}' === service) && (search === '' || '{{ strtolower($game->name) }}'.includes(search.toLowerCase()))"
+                x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 scale-95"
                 x-transition:enter-end="opacity-100 scale-100">
+                @include('partials.game-card', ['game' => $game])
+            </div>
+        @endforeach
 
+        {{-- Extra Games (Loaded via AJAX) --}}
+        <template x-for="game in extraGames" :key="game.id">
+            <div x-show="(category === 'all' || game.category === category) && (service === 'all' || game.service === service) && (search === '' || game.name.toLowerCase().includes(search.toLowerCase()))"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100">
                 <a :href="'/game/' + game.slug"
-                    class="block metal-card p-2 md:p-3 rounded-2xl group transition-all duration-300">
-                    
-                    {{-- Game Cover --}}
+                    class="block metal-card p-2 md:p-3 rounded-2xl group transition-all duration-300 h-full">
                     <div class="aspect-square rounded-xl overflow-hidden mb-3 md:mb-4 border border-white/5 group-hover:border-brand-neon/50 transition-colors shadow-lg">
                         <img :src="game.image" :alt="game.name"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             loading="lazy">
                     </div>
-
-                    {{-- Info --}}
                     <div class="px-1 pb-1 space-y-3">
-                        <h4
-                            class="text-[9px] sm:text-[10px] md:text-xs font-bold tracking-tight uppercase text-center line-clamp-1 group-hover:text-brand-neon transition-colors"
-                            x-text="game.name">
-                        </h4>
-
+                        <h4 class="text-[9px] sm:text-[10px] md:text-xs font-bold tracking-tight uppercase text-center line-clamp-1 group-hover:text-brand-neon transition-colors"
+                            x-text="game.name"></h4>
                         <div class="flex justify-center">
-                            <div
-                                class="w-full py-2 rounded-xl bg-brand-neon text-black transition-all duration-300 shadow-[0_0_15px_rgba(124,255,0,0.2)] group-hover:shadow-[0_0_25px_rgba(124,255,0,0.4)] group-hover:scale-[1.02]">
-                                <span
-                                    class="text-[8px] sm:text-[9px] md:text-[11px] font-black uppercase tracking-widest block text-center">Top
-                                    Up</span>
+                            <div class="w-full py-2 rounded-xl bg-brand-neon text-black transition-all duration-300 shadow-[0_0_15px_rgba(124,255,0,0.2)] group-hover:shadow-[0_0_25px_rgba(124,255,0,0.4)] group-hover:scale-[1.02]">
+                                <span class="text-[8px] sm:text-[9px] md:text-[11px] font-black uppercase tracking-widest block text-center">Top Up</span>
                             </div>
                         </div>
                     </div>
@@ -212,7 +230,7 @@
     </div>
 
     {{-- ── Empty State ── --}}
-    <div x-show="filteredGames.length === 0" x-cloak class="text-center py-24 space-y-4">
+    <div x-show="totalVisible === 0" x-cloak class="text-center py-24 space-y-4">
         <div class="w-16 h-16 mx-auto rounded-2xl border border-white/[0.07] flex items-center justify-center text-gray-600" style="background:#1a1d27">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"

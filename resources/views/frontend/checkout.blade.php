@@ -53,6 +53,25 @@
         <div class="metal-card rounded-3xl overflow-hidden border-white/5 shadow-xl">
             <div class="p-6 md:p-10 space-y-6">
 
+                {{-- Hero Icon for Final Status --}}
+                @if(in_array($transaction->delivery_status, ['success', 'completed']))
+                    <div class="flex justify-center">
+                        <div class="w-20 h-20 bg-brand-neon/10 rounded-full flex items-center justify-center border border-brand-neon/30 shadow-[0_0_30px_rgba(124,255,0,0.15)]">
+                            <svg class="w-10 h-10 text-brand-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                @elseif($transaction->delivery_status === 'failed')
+                    <div class="flex justify-center">
+                        <div class="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.15)]">
+                            <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Title & Order ID -->
                 <div class="text-center space-y-2">
                     <h1 class="text-2xl md:text-4xl font-black uppercase tracking-tight">
@@ -74,7 +93,22 @@
                     @if($transaction->payment_status === 'pending')
                         <p class="text-[10px] font-black uppercase tracking-widest text-brand-neon animate-pulse">Menunggu Pembayaran</p>
                     @elseif($transaction->payment_status === 'verif')
-                        <p class="text-[10px] font-black uppercase tracking-widest text-amber-500">Menunggu Verifikasi</p>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-amber-500 animate-pulse">Menunggu Verifikasi</p>
+                    @elseif($transaction->delivery_status === 'success' || $transaction->delivery_status === 'completed')
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-neon/10 border border-brand-neon/30">
+                            <div class="w-1.5 h-1.5 rounded-full bg-brand-neon shadow-[0_0_8px_rgba(124,255,0,0.8)]"></div>
+                            <span class="text-[11px] font-black uppercase tracking-widest text-brand-neon">Berhasil Dikirim</span>
+                        </div>
+                    @elseif($transaction->delivery_status === 'failed')
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30">
+                            <div class="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+                            <span class="text-[11px] font-black uppercase tracking-widest text-red-500">Gagal / Dibatalkan</span>
+                        </div>
+                    @elseif($transaction->delivery_status === 'processing' || $transaction->payment_status === 'paid')
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30">
+                            <div class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping"></div>
+                            <span class="text-[11px] font-black uppercase tracking-widest text-blue-500">Sedang Diproses</span>
+                        </div>
                     @endif
                 </div>
 
@@ -165,6 +199,12 @@
                             </div>
                         </div>
                     @endif
+                @elseif($transaction->delivery_status === 'failed')
+                    <hr class="border-white/5">
+                    <div class="bg-red-500/10 border border-red-500/20 p-6 rounded-xl text-center space-y-2">
+                        <p class="text-sm text-red-500 font-black uppercase">Transaksi Gagal</p>
+                        <p class="text-xs text-gray-400">Pesanan Anda tidak dapat diproses. Jika Anda sudah melakukan pembayaran, silakan hubungi Customer Service dengan melampirkan ID Transaksi.</p>
+                    </div>
                 @endif
             </div>
         </div>

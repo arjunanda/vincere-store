@@ -54,7 +54,7 @@ class GameController extends Controller
             $data['image'] = $this->uploadAndCompressImage($request->file('image'), 'games');
         }
 
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = $this->generateUniqueSlug($data['name']);
         Game::create($data);
 
         $this->logActivity('CREATE_GAME', "Menambahkan game baru: {$data['name']}");
@@ -84,7 +84,7 @@ class GameController extends Controller
             $data['image'] = $this->uploadAndCompressImage($request->file('image'), 'games');
         }
 
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = $this->generateUniqueSlug($data['name'], $game->id);
         $game->update($data);
 
         $this->logActivity('UPDATE_GAME', "Memperbarui data game: {$game->name}");
@@ -112,5 +112,20 @@ class GameController extends Controller
         $game->delete();
         $this->logActivity('DELETE_GAME', "Menghapus game: {$name}");
         return back()->with('success', 'Game berhasil dihapus!');
+    }
+    private function generateUniqueSlug($name, $ignoreId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Game::where('slug', $slug)
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->exists()) {
+            $slug = "{$originalSlug}-{$count}";
+            $count++;
+        }
+
+        return $slug;
     }
 }

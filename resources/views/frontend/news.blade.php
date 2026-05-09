@@ -23,12 +23,21 @@ x-data="newsPage()"
     function newsPage() {
         return {
             category: 'all',
-            articles: @json($newsData),
+            initialArticles: @json($newsData),
+            extraArticles: [],
             nextPage: '{{ $articles->nextPageUrl() }}',
             loading: false,
 
-            get filtered() {
-                return this.articles.filter(a => this.category === 'all' || a.category === this.category);
+            get filteredInitialCount() {
+                return this.initialArticles.filter(a => this.category === 'all' || a.category === this.category).length;
+            },
+
+            get filteredExtraCount() {
+                return this.extraArticles.filter(a => this.category === 'all' || a.category === this.category).length;
+            },
+
+            get totalVisible() {
+                return this.filteredInitialCount + this.filteredExtraCount;
             },
 
             async loadMore() {
@@ -39,7 +48,7 @@ x-data="newsPage()"
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
                     });
                     const result = await response.json();
-                    this.articles = [...this.articles, ...result.data];
+                    this.extraArticles = [...this.extraArticles, ...result.data];
                     this.nextPage = result.next_page_url;
                 } catch (error) {
                     console.error('Error:', error);
@@ -87,52 +96,34 @@ x-data="newsPage()"
     </div>
 
     {{-- ── Featured + Grid ── --}}
-    <div x-show="filtered.length > 0">
+    <div>
+        {{-- SSR Initial Articles --}}
+        @php $featuredArticle = $articles->first(); $remainingArticles = $articles->slice(1); @endphp
+        
+        @if($featuredArticle)
+            <div x-show="category === 'all' || '{{ $featuredArticle->type }}' === category"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100">
+                @include('partials.news-card', ['article' => $featuredArticle, 'isFeatured' => true])
+            </div>
+        @endif
 
-        {{-- Featured Article (first item) --}}
-        <template x-if="filtered.length > 0">
-            <a :href="'/news/' + filtered[0].slug"
-                class="group flex flex-col h-auto lg:h-80 md:flex-row gap-0 metal-card rounded-2xl overflow-hidden transition-all duration-300 mb-6">
-
-                {{-- Image --}}
-                <div class="md:w-1/2 aspect-video md:aspect-auto overflow-hidden relative">
-                    <img :src="filtered[0].image" :alt="filtered[0].title"
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#1a1d27]/60 hidden md:block"></div>
-                    <div class="absolute top-4 left-4">
-                        <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border"
-                            style="background:rgba(0,0,0,0.6); border-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8);"
-                            x-text="filtered[0].category"></span>
-                    </div>
-                </div>
-
-                {{-- Info --}}
-                <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-between gap-4">
-                    <div class="space-y-3">
-                        <p class="text-[10px] font-bold text-brand-neon uppercase tracking-widest flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brand-neon inline-block"></span>
-                            <span x-text="filtered[0].date"></span>
-                        </p>
-                        <h2 class="text-xl md:text-2xl font-black text-white uppercase leading-tight group-hover:text-brand-neon transition-colors line-clamp-3"
-                            x-text="filtered[0].title"></h2>
-                        <p class="text-gray-400 text-sm leading-relaxed line-clamp-3"
-                            x-text="filtered[0].excerpt"></p>
-                    </div>
-                    <div class="flex items-center gap-2 text-[12px] font-bold text-brand-neon uppercase tracking-wide">
-                        <span>Baca Selengkapnya</span>
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-        </template>
-
-        {{-- Rest of articles grid --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <template x-for="(article, index) in filtered" :key="article.id">
-                <div x-show="index > 0"
+            @foreach($remainingArticles as $article)
+                <div x-show="category === 'all' || '{{ $article->type }}' === category"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100">
+                    @include('partials.news-card', ['article' => $article, 'isFeatured' => false])
+                </div>
+            @endforeach
+        </div>
+
+        {{-- Extra Articles (Loaded via AJAX) --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <template x-for="article in extraArticles" :key="article.id">
+                <div x-show="category === 'all' || article.category === category"
                     x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 scale-95"
                     x-transition:enter-end="opacity-100 scale-100">
@@ -178,7 +169,7 @@ x-data="newsPage()"
     </div>
 
     {{-- ── Empty State ── --}}
-    <div x-show="filtered.length === 0" x-cloak class="text-center py-24 space-y-4">
+    <div x-show="totalVisible === 0" x-cloak class="text-center py-24 space-y-4">
         <div class="w-14 h-14 mx-auto rounded-2xl metal-card flex items-center justify-center text-gray-600">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
