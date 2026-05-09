@@ -7,7 +7,7 @@
         <p class="text-gray-500 font-medium mt-1">Kelola informasi data diri dan kontak akun Anda.</p>
     </div>
 
-    <form action="{{ route('dashboard.profile.update') }}" method="POST" class="space-y-6">
+    <form action="{{ route('dashboard.profile.update') }}" method="POST" class="space-y-6" novalidate>
         @csrf @method('PUT')
         
         <div class="stat-card space-y-6">

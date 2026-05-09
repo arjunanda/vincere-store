@@ -23,7 +23,7 @@
         <p class="text-gray-500 font-medium mt-1">Konfigurasi identitas, SEO, dan kontak official website Anda.</p>
     </div>
 
-    <form action="{{ route('dashboard.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+    <form action="{{ route('dashboard.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8" novalidate>
         @csrf @method('PUT')
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -35,7 +35,7 @@
                     <div class="space-y-4">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Judul Website (Title)</label>
-                            <input type="text" name="web_title" value="{{ $settings['web_title'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Contoh: Ventuz Store - Topup Game Termurah">
+                            <input type="text" name="web_title" value="{{ $settings['web_title'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Contoh: Vincere Store - Topup Game Termurah">
                         </div>
 
                         <div class="space-y-2">
@@ -50,13 +50,13 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Author / Pemilik</label>
-                                <input type="text" name="web_author" value="{{ $settings['web_author'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Ventuz Store Team">
+                                <input type="text" name="web_author" value="{{ $settings['web_author'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Vincere Store Team">
                             </div>
                         </div>
 
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Footer Copyright</label>
-                            <input type="text" name="web_footer" value="{{ $settings['web_footer'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Contoh: © 2024 Ventuz Store. All rights reserved.">
+                            <input type="text" name="web_footer" value="{{ $settings['web_footer'] ?? '' }}" class="w-full input-metal rounded-2xl py-4 px-6 text-sm" placeholder="Contoh: © 2024 Vincere Store. All rights reserved.">
                         </div>
                     </div>
                 </div>

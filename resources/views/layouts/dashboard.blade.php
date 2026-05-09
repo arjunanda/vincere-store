@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $webSettings['web_title'] ?? 'Ventuz Store - Dashboard' }}</title>
+    <title>{{ $webSettings['web_title'] ?? 'Vincere Store - Dashboard' }}</title>
     @if(isset($webSettings['web_favicon']))
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $webSettings['web_favicon']) }}">
     @endif

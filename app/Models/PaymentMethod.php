@@ -16,6 +16,8 @@ class PaymentMethod extends Model
         'image',
         'qris_image',
         'fee',
+        'bank_code',
+        'bank_name',
         'is_active'
     ];
 

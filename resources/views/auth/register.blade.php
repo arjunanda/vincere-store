@@ -131,7 +131,7 @@
                 <!-- Agreement -->
                 <div class="flex items-start gap-3 px-1">
                     <input type="checkbox" required class="mt-1 accent-brand-neon bg-white/5 border-white/10 rounded">
-                    <p class="text-[10px] text-gray-500 leading-relaxed">Saya setuju dengan <a href="#" class="text-white hover:text-brand-neon font-bold underline">Syarat & Ketentuan</a> serta <a href="#" class="text-white hover:text-brand-neon font-bold underline">Kebijakan Privasi</a> Ventuz Store.</p>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Saya setuju dengan <a href="#" class="text-white hover:text-brand-neon font-bold underline">Syarat & Ketentuan</a> serta <a href="#" class="text-white hover:text-brand-neon font-bold underline">Kebijakan Privasi</a> Vincere Store.</p>
                 </div>
 
                 <!-- Submit -->

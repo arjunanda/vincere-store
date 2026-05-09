@@ -11,7 +11,7 @@
         <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">{{ $user->name }}</p>
     </div>
 
-    <form action="{{ route('dashboard.users.update', $user) }}" method="POST" class="space-y-6">
+    <form action="{{ route('dashboard.users.update', $user) }}" method="POST" class="space-y-6" novalidate>
         @csrf
         @method('PUT')
         

@@ -27,7 +27,7 @@
                 </div>
                 <h4 class="font-black uppercase tracking-widest text-white ">Info Saldo</h4>
             </div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-6">Gunakan poin Ventuz untuk proses *instant-processing* tanpa perlu konfirmasi manual setiap kali belanja.</p>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Gunakan poin Vincere untuk proses *instant-processing* tanpa perlu konfirmasi manual setiap kali belanja.</p>
             <div class="p-6 bg-black/40 rounded-2xl border border-white/5">
                 <p class="text-[10px] font-black uppercase tracking-widest text-gray-600 mb-1">Saldo Poin Anda</p>
                 <p class="text-3xl font-black  text-brand-neon">0 <span class="text-xs not- text-gray-500 ml-1">POIN</span></p>

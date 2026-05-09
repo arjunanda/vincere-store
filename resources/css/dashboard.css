@@ -17,9 +17,9 @@ html, body {
 /* Sidebar Styling */
 .sidebar {
     width: 280px;
-    background: rgba(10, 10, 10, 0.8);
+    background: rgba(18, 22, 28, 0.95);
     backdrop-filter: blur(20px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(124, 255, 0, 0.08);
     height: 100vh;
     position: fixed;
     left: 0;
@@ -44,12 +44,12 @@ html, body {
 }
 
 .sidebar-item:hover, .sidebar-item.active {
-    background: rgba(225, 29, 72, 0.1);
+    background: rgba(124, 255, 0, 0.08);
     color: #7CFF00;
 }
 
 .sidebar-item.active {
-    background: linear-gradient(135deg, rgba(225, 29, 72, 0.15) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(124, 255, 0, 0.12) 0%, transparent 100%);
     border-left: 3px solid #7CFF00;
 }
 
@@ -86,15 +86,15 @@ html, body {
 
 /* Dashboard Cards */
 .stat-card {
-    background: linear-gradient(145deg, #121212, #0a0a0a);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(145deg, #1a1f2b, #14181f);
+    border: 1px solid rgba(124, 255, 0, 0.06);
     border-radius: 12px; /* Dikurangi agar tidak terlalu bulat */
     padding: 28px;
     transition: all 0.3s ease;
 }
 
 .stat-card:hover {
-    border-color: rgba(225, 29, 72, 0.3);
+    border-color: rgba(124, 255, 0, 0.25);
     transform: translateY(-5px);
 }
 
@@ -110,10 +110,10 @@ html, body {
 
 /* Global Premium Buttons */
 .btn-metal {
-    background: #7CFF00 !important; /* Solid Brand Red */
-    color: white !important;
+    background: #7CFF00 !important;
+    color: #000 !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
+    box-shadow: 0 4px 15px rgba(124, 255, 0, 0.3);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -123,8 +123,8 @@ html, body {
 }
 
 .btn-metal:hover {
-    background: #f43f5e !important; /* Brighter Red */
-    box-shadow: 0 8px 25px rgba(225, 29, 72, 0.5);
+    background: #6EE600 !important;
+    box-shadow: 0 8px 25px rgba(124, 255, 0, 0.5);
     transform: translateY(-2px);
 }
 
@@ -166,7 +166,7 @@ html, body {
 .input-metal:focus {
     background: rgba(255, 255, 255, 0.08) !important;
     border-color: #7CFF00 !important;
-    box-shadow: 0 0 15px rgba(225, 29, 72, 0.2);
+    box-shadow: 0 0 15px rgba(124, 255, 0, 0.2);
     outline: none;
 }
 
@@ -212,10 +212,15 @@ html, body {
 /* Page Label & Title Coloring */
 label, 
 .form-label {
-    color: #7CFF00 !important; /* Brand Red */
+    color: #7CFF00 !important;
     opacity: 0.9;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+}
+
+/* Validation error messages */
+form .text-brand-neon.text-\[10px\] {
+    color: #ef4444 !important;
 }
 
 th {
@@ -282,18 +287,18 @@ input:checked + .slider:before {
     width: 60px;
     height: 60px;
     background: #7CFF00;
-    color: white;
+    color: #000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 25px rgba(225, 29, 72, 0.4);
+    box-shadow: 0 10px 25px rgba(124, 255, 0, 0.4);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .fab:hover {
     transform: scale(1.1) rotate(90deg);
-    background: #f43f5e;
+    background: #6EE600;
 }
 
 @media (min-width: 1024px) {
@@ -412,8 +417,8 @@ input:checked + .slider:before {
 .btn-upload {
     display: inline-block;
     padding: 8px 16px;
-    background: rgba(225, 29, 72, 0.1);
-    border: 1px solid rgba(225, 29, 72, 0.3);
+    background: rgba(124, 255, 0, 0.1);
+    border: 1px solid rgba(124, 255, 0, 0.3);
     border-radius: 10px;
     color: #7CFF00;
     font-size: 10px;
@@ -426,7 +431,7 @@ input:checked + .slider:before {
 
 .btn-upload:hover {
     background: #7CFF00;
-    color: white;
-    box-shadow: 0 0 15px rgba(225, 29, 72, 0.3);
+    color: #000;
+    box-shadow: 0 0 15px rgba(124, 255, 0, 0.3);
     border-color: #7CFF00;
 }

@@ -15,7 +15,7 @@
             <p class="text-gray-500 font-medium mt-1">Ubah nama atau harga item untuk game {{ $variant->game->name }}.</p>
         </div>
 
-        <form action="{{ route('dashboard.items.update', $variant) }}" method="POST" class="stat-card space-y-6">
+        <form action="{{ route('dashboard.items.update', $variant) }}" method="POST" class="stat-card space-y-6" novalidate>
             @csrf
             @method('PUT')
 

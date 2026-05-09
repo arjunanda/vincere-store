@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-echo "🚀 Starting Ventuz Store..."
+echo "🚀 Starting Vincere Store..."
 
 # ── 1. Create necessary storage directories ──────────────────
 echo "📁 Ensuring storage directories exist..."

@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <form action="{{ route('dashboard.payments.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" 
+    <form action="{{ route('dashboard.payments.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" novalidate
         x-data="{ 
             paymentType: 'bank',
             logoPreview: null,
@@ -46,14 +46,8 @@
 
                 <div class="space-y-2">
                     <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nama Provider (BCA, OVO, dll) <span class="text-brand-neon">*</span></label>
-                    <input type="text" name="name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: Bank Central Asia" required>
+                    <input type="text" name="name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: BCA, BNI, BRI, dll" required>
                     @error('name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Kode Unik (Slug/ID) <span class="text-brand-neon">*</span></label>
-                    <input type="text" name="code" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: bca, ovo, qris" required>
-                    @error('code') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="space-y-2">
@@ -71,8 +65,14 @@
 
                 <div class="space-y-2">
                     <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Atas Nama</label>
-                    <input type="text" name="account_name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="PT. Ventuz Media">
+                    <input type="text" name="account_name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="PT. Vincere Media">
                     @error('account_name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
+                </div>
+
+                <div class="space-y-2" x-show="paymentType === 'bank'" x-cloak x-transition>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nama Bank Resmi</label>
+                    <input type="text" name="bank_name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Bank Central Asia">
+                    @error('bank_name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                 </div>
             </div>
         </div>

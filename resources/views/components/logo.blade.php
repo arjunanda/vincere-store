@@ -43,12 +43,12 @@
     <div class="relative shrink-0">
         @if(isset($webSettings['web_logo']))
             <img src="{{ asset('storage/' . $webSettings['web_logo']) }}" 
-                alt="{{ $webSettings['web_title'] ?? 'Ventuz Store' }}"
+                alt="{{ $webSettings['web_title'] ?? 'Vincere Store' }}"
                 {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @else
             <img src="{{ asset('assets/images-logo/logo.png') }}" 
-                alt="Ventuz Logo"
+                alt="Vincere Logo"
                 {{ $attributes->only(['fetchpriority', 'loading']) }}
                 class="{{ $current['img'] }} w-auto rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300 border border-white/10">
         @endif

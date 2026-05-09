@@ -12,7 +12,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Form Tambah Grup -->
         <div class="lg:col-span-1">
-            <form action="{{ route('dashboard.inputs.store') }}" method="POST" class="stat-card space-y-6">
+            <form action="{{ route('dashboard.inputs.store') }}" method="POST" class="stat-card space-y-6" novalidate>
                 @csrf
                 <div class="space-y-3">
                     <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Nama Template <span class="text-brand-neon">*</span></label>

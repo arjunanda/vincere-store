@@ -50,7 +50,7 @@ build:
 
 # ── Start ────────────────────────────────────────────────────
 up:
-	@echo "🚀 Starting Ventuz Store containers..."
+	@echo "🚀 Starting Vincere Store containers..."
 	docker compose up -d
 	@echo "✅ Running at http://localhost:8000"
 	@echo "📡 Reverb WebSocket at ws://localhost:8080"

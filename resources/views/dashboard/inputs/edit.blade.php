@@ -98,7 +98,7 @@
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openRename = false" x-transition.opacity></div>
             <div class="stat-card relative w-full max-w-md shadow-2xl" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
                 <h3 class="text-lg font-black  uppercase text-white mb-6">Ubah Nama <span class="text-brand-neon">Template</span></h3>
-                <form action="{{ route('dashboard.inputs.update', $group) }}" method="POST">
+                <form action="{{ route('dashboard.inputs.update', $group) }}" method="POST" novalidate>
                     @csrf @method('PUT')
                     <div class="space-y-4">
                         <div>
@@ -122,7 +122,7 @@
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="openAddField = false" x-transition.opacity></div>
             <div class="stat-card relative w-full max-w-md shadow-2xl" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
                 <h3 class="text-lg font-black  uppercase text-white mb-6">Tambah <span class="text-brand-neon">Field Baru</span></h3>
-                <form action="{{ route('dashboard.inputs.fields.store', $group) }}" method="POST" class="space-y-5">
+                <form action="{{ route('dashboard.inputs.fields.store', $group) }}" method="POST" class="space-y-5" novalidate>
                     @csrf
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Label Input <span class="text-brand-neon">*</span></label>

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('image')->nullable(); // Logo Pembayaran
             $table->string('qris_image')->nullable(); // Khusus untuk upload gambar QRIS
             $table->decimal('fee', 10, 2)->default(0); // Biaya admin jika ada
+            $table->string('bank_code')->nullable(); // Kode Bank (014, 008, dll)
+            $table->string('bank_name')->nullable(); // Nama Bank Resmi
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

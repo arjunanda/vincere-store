@@ -46,7 +46,7 @@ RUN composer dump-autoload --optimize --no-dev --no-scripts
 # ============================================================
 FROM dunglas/frankenphp:1-php8.4 AS production
 
-LABEL maintainer="Ventuz Store"
+LABEL maintainer="Vincere Store"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \

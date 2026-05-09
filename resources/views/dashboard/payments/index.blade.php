@@ -44,6 +44,9 @@
                         <div class="flex-1 min-w-0">
                             <h3 class="font-bold text-white truncate">{{ $payment->name }}</h3>
                             <p class="text-xs text-gray-500 font-medium truncate">
+                                @if($payment->type === 'bank' && $payment->bank_name)
+                                    {{ $payment->bank_name }} ({{ $payment->bank_code }}) - 
+                                @endif
                                 {{ $payment->account_number ?? $payment->code }}</p>
                             <p class="text-[10px] text-gray-600 truncate mt-1 ">
                                 {{ $payment->account_name ?? 'Digital System' }}</p>

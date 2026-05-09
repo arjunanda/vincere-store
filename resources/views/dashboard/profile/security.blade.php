@@ -7,7 +7,7 @@
         <p class="text-gray-500 font-medium mt-1">Perbarui kata sandi Anda secara berkala untuk menjaga keamanan.</p>
     </div>
 
-    <form action="{{ route('dashboard.security.update') }}" method="POST" class="space-y-6">
+    <form action="{{ route('dashboard.security.update') }}" method="POST" class="space-y-6" novalidate>
         @csrf @method('PUT')
         
         <div class="stat-card space-y-6">

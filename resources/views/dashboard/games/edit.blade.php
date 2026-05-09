@@ -15,7 +15,7 @@
         </div>
 
         <form action="{{ route('dashboard.games.update', $game) }}" method="POST" enctype="multipart/form-data"
-            class="space-y-6">
+            class="space-y-6" novalidate>
             @csrf
             @method('PUT')
 

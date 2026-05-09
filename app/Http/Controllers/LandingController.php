@@ -88,7 +88,7 @@ class LandingController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard.index')->with('success', 'Pendaftaran berhasil! Selamat datang di Ventuz Store.');
+        return redirect()->route('dashboard.index')->with('success', 'Pendaftaran berhasil! Selamat datang di Vincere Store.');
     }
 
     public function checkTransaction(Request $request)
@@ -199,6 +199,7 @@ class LandingController extends Controller
             'input_data' => $inputFields,
             'total_price' => $variant->price + $paymentMethod->fee,
             'payment_method' => $paymentMethod->name,
+            'payment_method_id' => $paymentMethod->id,
             'payment_status' => 'pending',
             'delivery_status' => 'pending',
         ]);
@@ -213,7 +214,17 @@ class LandingController extends Controller
         $transaction = \App\Models\Transaction::where('order_id', $order_id)->firstOrFail();
         $game = \App\Models\Game::findOrFail($transaction->game_id);
         $variant = \App\Models\GameVariant::findOrFail($transaction->variant_id);
-        $paymentMethod = \App\Models\PaymentMethod::where('name', $transaction->payment_method)->first();
+
+        $paymentMethod = $transaction->payment_method_id
+            ? \App\Models\PaymentMethod::find($transaction->payment_method_id)
+            : \App\Models\PaymentMethod::where('name', $transaction->payment_method)->first();
+
+        // Last resort: try finding by code extracted from old name (e.g. 'Bank BCA' -> 'bca')
+        if (!$paymentMethod) {
+            $words = explode(' ', $transaction->payment_method);
+            $possibleCode = end($words);
+            $paymentMethod = \App\Models\PaymentMethod::where('code', strtolower($possibleCode))->first();
+        }
 
         return view('frontend.checkout', compact('transaction', 'game', 'variant', 'paymentMethod'));
     }

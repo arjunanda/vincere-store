@@ -19,7 +19,7 @@
         </div>
 
         <form action="{{ route('dashboard.payments.update', $payment) }}" method="POST" enctype="multipart/form-data"
-            class="space-y-6" x-data="{ 
+            class="space-y-6" novalidate x-data="{ 
                 paymentType: '{{ $payment->type }}',
                 logoPreview: null,
                 qrisPreview: null,
@@ -57,16 +57,8 @@
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nama Provider <span
                                 class="text-brand-neon">*</span></label>
                         <input type="text" name="name" value="{{ $payment->name }}"
-                            class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
+                            class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: BCA, BNI, BRI, dll" required>
                         @error('name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Kode Unik <span
-                                class="text-brand-neon">*</span></label>
-                        <input type="text" name="code" value="{{ $payment->code }}"
-                            class="w-full input-metal py-3 px-4 rounded-xl text-xs" required>
-                        @error('code') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="space-y-2">
@@ -92,6 +84,13 @@
                             class="w-full input-metal py-3 px-4 rounded-xl text-xs">
                         @error('account_name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p>
                         @enderror
+                    </div>
+
+                    <div class="space-y-2" x-show="paymentType === 'bank'" x-cloak x-transition>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-gray-500">Nama Bank Resmi</label>
+                        <input type="text" name="bank_name" value="{{ $payment->bank_name }}"
+                            class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Bank Central Asia">
+                        @error('bank_name') <p class="text-brand-neon text-[10px]  mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
             </div>

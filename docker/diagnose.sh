@@ -1,5 +1,5 @@
 #!/bin/bash
-# Ventuz Store - Connection Diagnostic Script
+# Vincere Store - Connection Diagnostic Script
 # Run this on the VPS server as root
 
 echo "=========================================="

@@ -14,6 +14,8 @@ class PaymentMethodSeeder extends Seeder
             [
                 'type' => 'bank',
                 'name' => 'Bank BCA',
+                'bank_code' => '014',
+                'bank_name' => 'Bank Central Asia',
                 'account_number' => '1234567890',
                 'account_name' => 'PT VENTUZ STORE INDONESIA',
                 'image' => 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg',

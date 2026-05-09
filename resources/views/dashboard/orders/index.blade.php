@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Semua <span class="text-brand-neon">Pesanan</span></h1>
-            <p class="text-gray-500 font-medium mt-1">Daftar seluruh transaksi yang masuk ke Ventuz Store.</p>
+            <p class="text-gray-500 font-medium mt-1">Daftar seluruh transaksi yang masuk ke Vincere Store.</p>
         </div>
         <div class="text-sm text-gray-500 font-medium">
             Total: <span class="text-white font-black">{{ $orders->total() }}</span> transaksi

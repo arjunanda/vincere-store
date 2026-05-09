@@ -15,7 +15,7 @@ services:
       - "${REVERB_PORT:-8080}:8080"
 
     environment:
-      APP_NAME: "${APP_NAME:-Ventuz Store}"
+      APP_NAME: "${APP_NAME:-Vincere Store}"
       APP_ENV: "${APP_ENV:-production}"
       APP_KEY: "${APP_KEY}"
       APP_DEBUG: "${APP_DEBUG:-false}"

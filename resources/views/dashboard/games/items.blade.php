@@ -35,7 +35,7 @@
                         <p class="text-[10px] text-gray-500 font-medium uppercase tracking-widest mt-1">Input varian & harga jaring.</p>
                     </div>
 
-                    <form action="{{ route('dashboard.games.items.store', $game) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('dashboard.games.items.store', $game) }}" method="POST" class="space-y-6" novalidate>
                         @csrf
                         <div class="space-y-3">
                             <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Nama Item (Varian)</label>

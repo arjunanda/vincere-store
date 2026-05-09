@@ -20,15 +20,15 @@ class ArticleSeeder extends Seeder
                 'excerpt'      => 'Temukan cara top up Diamond Mobile Legends (MLBB) dengan harga termurah, proses instan, dan 100% aman. Panduan lengkap untuk pemain Indonesia.',
                 'published_at' => now()->subDays(1),
                 'content'      => <<<HTML
-<h2>Top Up Diamond Mobile Legends Murah di Ventuz Store</h2>
+<h2>Top Up Diamond Mobile Legends Murah di Vincere Store</h2>
 <p>Mobile Legends: Bang Bang (MLBB) adalah salah satu game mobile paling populer di Indonesia dengan jutaan pemain aktif setiap harinya. Untuk bisa menikmati hero baru, skin eksklusif, dan berbagai item in-game, kamu membutuhkan Diamond — mata uang utama di game ini.</p>
 
-<h3>Mengapa Harga Diamond MLBB di Ventuz Store Lebih Murah?</h3>
-<p>Ventuz Store bekerja sama langsung dengan distributor resmi Moonton sehingga kami dapat menawarkan harga <strong>Diamond MLBB termurah</strong> di Indonesia. Tidak ada biaya tambahan tersembunyi — harga yang tertera adalah harga akhir yang kamu bayar.</p>
+<h3>Mengapa Harga Diamond MLBB di Vincere Store Lebih Murah?</h3>
+<p>Vincere Store bekerja sama langsung dengan distributor resmi Moonton sehingga kami dapat menawarkan harga <strong>Diamond MLBB termurah</strong> di Indonesia. Tidak ada biaya tambahan tersembunyi — harga yang tertera adalah harga akhir yang kamu bayar.</p>
 
-<h3>Cara Top Up Diamond MLBB di Ventuz Store</h3>
+<h3>Cara Top Up Diamond MLBB di Vincere Store</h3>
 <ol>
-  <li>Buka halaman game <strong>Mobile Legends</strong> di Ventuz Store.</li>
+  <li>Buka halaman game <strong>Mobile Legends</strong> di Vincere Store.</li>
   <li>Masukkan <strong>User ID</strong> dan <strong>Zone ID</strong> akun MLBB kamu.</li>
   <li>Pilih jumlah Diamond yang ingin dibeli.</li>
   <li>Pilih metode pembayaran (QRIS, transfer bank, e-wallet).</li>
@@ -38,12 +38,12 @@ class ArticleSeeder extends Seeder
 <h3>Tips Hemat Beli Diamond MLBB</h3>
 <ul>
   <li><strong>Manfaatkan Weekly Diamond Pass</strong> untuk mendapatkan Diamond harian selama 30 hari.</li>
-  <li><strong>Beli saat promo</strong> — Ventuz Store rutin mengadakan event cashback dan bonus Diamond.</li>
+  <li><strong>Beli saat promo</strong> — Vincere Store rutin mengadakan event cashback dan bonus Diamond.</li>
   <li><strong>Top up nominal besar</strong> biasanya memberikan bonus Diamond ekstra dari Moonton.</li>
 </ul>
 
 <h3>Keamanan Transaksi Terjamin</h3>
-<p>Semua transaksi di Ventuz Store diproses melalui gateway pembayaran berlisensi Bank Indonesia. Data kamu terenkripsi dan tidak pernah disimpan secara permanen. Kami telah melayani ratusan ribu transaksi dengan tingkat keberhasilan 99,9%.</p>
+<p>Semua transaksi di Vincere Store diproses melalui gateway pembayaran berlisensi Bank Indonesia. Data kamu terenkripsi dan tidak pernah disimpan secara permanen. Kami telah melayani ratusan ribu transaksi dengan tingkat keberhasilan 99,9%.</p>
 
 <p>Jangan ragu untuk menghubungi tim CS kami 24 jam via WhatsApp jika ada kendala. Top up Diamond MLBB sekarang dan dominasi ranked game kamu!</p>
 HTML,
@@ -71,8 +71,8 @@ HTML,
   <li><strong>5.600 Diamond</strong> — Rp 750.000</li>
 </ul>
 
-<h3>Kenapa Beli Diamond FF di Ventuz Store Lebih Hemat?</h3>
-<p>Di Ventuz Store, kami menawarkan harga Diamond FF yang kompetitif karena volume transaksi tinggi memungkinkan kami mendapat margin lebih kecil. Selain itu, kami sering mengadakan promo <strong>bonus Diamond</strong> dan <strong>cashback</strong> eksklusif untuk pengguna setia.</p>
+<h3>Kenapa Beli Diamond FF di Vincere Store Lebih Hemat?</h3>
+<p>Di Vincere Store, kami menawarkan harga Diamond FF yang kompetitif karena volume transaksi tinggi memungkinkan kami mendapat margin lebih kecil. Selain itu, kami sering mengadakan promo <strong>bonus Diamond</strong> dan <strong>cashback</strong> eksklusif untuk pengguna setia.</p>
 
 <h3>Cara Cek User ID Free Fire Kamu</h3>
 <ol>
@@ -82,7 +82,7 @@ HTML,
 </ol>
 
 <h3>Metode Pembayaran yang Tersedia</h3>
-<p>Ventuz Store mendukung berbagai metode pembayaran populer di Indonesia:</p>
+<p>Vincere Store mendukung berbagai metode pembayaran populer di Indonesia:</p>
 <ul>
   <li>QRIS (semua e-wallet & mobile banking)</li>
   <li>Transfer Bank (BCA, Mandiri, BNI, BRI)</li>
@@ -90,7 +90,7 @@ HTML,
   <li>Alfamart & Indomaret</li>
 </ul>
 
-<p>Top up Diamond FF sekarang di Ventuz Store dan raih tier Heroic lebih cepat dengan skin terbaik!</p>
+<p>Top up Diamond FF sekarang di Vincere Store dan raih tier Heroic lebih cepat dengan skin terbaik!</p>
 HTML,
             ],
 
@@ -115,9 +115,9 @@ HTML,
   <li><strong>11.000 VP</strong> — Rp 700.000</li>
 </ul>
 
-<h3>Cara Top Up VP Valorant via Ventuz Store</h3>
+<h3>Cara Top Up VP Valorant via Vincere Store</h3>
 <ol>
-  <li>Pilih game <strong>Valorant</strong> di Ventuz Store.</li>
+  <li>Pilih game <strong>Valorant</strong> di Vincere Store.</li>
   <li>Masukkan <strong>Riot ID</strong> kamu (format: NamaKamu#TAG).</li>
   <li>Pilih jumlah VP yang diinginkan.</li>
   <li>Pilih metode pembayaran dan selesaikan transaksi.</li>
@@ -140,7 +140,7 @@ HTML,
   <li>Pantau <strong>Night Market</strong> yang muncul setiap season untuk diskon skin hingga 50%.</li>
 </ul>
 
-<p>Tingkatkan pengalaman bermain Valorant kamu dengan skin premium. Beli VP sekarang di Ventuz Store dengan proses instan!</p>
+<p>Tingkatkan pengalaman bermain Valorant kamu dengan skin premium. Beli VP sekarang di Vincere Store dengan proses instan!</p>
 HTML,
             ],
 
@@ -173,9 +173,9 @@ HTML,
   <li><strong>8.100 UC</strong> — Rp 1.299.000</li>
 </ul>
 
-<h3>Cara Top Up UC PUBG Mobile di Ventuz Store</h3>
+<h3>Cara Top Up UC PUBG Mobile di Vincere Store</h3>
 <ol>
-  <li>Masuk ke halaman PUBG Mobile di Ventuz Store.</li>
+  <li>Masuk ke halaman PUBG Mobile di Vincere Store.</li>
   <li>Masukkan <strong>Character ID</strong> PUBG Mobile kamu.</li>
   <li>Pilih paket UC yang diinginkan.</li>
   <li>Bayar menggunakan QRIS, transfer bank, atau e-wallet.</li>
@@ -183,7 +183,7 @@ HTML,
 </ol>
 
 <h3>Apakah Top Up via Pihak Ketiga Aman?</h3>
-<p>Pertanyaan ini sering muncul dari pemain baru. Jawaban singkatnya: <strong>aman, selama menggunakan platform terpercaya seperti Ventuz Store</strong>. Kami menggunakan metode top up resmi melalui API Krafton yang tidak memerlukan akses ke akun game kamu. Kamu hanya perlu memberikan Character ID — tidak ada password yang diperlukan.</p>
+<p>Pertanyaan ini sering muncul dari pemain baru. Jawaban singkatnya: <strong>aman, selama menggunakan platform terpercaya seperti Vincere Store</strong>. Kami menggunakan metode top up resmi melalui API Krafton yang tidak memerlukan akses ke akun game kamu. Kamu hanya perlu memberikan Character ID — tidak ada password yang diperlukan.</p>
 
 <p>Dapatkan Royal Pass season ini dan jadilah pemain PUBG Mobile paling stylish di server Indonesia!</p>
 HTML,
@@ -203,7 +203,7 @@ HTML,
 <h3>Konversi Genesis Crystal ke Primogem</h3>
 <p>1 Genesis Crystal = 1 Primogem. Namun, top up pertama kali memberikan <strong>bonus Crystal double</strong> yang sangat menguntungkan!</p>
 
-<h3>Harga Genesis Crystal di Ventuz Store</h3>
+<h3>Harga Genesis Crystal di Vincere Store</h3>
 <ul>
   <li><strong>60 Crystal</strong> — Rp 14.000</li>
   <li><strong>330 Crystal</strong> — Rp 69.000</li>
@@ -221,9 +221,9 @@ HTML,
   <li>Selesaikan semua <strong>daily commission</strong> dan <strong>event</strong> untuk Primogem gratis.</li>
 </ul>
 
-<h3>Cara Top Up Genshin Impact via Ventuz Store</h3>
+<h3>Cara Top Up Genshin Impact via Vincere Store</h3>
 <ol>
-  <li>Buka halaman Genshin Impact di Ventuz Store.</li>
+  <li>Buka halaman Genshin Impact di Vincere Store.</li>
   <li>Masukkan <strong>UID</strong> Genshin Impact kamu dan pilih <strong>server</strong> (Asia/America/Europe/TW).</li>
   <li>Pilih paket Genesis Crystal.</li>
   <li>Selesaikan pembayaran.</li>
@@ -239,11 +239,11 @@ HTML,
                 'title'        => '5 Game Mobile Dengan Top Up Terlaris di Indonesia Bulan Ini',
                 'type'         => 'berita',
                 'image'        => 'articles/default.jpg',
-                'excerpt'      => 'Inilah 5 game mobile paling laris untuk top up di Indonesia bulan ini. Data real dari jutaan transaksi pengguna aktif Ventuz Store.',
+                'excerpt'      => 'Inilah 5 game mobile paling laris untuk top up di Indonesia bulan ini. Data real dari jutaan transaksi pengguna aktif Vincere Store.',
                 'published_at' => now()->subDays(14),
                 'content'      => <<<HTML
 <h2>Ranking Game Mobile Terlaris untuk Top Up di Indonesia</h2>
-<p>Berdasarkan data transaksi internal Ventuz Store, kami merangkum 5 game mobile dengan volume top up tertinggi di Indonesia. Data ini mencerminkan tren gaming Indonesia dan bisa membantu kamu memahami game apa yang paling banyak dimainkan secara aktif.</p>
+<p>Berdasarkan data transaksi internal Vincere Store, kami merangkum 5 game mobile dengan volume top up tertinggi di Indonesia. Data ini mencerminkan tren gaming Indonesia dan bisa membantu kamu memahami game apa yang paling banyak dimainkan secara aktif.</p>
 
 <h3>1. Mobile Legends: Bang Bang (MLBB)</h3>
 <p>Tidak mengejutkan, MLBB tetap mendominasi chart top up dengan pangsa pasar terbesar. Game MOBA 5v5 dari Moonton ini memiliki basis pemain yang sangat loyal dan terus merilis hero serta skin baru setiap bulan, mendorong pemain untuk terus top up Diamond.</p>
@@ -266,7 +266,7 @@ HTML,
 <p><strong>Rata-rata pengeluaran per pemain:</strong> Rp 85.000/bulan</p>
 
 <h3>Kesimpulan</h3>
-<p>Industri gaming Indonesia terus bertumbuh pesat. Semua game di atas tersedia di Ventuz Store dengan harga terbaik dan proses top up instan. Daftar sekarang dan nikmati kemudahan top up game favorit kamu!</p>
+<p>Industri gaming Indonesia terus bertumbuh pesat. Semua game di atas tersedia di Vincere Store dengan harga terbaik dan proses top up instan. Daftar sekarang dan nikmati kemudahan top up game favorit kamu!</p>
 HTML,
             ],
 

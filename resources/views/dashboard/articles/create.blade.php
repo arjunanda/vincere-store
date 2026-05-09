@@ -10,7 +10,7 @@
         <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Tulis <span class="text-brand-neon">Artikel Baru</span></h1>
     </div>
 
-    <form action="{{ route('dashboard.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+    <form action="{{ route('dashboard.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8" novalidate>
         @csrf
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Left Column: Content -->

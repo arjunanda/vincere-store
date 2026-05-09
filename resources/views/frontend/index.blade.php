@@ -283,7 +283,7 @@
                     </template>
                 </div>
                 <p class="text-gray-400 font-medium text-sm leading-relaxed  flex-1">"Gila sih, baru bayar
-                    sedetik kemudian langsung masuk diamond-nya. Ventuz Store emang paling kenceng!"</p>
+                    sedetik kemudian langsung masuk diamond-nya. Vincere Store emang paling kenceng!"</p>
                 <div class="flex items-center gap-4 pt-6 border-t border-white/5">
                     <div
                         class="w-10 h-10 bg-brand-neon/20 rounded-full flex items-center justify-center font-bold text-brand-neon text-xs">

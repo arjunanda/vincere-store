@@ -27,13 +27,15 @@ class PaymentController extends Controller
         $data = $request->validate([
             'type'           => 'required|in:ewallet,bank,qris',
             'name'           => 'required|string|max:255',
-            'code'           => 'required|string|max:50|unique:payment_methods,code',
             'account_number' => 'nullable|string|max:100',
             'account_name'   => 'nullable|string|max:255',
             'fee'            => 'required|numeric|min:0',
             'image'          => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'qris_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'bank_name'      => 'nullable|string|max:100',
         ]);
+
+        $data['code'] = \Illuminate\Support\Str::slug($request->name);
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadAndCompressImage($request->file('image'), 'payments');
@@ -60,12 +62,12 @@ class PaymentController extends Controller
         $data = $request->validate([
             'type'           => 'required|in:ewallet,bank,qris',
             'name'           => 'required|string|max:255',
-            'code'           => 'required|string|max:50|unique:payment_methods,code,' . $payment->id,
             'account_number' => 'nullable|string|max:100',
             'account_name'   => 'nullable|string|max:255',
             'fee'            => 'required|numeric|min:0',
             'image'          => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'qris_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'bank_name'      => 'nullable|string|max:100',
         ]);
 
         if ($request->hasFile('image')) {

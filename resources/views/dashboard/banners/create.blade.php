@@ -10,7 +10,7 @@
         <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Tambah <span class="text-brand-neon">Banner Baru</span></h1>
     </div>
 
-    <form action="{{ route('dashboard.banners.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('dashboard.banners.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" novalidate>
         @csrf
         <div class="stat-card space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

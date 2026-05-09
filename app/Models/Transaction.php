@@ -17,6 +17,7 @@ class Transaction extends Model
         'input_data',
         'total_price',
         'payment_method',
+        'payment_method_id',
         'payment_status',
         'delivery_status',
         'proof_of_payment',

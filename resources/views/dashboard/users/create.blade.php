@@ -10,7 +10,7 @@
         <h1 class="text-2xl font-black  uppercase tracking-tight text-white">Tambah <span class="text-brand-neon">User</span></h1>
     </div>
 
-    <form action="{{ route('dashboard.users.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('dashboard.users.store') }}" method="POST" class="space-y-6" novalidate>
         @csrf
         
         <div class="stat-card">
@@ -18,7 +18,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="text-[10px] font-black uppercase tracking-widest">Nama Lengkap</label>
-                        <input type="text" name="name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: Admin Ventuz" required>
+                        <input type="text" name="name" class="w-full input-metal py-3 px-4 rounded-xl text-xs" placeholder="Contoh: Admin Vincere" required>
                     </div>
 
                     <div class="space-y-2">

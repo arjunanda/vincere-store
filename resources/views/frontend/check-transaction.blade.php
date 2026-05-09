@@ -201,7 +201,7 @@
                             if (str_starts_with($waCS, '0')) $waCS = '62' . substr($waCS, 1);
                         @endphp
                         @if($waCS)
-                            <a href="https://wa.me/{{ $waCS }}?text=Halo%20Admin%20{{ urlencode($webSettings['web_title'] ?? 'Ventuz Store') }},%20saya%20ingin%20menanyakan%20pesanan%20dengan%20ID%20{{ request('order_id') }}"
+                            <a href="https://wa.me/{{ $waCS }}?text=Halo%20Admin%20{{ urlencode($webSettings['web_title'] ?? 'Vincere Store') }},%20saya%20ingin%20menanyakan%20pesanan%20dengan%20ID%20{{ request('order_id') }}"
                                 target="_blank"
                                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.07] bg-white/[0.03] text-[12px] font-bold text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/[0.06] transition-all">
                                 <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">

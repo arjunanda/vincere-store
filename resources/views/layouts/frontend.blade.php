@@ -5,17 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="{{ $webSettings['web_description'] ?? 'Ventuz Store - Platform top-up game dan voucher murah terpercaya di Indonesia.' }}">
+        content="{{ $webSettings['web_description'] ?? 'Vincere Store - Platform top-up game dan voucher murah terpercaya di Indonesia.' }}">
     <meta name="keywords"
         content="{{ $webSettings['web_keywords'] ?? 'top up game, voucher game murah, top up mlbb murah, top up ff murah, voucher valorant, ventuz store, top up game instan' }}">
-    <meta name="author" content="{{ $webSettings['web_author'] ?? 'Ventuz Store Team' }}">
+    <meta name="author" content="{{ $webSettings['web_author'] ?? 'Vincere Store Team' }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title') {{ $webSettings['web_title'] ?? 'Ventuz Store' }}">
+    <meta property="og:title" content="@yield('title') {{ $webSettings['web_title'] ?? 'Vincere Store' }}">
     <meta property="og:description"
-        content="{{ $webSettings['web_description'] ?? 'Ventuz Store - Platform top-up game dan voucher murah terpercaya di Indonesia.' }}">
+        content="{{ $webSettings['web_description'] ?? 'Vincere Store - Platform top-up game dan voucher murah terpercaya di Indonesia.' }}">
     @if(isset($webSettings['web_og_image']))
         <meta property="og:image" content="{{ asset('storage/' . $webSettings['web_og_image']) }}">
     @endif
@@ -30,7 +30,7 @@
     {
       "@@context": "https://schema.org",
       "@@type": "Organization",
-      "name": "{{ $webSettings['web_title'] ?? 'Ventuz Store' }}",
+      "name": "{{ $webSettings['web_title'] ?? 'Vincere Store' }}",
       "url": "{{ url('/') }}",
       "logo": "{{ isset($webSettings['web_logo']) ? asset('storage/' . $webSettings['web_logo']) : asset('assets/img/logo.png') }}",
       "description": "{{ $webSettings['web_description'] ?? '' }}",
@@ -60,9 +60,9 @@
 
     <title>
         @hasSection('title')
-            @yield('title') {{ 'Ventuz Store' }}
+            @yield('title') {{ 'Vincere Store' }}
         @else
-            {{ $webSettings['web_title'] ?? 'Ventuz Store - Top-up Game & Voucher Murah Instan 24 Jam' }}
+            {{ $webSettings['web_title'] ?? 'Vincere Store - Top-up Game & Voucher Murah Instan 24 Jam' }}
         @endif
     </title>
     @if(isset($webSettings['web_favicon']))

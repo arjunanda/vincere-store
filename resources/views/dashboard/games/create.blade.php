@@ -14,7 +14,7 @@
                     class="text-brand-neon">Game Baru</span></h1>
         </div>
 
-        <form action="{{ route('dashboard.games.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('dashboard.games.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" novalidate>
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">

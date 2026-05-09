@@ -10,7 +10,7 @@
         <h1 class="text-3xl font-black  uppercase tracking-tight text-white">Edit <span class="text-brand-neon">Banner</span></h1>
     </div>
 
-    <form action="{{ route('dashboard.banners.update', $banner) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="{{ route('dashboard.banners.update', $banner) }}" method="POST" enctype="multipart/form-data" class="space-y-6" novalidate>
         @csrf
         @method('PUT')
         <div class="stat-card space-y-6">
