@@ -18,6 +18,11 @@
         resolve_root_symlink
     }
 
+    # Proxy Reverb WebSockets
+    handle /app/* {
+        reverse_proxy localhost:8080
+    }
+
     # Static file handling with cache headers
     @static {
         file

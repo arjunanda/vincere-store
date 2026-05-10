@@ -26,7 +26,7 @@ class GameController extends Controller
             $query->where('category_id', $request->category_id);
         }
 
-        $games      = $query->latest()->paginate(15)->withQueryString();
+        $games = $query->latest()->paginate(15)->withQueryString();
         $categories = Category::all();
 
         return view('dashboard.games.index', compact('games', 'categories'));
@@ -34,7 +34,7 @@ class GameController extends Controller
 
     public function create()
     {
-        $categories  = Category::all();
+        $categories = Category::all();
         $inputGroups = InputGroup::all();
         return view('dashboard.games.create', compact('categories', 'inputGroups'));
     }
@@ -42,19 +42,19 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'category_id'    => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'input_group_id' => 'required|exists:input_groups,id',
-            'name'           => 'required|string|max:255',
-            'image'          => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'platform_type'  => 'required|in:mobile,pc,console',
-            'description'    => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'platform_type' => 'required|in:mobile,pc,console',
+            'description' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadAndCompressImage($request->file('image'), 'games');
         }
 
-        $data['slug'] = $this->generateUniqueSlug($data['name']);
+        $data['slug'] = Str::slug($data['name']);
         Game::create($data);
 
         $this->logActivity('CREATE_GAME', "Menambahkan game baru: {$data['name']}");
@@ -64,7 +64,7 @@ class GameController extends Controller
 
     public function edit(Game $game)
     {
-        $categories  = Category::all();
+        $categories = Category::all();
         $inputGroups = InputGroup::all();
         return view('dashboard.games.edit', compact('game', 'categories', 'inputGroups'));
     }
@@ -72,19 +72,19 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         $data = $request->validate([
-            'category_id'    => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             'input_group_id' => 'required|exists:input_groups,id',
-            'name'           => 'required|string|max:255',
-            'image'          => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'platform_type'  => 'required|in:mobile,pc,console',
-            'description'    => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'platform_type' => 'required|in:mobile,pc,console',
+            'description' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->uploadAndCompressImage($request->file('image'), 'games');
         }
 
-        $data['slug'] = $this->generateUniqueSlug($data['name'], $game->id);
+        $data['slug'] = Str::slug($data['name']);
         $game->update($data);
 
         $this->logActivity('UPDATE_GAME', "Memperbarui data game: {$game->name}");
@@ -112,20 +112,5 @@ class GameController extends Controller
         $game->delete();
         $this->logActivity('DELETE_GAME', "Menghapus game: {$name}");
         return back()->with('success', 'Game berhasil dihapus!');
-    }
-    private function generateUniqueSlug($name, $ignoreId = null)
-    {
-        $slug = Str::slug($name);
-        $originalSlug = $slug;
-        $count = 1;
-
-        while (Game::where('slug', $slug)
-            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
-            ->exists()) {
-            $slug = "{$originalSlug}-{$count}";
-            $count++;
-        }
-
-        return $slug;
     }
 }
