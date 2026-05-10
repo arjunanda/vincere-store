@@ -281,12 +281,4 @@
                 </div>
             </div>
         </div>
-    @endsection <div class="flex justify-center gap-4 text-[10px]">
-        <a href="{{ route('index') }}" class="text-gray-500 hover:text-white uppercase tracking-wider">Beranda</a>
-        <span class="text-gray-800">|</span>
-        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $webSettings['contact_wa'] ?? '') }}" target="_blank"
-            class="text-gray-500 hover:text-white uppercase tracking-wider">Bantuan CS</a>
-    </div>
-    </div>
-    </div>
-@endsection
+    @endsection
