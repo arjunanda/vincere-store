@@ -28,34 +28,34 @@
     <section
         class="relative w-full aspect-[2.4/1] md:aspect-none md:h-[480px] rounded-xl md:rounded-xl overflow-hidden shadow-2xl premium-glow group border border-white/10"
         x-data="{ 
-                                                activeSlide: 0,
-                                                flash: false,
-                                                autoplayInterval: null,
-                                                totalSlides: {{ $banners->isEmpty() ? 3 : $banners->count() }},
-                                                triggerFlash() {
-                                                    this.flash = true;
-                                                    setTimeout(() => this.flash = false, 1000);
-                                                },
-                                                nextSlide(isManual = false) {
-                                                    this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
-                                                    if (isManual) {
-                                                        this.resetAutoplay();
+                                                    activeSlide: 0,
+                                                    flash: false,
+                                                    autoplayInterval: null,
+                                                    totalSlides: {{ $banners->isEmpty() ? 3 : $banners->count() }},
+                                                    triggerFlash() {
+                                                        this.flash = true;
+                                                        setTimeout(() => this.flash = false, 1000);
+                                                    },
+                                                    nextSlide(isManual = false) {
+                                                        this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+                                                        if (isManual) {
+                                                            this.resetAutoplay();
+                                                        }
+                                                    },
+                                                    prevSlide(isManual = false) {
+                                                        this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
+                                                        if (isManual) {
+                                                            this.resetAutoplay();
+                                                        }
+                                                    },
+                                                    startAutoplay() {
+                                                        this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
+                                                    },
+                                                    resetAutoplay() {
+                                                        clearInterval(this.autoplayInterval);
+                                                        this.startAutoplay();
                                                     }
-                                                },
-                                                prevSlide(isManual = false) {
-                                                    this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
-                                                    if (isManual) {
-                                                        this.resetAutoplay();
-                                                    }
-                                                },
-                                                startAutoplay() {
-                                                    this.autoplayInterval = setInterval(() => this.nextSlide(false), 5000);
-                                                },
-                                                resetAutoplay() {
-                                                    clearInterval(this.autoplayInterval);
-                                                    this.startAutoplay();
-                                                }
-                                            }" x-init="startAutoplay()">
+                                                }" x-init="startAutoplay()">
         <!-- Banner Content -->
         @php
             $slideItems = $banners->isEmpty() ? collect([
@@ -191,7 +191,7 @@
                     <div class="flex -space-x-3">
                         <div
                             class="w-10 h-10 rounded-full border-2 border-brand-dark bg-brand-card flex items-center justify-center text-[10px] font-bold text-brand-neon">
-                            10k+</div>
+                            100k+</div>
                         <div
                             class="w-10 h-10 rounded-full border-2 border-brand-dark bg-brand-neon flex items-center justify-center text-[10px] font-bold text-black">
                             TOP</div>
