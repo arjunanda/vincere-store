@@ -125,11 +125,11 @@ update:
 sync:
 	@echo "⚡ Syncing code changes to running container..."
 	make pull
-	docker cp app/. ventuz_app:/var/www/html/app/
-	docker cp resources/. ventuz_app:/var/www/html/resources/
-	docker cp routes/. ventuz_app:/var/www/html/routes/
-	docker cp config/. ventuz_app:/var/www/html/config/
-	docker cp database/. ventuz_app:/var/www/html/database/
+	docker cp app/. vincere_app:/var/www/html/app/
+	docker cp resources/. vincere_app:/var/www/html/resources/
+	docker cp routes/. vincere_app:/var/www/html/routes/
+	docker cp config/. vincere_app:/var/www/html/config/
+	docker cp database/. vincere_app:/var/www/html/database/
 	docker compose exec app php artisan optimize:clear
 	docker compose exec app php artisan config:cache
 	docker compose exec app php artisan route:cache
@@ -142,7 +142,7 @@ sync:
 env:
 	@echo "🔧 Updating .env inside container..."
 	cp .env.docker .env
-	docker cp .env ventuz_app:/var/www/html/.env
+	docker cp .env vincere_app:/var/www/html/.env
 	docker compose exec app php artisan config:clear
 	docker compose exec app php artisan config:cache
 	docker compose exec app php artisan octane:reload

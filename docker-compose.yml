@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     ports:
       - "${APP_PORT:-8002}:8000"
-      - "${REVERB_PORT:-8081}:8080"
+      - "8081:8080"
 
     environment:
       APP_NAME: "${APP_NAME:-Vincere Store}"
