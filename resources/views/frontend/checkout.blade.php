@@ -73,10 +73,36 @@
                             </div>
                         </div>
                         @if($transaction->payment_status === 'pending')
-                            <p class="text-[10px] font-black uppercase tracking-widest text-brand-neon animate-pulse">Menunggu
-                                Pembayaran</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-brand-neon animate-pulse">Menunggu Pembayaran</p>
                         @elseif($transaction->payment_status === 'verif')
                             <p class="text-[10px] font-black uppercase tracking-widest text-amber-500">Menunggu Verifikasi</p>
+                        @elseif(in_array($transaction->delivery_status, ['success', 'completed']))
+                            <div class="flex flex-col items-center gap-2 py-2">
+                                <div class="w-12 h-12 bg-brand-neon/10 rounded-full flex items-center justify-center text-brand-neon border border-brand-neon/20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="text-[11px] font-black uppercase tracking-widest text-brand-neon">Pesanan Berhasil Dikirim</p>
+                            </div>
+                        @elseif($transaction->delivery_status === 'failed')
+                            <div class="flex flex-col items-center gap-2 py-2">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 border border-red-500/20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                                <p class="text-[11px] font-black uppercase tracking-widest text-red-500">Pesanan Gagal / Dibatalkan</p>
+                            </div>
+                        @elseif($transaction->delivery_status === 'processing' || $transaction->payment_status === 'paid')
+                            <div class="flex flex-col items-center gap-2 py-2">
+                                <div class="w-12 h-12 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500 border border-amber-500/20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <p class="text-[11px] font-black uppercase tracking-widest text-amber-500 animate-pulse">Sedang Diproses Sistem</p>
+                            </div>
                         @endif
                     </div>
 
