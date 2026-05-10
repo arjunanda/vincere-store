@@ -1,8 +1,12 @@
 <footer class="bg-[#1a1e26] py-24 px-6 mt-40 border-t border-white/5">
     <div class="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-24">
         <div class="w-full md:w-2/5 space-y-12">
-            <a href="/">
+            <a href="/" class="flex items-center gap-3 group">
                 <x-logo size="lg" />
+                <div class="flex flex-col items-center space-y-0">
+                    <span class="text-3xl font-black tracking-tighter uppercase text-white leading-none">Vincere</span>
+                    <span class="text-[10px] font-black tracking-[0.6em] uppercase text-brand-neon leading-none ml-[0.6em]">Store</span>
+                </div>
             </a>
             <p class="text-gray-500 font-medium text-base leading-loose max-w-md">
                 {{ $webSettings['web_description'] ?? 'Vincere Store adalah platform top-up game paling kencang dan terpercaya di Indonesia. Kami menyediakan layanan top-up 24 jam otomatis untuk berbagai game populer dengan harga termurah.' }}

@@ -22,8 +22,13 @@
         <div class="absolute top-0 right-0 w-40 h-40 bg-brand-neon/5 blur-3xl rounded-full"></div>
         
         <div class="relative z-10">
-            <h1 class="text-3xl md:text-4xl font-black tracking-tighter metallic-text uppercase  mb-2 text-center">Selamat Datang</h1>
-            <p class="text-gray-500 text-sm font-medium mb-12 text-center">Masuk ke akun Anda untuk melanjutkan transaksi premium.</p>
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-black uppercase tracking-tight text-white mb-3">Selamat <span class="text-brand-neon">Datang</span></h1>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-widest leading-relaxed">
+                    Silakan masukkan akun aktivasi member Anda untuk melanjutkan transaksi premium.
+                </p>
+            </div>
+
 
             <form action="{{ route('login.post') }}" method="POST" @submit="loading = true" class="space-y-8">
                 @csrf

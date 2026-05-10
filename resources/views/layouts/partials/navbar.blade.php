@@ -4,12 +4,25 @@
     x-data="{ mobileMenu: false, showSearch: false }"
     aria-label="Navigasi Utama">
 
-    <div class="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between gap-8">
+    <div class="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between relative">
 
         <!-- ── Col 1: Logo ── -->
-        <a href="/" class="flex-shrink-0" title="Halaman Utama">
-            <x-logo size="md" />
-        </a>
+        <div class="flex items-center gap-3 flex-shrink-0">
+            <a href="/" title="Halaman Utama">
+                <x-logo size="md" class="h-10 md:h-12" />
+            </a>
+            <!-- Desktop Brand Text -->
+            <div class="hidden lg:flex flex-col items-center space-y-0">
+                <span class="text-lg md:text-xl font-black tracking-tighter uppercase text-white leading-none">Vincere</span>
+                <span class="text-[8px] md:text-[9px] font-black tracking-[0.4em] uppercase text-brand-neon leading-none ml-[0.4em]">Store</span>
+            </div>
+        </div>
+
+        <!-- ── Mobile Brand Text (Centered slightly to the left) ── -->
+        <div class="lg:hidden absolute left-[45%] -translate-x-1/2 flex flex-col items-center space-y-0">
+            <span class="text-xl font-black tracking-tighter uppercase text-white leading-none">Vincere</span>
+            <span class="text-[9px] font-black tracking-[0.4em] uppercase text-brand-neon leading-none ml-[0.4em]">Store</span>
+        </div>
 
         <!-- ── Col 2: Desktop Nav Links (Center) ── -->
         <nav class="hidden lg:flex items-center gap-1 flex-1 justify-center" aria-label="Menu Utama">
