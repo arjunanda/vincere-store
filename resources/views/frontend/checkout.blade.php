@@ -29,17 +29,25 @@
             const initialStatus = "{{ $transaction->delivery_status }}";
             const initialPaymentStatus = "{{ $transaction->payment_status }}";
 
+            console.log("Real-time tracking initialized for:", orderId);
+
             if (['success', 'completed', 'failed'].includes(initialStatus) || initialPaymentStatus === 'paid') {
+                console.log("Order already in final state, skipping listener.");
                 return;
             }
 
             if (window.Echo) {
+                console.log("Connecting to Echo channel: order." + orderId);
                 window.Echo.channel(`order.${orderId}`)
                     .listen('OrderStatusUpdated', (e) => {
+                        console.log("Event received:", e);
                         if (['success', 'completed', 'failed'].includes(e.delivery_status) || e.payment_status === 'paid') {
+                            console.log("Final status detected, reloading page...");
                             window.location.reload();
                         }
                     });
+            } else {
+                console.warn("Laravel Echo is not initialized.");
             }
         });
     </script>
