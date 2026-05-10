@@ -58,11 +58,11 @@ services:
       # Broadcast
       BROADCAST_CONNECTION: reverb
 
-      # Vite (Frontend) - Proxied via Caddy
+      # Vite (Frontend)
       VITE_REVERB_APP_KEY: "${REVERB_APP_KEY}"
-      VITE_REVERB_HOST: "vincerestore.com"
-      VITE_REVERB_PORT: 443
-      VITE_REVERB_SCHEME: https
+      VITE_REVERB_HOST: "217.15.167.231"
+      VITE_REVERB_PORT: 8081
+      VITE_REVERB_SCHEME: http
 
       # WhatsApp Service
       WA_SERVICE_URL: "${WA_SERVICE_URL:-}"
