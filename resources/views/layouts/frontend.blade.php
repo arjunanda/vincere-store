@@ -166,54 +166,7 @@
             border-radius: 10px;
         }
 
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 50;
-        }
 
-        .cs-main-btn {
-            background: #7CFF00;
-            color: #000;
-            padding: 12px 24px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 25px rgba(124, 255, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .cs-main-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(124, 255, 0, 0.3);
-        }
-
-        .cs-main-btn.active {
-            background: #1A1A1A;
-            color: #7CFF00;
-            border-color: rgba(124, 255, 0, 0.3);
-        }
-
-        .cs-menu-item {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            background: #1A1A1A;
-        }
-
-        .cs-menu-item:hover {
-            transform: scale(1.05);
-            border-color: #7CFF00;
-        }
 
         /* Status Stamps */
         .stamp {
@@ -258,7 +211,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-[#050505] text-white selection:bg-brand-neon selection:text-white overflow-x-hidden"
+<body class="text-white selection:bg-brand-neon selection:text-white overflow-x-hidden"
     @yield('body_attr')>
     @unless(View::hasSection('hide_layout_elements'))
         @include('layouts.partials.navbar')
@@ -274,5 +227,7 @@
 
     @stack('scripts')
 </body>
+
+</html>
 
 </html>

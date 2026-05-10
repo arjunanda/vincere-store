@@ -47,7 +47,7 @@
     </script>
 </head>
 
-<body class="dashboard-layout" x-data="{ sidebarOpen: false }" @close-sidebar.window="sidebarOpen = false">
+<body class="dashboard-layout bg-[#08081a]" x-data="{ sidebarOpen: false }" @close-sidebar.window="sidebarOpen = false">
 
     <!-- Sidebar Overlay (Mobile) -->
     <div x-show="sidebarOpen" @click="sidebarOpen = false"

@@ -129,7 +129,7 @@
     <button @click="open = !open" 
             class="cs-main-btn group relative" 
             :class="open ? 'active' : ''">
-        <div class="whatsapp-pulse" x-show="!open"></div>
+
         
         <!-- Icons Toggle -->
         <div class="relative w-5 h-5">

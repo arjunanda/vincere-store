@@ -7,7 +7,7 @@ html, body {
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
-    background-color: #050505;
+    background-color: transparent;
     color: white;
     font-family: 'Outfit Variable', 'Outfit', sans-serif;
     width: 100%;
@@ -17,9 +17,9 @@ html, body {
 /* Sidebar Styling */
 .sidebar {
     width: 280px;
-    background: rgba(18, 22, 28, 0.95);
+    background: rgba(8, 8, 26, 0.95);
     backdrop-filter: blur(20px);
-    border-right: 1px solid rgba(124, 255, 0, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     height: 100vh;
     position: fixed;
     left: 0;
@@ -86,8 +86,8 @@ html, body {
 
 /* Dashboard Cards */
 .stat-card {
-    background: linear-gradient(145deg, #1a1f2b, #14181f);
-    border: 1px solid rgba(124, 255, 0, 0.06);
+    background: linear-gradient(145deg, #15152a, #0c0c16);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px; /* Dikurangi agar tidak terlalu bulat */
     padding: 28px;
     transition: all 0.3s ease;
@@ -286,19 +286,19 @@ input:checked + .slider:before {
     z-index: 50;
     width: 60px;
     height: 60px;
-    background: #7CFF00;
-    color: #000;
+    background: #FF6B00;
+    color: #FFF;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 25px rgba(124, 255, 0, 0.4);
+    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .fab:hover {
     transform: scale(1.1) rotate(90deg);
-    background: #6EE600;
+    background: #FF8A00;
 }
 
 @media (min-width: 1024px) {
